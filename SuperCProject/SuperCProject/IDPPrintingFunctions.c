@@ -1,5 +1,5 @@
 //
-//  main.c
+//  IDPPrintingFunctions.c
 //  SuperCProject
 //
 //  Created by Student 104 on 4/4/16.
@@ -8,9 +8,12 @@
 
 #include "IDPPrintingFunctions.h"
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    IDPPrint();
-    IDPPrintTest("$1mln dollars start up");
-    return 0;
+void IDPPrint() {
+    printf("Hello worlf\n");
 }
+
+void IDPPrintTest(const char *text) {
+    printf("HELLO WORLD! %s\n", text);
+}
+
+

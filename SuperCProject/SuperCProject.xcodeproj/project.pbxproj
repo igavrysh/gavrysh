@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3EBEE5EF1CB2D7830053546C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5EE1CB2D7830053546C /* main.c */; };
+		3EBEE5F71CB2DEF50053546C /* IDPPrintingFunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */; };
+		3EBEE5FB1CB2E0CB0053546C /* IDPApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5F91CB2E0CB0053546C /* IDPApplication.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,10 @@
 /* Begin PBXFileReference section */
 		3EBEE5EB1CB2D7830053546C /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EBEE5EE1CB2D7830053546C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPPrintingFunctions.c; sourceTree = "<group>"; };
+		3EBEE5F61CB2DEF50053546C /* IDPPrintingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPPrintingFunctions.h; sourceTree = "<group>"; };
+		3EBEE5F91CB2E0CB0053546C /* IDPApplication.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPApplication.c; sourceTree = "<group>"; };
+		3EBEE5FA1CB2E0CB0053546C /* IDPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPApplication.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -41,6 +47,7 @@
 		3EBEE5E21CB2D7820053546C = {
 			isa = PBXGroup;
 			children = (
+				3EBEE5F81CB2DF030053546C /* Sources */,
 				3EBEE5ED1CB2D7830053546C /* SuperCProject */,
 				3EBEE5EC1CB2D7830053546C /* Products */,
 			);
@@ -59,6 +66,18 @@
 			children = (
 				3EBEE5EE1CB2D7830053546C /* main.c */,
 			);
+			path = SuperCProject;
+			sourceTree = "<group>";
+		};
+		3EBEE5F81CB2DF030053546C /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3EBEE5F91CB2E0CB0053546C /* IDPApplication.c */,
+				3EBEE5FA1CB2E0CB0053546C /* IDPApplication.h */,
+				3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */,
+				3EBEE5F61CB2DEF50053546C /* IDPPrintingFunctions.h */,
+			);
+			name = Sources;
 			path = SuperCProject;
 			sourceTree = "<group>";
 		};
@@ -118,6 +137,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EBEE5F71CB2DEF50053546C /* IDPPrintingFunctions.c in Sources */,
+				3EBEE5FB1CB2E0CB0053546C /* IDPApplication.c in Sources */,
 				3EBEE5EF1CB2D7830053546C /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -232,6 +253,7 @@
 				3EBEE5F41CB2D7830053546C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
