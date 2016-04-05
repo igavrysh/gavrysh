@@ -15,3 +15,7 @@
 
 void IDPPrint();
 void IDPPrintTest(const char *text);
+
+void ICPrintNewLineWithCount(unsigned int count);
+void ICPrint();
+void ICParents();

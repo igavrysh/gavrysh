@@ -9,8 +9,14 @@
 #include "IDPPrintingFunctions.h"
 
 int main(int argc, const char * argv[]) {
-    // insert code here...
     IDPPrint();
     IDPPrintTest("$1mln dollars start up");
+    
+    ICParents();
+    ICPrintNewLineWithCount(2);
+    
+    ICParents();
+    ICPrintNewLineWithCount(3);
+    
     return 0;
 }

@@ -8,12 +8,29 @@
 
 #include "IDPPrintingFunctions.h"
 
-void IDPPrint() {
+void IDPPrint(){
     printf("Hello worlf\n");
 }
 
-void IDPPrintTest(const char *text) {
+void IDPPrintTest(const char *text){
     printf("HELLO WORLD! %s\n", text);
 }
 
+void ICPrintNewLine(){
+    printf("\n");
+}
 
+void ICPrintNewLineWithCount(unsigned int count){
+    for (int i = 0; i < count; i++) {
+        ICPrintNewLine();
+    }
+}
+
+void ICPrint(){
+    printf("Hello, Mama!");
+}
+
+void ICParents(){
+    ICPrint();
+    printf("Hello, Papa!");
+}
