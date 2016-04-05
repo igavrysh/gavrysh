@@ -11,11 +11,17 @@
 
 #include <stdio.h>
 
-#endif /* defined(__SuperCProject__IDPPrintingFunctions__) */
+void IDPPrintHellowWorld();
 
-void IDPPrint();
 void IDPPrintTest(const char *text);
 
+void ICPrintNewLine();
+
 void ICPrintNewLineWithCount(unsigned int count);
-void ICPrint();
-void ICParents();
+
+void ICPrintGreatingToMama();
+
+void ICPrintGreatingToPapa();
+
+#endif /* defined(__SuperCProject__IDPPrintingFunctions__) */
+

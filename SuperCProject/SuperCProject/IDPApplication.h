@@ -9,6 +9,6 @@
 #ifndef __SuperCProject__IDPApplication__
 #define __SuperCProject__IDPApplication__
 
-#include <stdio.h>
+
 
 #endif /* defined(__SuperCProject__IDPApplication__) */

@@ -9,13 +9,13 @@
 #include "IDPPrintingFunctions.h"
 
 int main(int argc, const char * argv[]) {
-    IDPPrint();
+    ICPrintNewLine();
     IDPPrintTest("$1mln dollars start up");
     
-    ICParents();
+    ICPrintGreatingToMama();
     ICPrintNewLineWithCount(2);
     
-    ICParents();
+    ICPrintGreatingToPapa();
     ICPrintNewLineWithCount(3);
     
     return 0;
