@@ -122,6 +122,4 @@ collection->_functions->pop_front(collection)
 typedef char* char_ptr;
 typedef unsigned long ulong;
 
-char *IDPGetReversedStringForString(char *inputString);
-
 #endif /* IDPGenericDefineList_h */

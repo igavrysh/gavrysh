@@ -9,8 +9,6 @@
 #ifndef IDPPrintReversed_h
 #define IDPPrintReversed_h
 
-#include <stdio.h>
-
-char* getReversedForTheString(char *inputString);
+char *IDPGetReversedStringForString(char *inputString);
 
 #endif /* IDPPrintReversed_h */

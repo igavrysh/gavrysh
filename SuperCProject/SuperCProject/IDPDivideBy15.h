@@ -9,7 +9,6 @@
 #ifndef IDPDivideBy15_h
 #define IDPDivideBy15_h
 
-#include <stdio.h>
 #include <stdbool.h>
 
 char* IDPGetStringForBoolValue(bool boolValue);

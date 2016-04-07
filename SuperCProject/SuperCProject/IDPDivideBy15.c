@@ -6,6 +6,8 @@
 //  Copyright © 2016 1milliondollarsstartup. All rights reserved.
 //
 
+#include <stdio.h>
+
 #include "IDPDivideBy15.h"
 
 char* IDPGetStringForBoolValue(bool boolValue) {
