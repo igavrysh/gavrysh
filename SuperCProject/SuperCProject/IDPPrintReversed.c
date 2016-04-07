@@ -41,10 +41,3 @@ char* IDPGetReversedStringForString(char *inputString)
     
     return reversedString;
 }
-
-
-char* getReversedForTheString(char *inputString) {
-    
-    return NULL;
-}
-

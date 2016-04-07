@@ -22,4 +22,3 @@ void ICPrintGreatingToMama();
 void ICPrintGreatingToPapa();
 
 #endif /* defined(__SuperCProject__IDPPrintingFunctions__) */
-
