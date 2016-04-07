@@ -71,10 +71,21 @@ void ExecuteSecondAssignmentLines()
     unsigned long uLongVar = 1231231231lu;
     unsigned long long uDLVar = 3223423llu;
     
+    //???? Uncomment and ask questions
+    //char *strForBool = IDPGetStringForBoolValue(true);
+    //printf("%s\n", strForBool);
     
+    IDPPrintMamaPapaStdBranching(2, 5);
+    IDPPrintMamaPapaTernaryBranching(2, 5);
+    
+    
+    // Deputat's task
+    IDPPrintDeputatStateForSalaryAndIncome(12.f, 10000000.f);
+    
+    int values[3] = {1, 2, 3, 4, 5};
     
     // If input number is divided by by 3 print papa, if divided by 5 print mama, if it is divided by 15 print papamama
-    int stateNum = GetResStateFromDivByThreeAndFiveForTheNumber(6);
+    int stateNum = IDPGetResStateFromDivByThreeAndFiveForTheNumber(6);
     printf("Ex3. state number is %d\n", stateNum);
 }
 

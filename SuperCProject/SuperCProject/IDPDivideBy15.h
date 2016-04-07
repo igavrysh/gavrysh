@@ -9,6 +9,17 @@
 #ifndef IDPDivideBy15_h
 #define IDPDivideBy15_h
 
-int GetResStateFromDivByThreeAndFiveForTheNumber(int number);
+#include <stdio.h>
+#include <stdbool.h>
+
+char* IDPGetStringForBoolValue(bool boolValue);
+
+void IDPPrintMamaPapaStdBranching(int firstNum, int secondNum);
+
+void IDPPrintMamaPapaTernaryBranching(int firstNum, int secondNum);
+
+void IDPPrintDeputatStateForSalaryAndIncome(float salary, float income);
+
+int IDPGetResStateFromDivByThreeAndFiveForTheNumber(int number);
 
 #endif /* IDPDivideBy15_h */
