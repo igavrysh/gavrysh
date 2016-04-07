@@ -9,8 +9,6 @@
 #ifndef __SuperCProject__IDPPrintingFunctions__
 #define __SuperCProject__IDPPrintingFunctions__
 
-#include <stdio.h>
-
 void IDPPrintHellowWorld();
 
 void IDPPrintTest(const char *text);
