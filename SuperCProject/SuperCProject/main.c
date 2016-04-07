@@ -49,7 +49,8 @@ void ExecuteSecondAssignmentLines()
     // 101 = -2
     // 110 = -3
     // 111 = -4
-    // ---
+    // ------
+    // ------
     
     // Create Variables with all possible types
     IDP_PRINT_RANGE(signed char);
