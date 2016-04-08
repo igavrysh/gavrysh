@@ -12,14 +12,6 @@
 
 #include "IDPGenericList.h"
 
-IDPList * IDPCreateNewList();
-bool IDPIsEmptyList(const IDPList *);
-unsigned long IDPGetSizeForList(const IDPList *);
-void * IDPGetFrontNodeDataForList(const IDPList *);
-void IDPPopulateFrontNodeForListWithData(IDPList *, void *);
-void * IDPRemoveFrontNodeForList(IDPList *);
-
-
 bool IDPIsEmptyList(const IDPList *list) {
     return list->size == 0;
 }
@@ -53,22 +45,10 @@ void * IDPRemoveFrontNodeForList(IDPList *list) {
     return data;
 }
 
-
-IDPListFunctions idpListFunctions = {
-    &IDPIsEmptyList,
-    &IDPGetSizeForList,
-    &IDPGetFrontNodeDataForList,
-    &IDPPopulateFrontNodeForListWithData,
-    &IDPRemoveFrontNodeForList
-};
-
-
 IDPList * IDPCreateNewList() {
     IDPList *res = (IDPList *)malloc(sizeof(IDPList));
     res->size = 0;
     res->first = NULL;
-    
-    res->functions = &idpListFunctions;
     
     return res;
 }
