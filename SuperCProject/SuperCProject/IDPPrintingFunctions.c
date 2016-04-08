@@ -15,7 +15,7 @@ void IDPPrintHelloWorld() {
 }
 
 void IDPPrintTest(const char *text) {
-    printf("HELLO WORLD! %s\n", text);
+    printf("HELLO WORLD!!!! %s\n", text);
 }
 
 void ICPrintNewLine() {
