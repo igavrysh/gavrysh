@@ -6,19 +6,19 @@
 //  Copyright © 2016 1milliondollarsstartup. All rights reserved.
 //
 
-#ifndef IDPDivideBy15_h
-#define IDPDivideBy15_h
+#ifndef IDPBranchingAndStates_h
+#define IDPBranchingAndStates_h
 
 #include <stdbool.h>
 
-char* IDPGetStringForBoolValue(bool boolValue);
+char * IDPCreateStringForBoolValue(bool boolValue);
 
 void IDPPrintMamaPapaStdBranching(int firstNum, int secondNum);
 
 void IDPPrintMamaPapaTernaryBranching(int firstNum, int secondNum);
 
-void IDPPrintDeputatStateForSalaryAndIncome(float salary, float income);
+void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income);
 
-int IDPGetResStateFromDivByThreeAndFiveForTheNumber(int number);
+void IDPDisplayStateForNumber(int num);
 
-#endif /* IDPDivideBy15_h */
+#endif /* IDPBranchingAndStates_h */

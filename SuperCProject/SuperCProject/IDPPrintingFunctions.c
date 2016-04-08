@@ -10,8 +10,8 @@
 
 #include "IDPPrintingFunctions.h"
 
-void IDPPrintHellowWorld() {
-    printf("Hello worlf\n");
+void IDPPrintHelloWorld() {
+    printf("Hello world\n");
 }
 
 void IDPPrintTest(const char *text) {
@@ -28,11 +28,11 @@ void ICPrintNewLineWithCount(unsigned int count) {
     }
 }
 
-void ICPrintGreatingToMama() {
+void ICPrintGreetingToMama() {
     printf("Hello, Mama!");
 }
 
-void ICPrintGreatingToPapa() {
+void ICPrintGreetingToPapa() {
     ICPrintNewLine();
     printf("Hello, Papa!");
 }

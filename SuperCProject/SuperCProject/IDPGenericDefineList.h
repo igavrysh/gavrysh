@@ -5,9 +5,6 @@
 //  Created by Ievgen on 4/6/16.
 //  Copyright © 2016 1milliondollarsstartup. All rights reserved.
 //
-//  Source code was taken from
-//  http://stackoverflow.com/questions/10950828/simulation-of-templates-in-c with additional
-//  modifications
 
 #ifndef IDPGenericDefineList_h
 

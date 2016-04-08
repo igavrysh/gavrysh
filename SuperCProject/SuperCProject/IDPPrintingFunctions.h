@@ -9,7 +9,7 @@
 #ifndef __SuperCProject__IDPPrintingFunctions__
 #define __SuperCProject__IDPPrintingFunctions__
 
-void IDPPrintHellowWorld();
+void IDPPrintHelloWorld();
 
 void IDPPrintTest(const char *text);
 
@@ -17,8 +17,8 @@ void ICPrintNewLine();
 
 void ICPrintNewLineWithCount(unsigned int count);
 
-void ICPrintGreatingToMama();
+void ICPrintGreetingToMama();
 
-void ICPrintGreatingToPapa();
+void ICPrintGreetingToPapa();
 
 #endif /* defined(__SuperCProject__IDPPrintingFunctions__) */
