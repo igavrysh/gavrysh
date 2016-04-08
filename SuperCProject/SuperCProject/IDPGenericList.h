@@ -6,12 +6,36 @@
 //  Copyright © 2016 1milliondollarsstartup. All rights reserved.
 //
 
-#ifndef IDPGenericDefineList_h
+#ifndef IDPGenericList_h
 
-#define IDPGenericDefineList_h
+#define IDPGenericList_h
 
 #include <stdio.h>
 #include <stdbool.h>
+
+typedef struct IDPListNode {
+    void *data;
+    struct IDPListNode *next;
+} IDPListNode;
+
+struct IDPList;
+
+typedef struct IDPListFunctions {
+    //struct IDPList * (*IDPCreateNewList)();
+    bool    (*IDPIsEmptyList)(const struct IDPList *);
+    unsigned long (*IDPGetSizeForList)(const struct IDPList *);
+    void *  (*IDPGetFrontNodeDataForList)(const struct IDPList *);
+    void    (*IDPPopulateFrontNodeForListWithData)(struct IDPList *, void *);
+    void *  (*IDPRemoveFrontNodeForList)(struct IDPList *);
+} IDPListFunctions;
+
+typedef struct IDPList {
+    unsigned long size;
+    IDPListNode * first;
+    IDPListNode * last;
+    IDPListFunctions * functions;
+} IDPList;
+
 
 #define define_list(type) \
 \

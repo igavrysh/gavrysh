@@ -8,16 +8,17 @@
 
 #include <stdio.h>
 
-#include "IDPGenericDefineList.h"
+#include "IDPGenericList.h"
 #include "IDPPrintReversed.h"
 
 #define IDP_MAX_READ_BUFFER_SIZE 1024
 
-define_list(char)
 
 char* IDPGetReversedStringForString(char *inputString)
 {
-    List(char)* myExpGenericList = new_list(char);
+    IDPList * myExpGenericList = IDPCreateNewList();
+    
+    printf("New list size = %d\n", myExpGenericList->functions->IDPGetSizeForList(myExpGenericList));
     
     int currentPosition = 0;
     char currentSymbol;
@@ -27,13 +28,13 @@ char* IDPGetReversedStringForString(char *inputString)
         if (currentPosition > IDP_MAX_READ_BUFFER_SIZE) {
             return NULL;
         }
-        push_front(myExpGenericList, currentSymbol);
+        myExpGenericList->functions->IDPPopulateFrontNodeForListWithData(myExpGenericList, (void*)currentSymbol);
     }
     
-    char *reversedString = malloc(size(myExpGenericList) + 1);
+    char *reversedString = malloc(myExpGenericList->functions->IDPGetSizeForList(myExpGenericList) + 1);
     currentPosition = 0;
     currentSymbol = ' ';
-    while ((currentSymbol = pop_front(myExpGenericList)) &&
+    while ((currentSymbol = (char *)myExpGenericList->functions->IDPRemoveFrontNodeForList(myExpGenericList)) &&
            currentSymbol != NULL) {
         reversedString[currentPosition++] = currentSymbol;
     }
