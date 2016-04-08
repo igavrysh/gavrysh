@@ -21,7 +21,6 @@ typedef struct IDPListNode {
 struct IDPList;
 
 typedef struct IDPListFunctions {
-    //struct IDPList * (*IDPCreateNewList)();
     bool    (*IDPIsEmptyList)(const struct IDPList *);
     unsigned long (*IDPGetSizeForList)(const struct IDPList *);
     void *  (*IDPGetFrontNodeDataForList)(const struct IDPList *);
@@ -31,9 +30,9 @@ typedef struct IDPListFunctions {
 
 typedef struct IDPList {
     unsigned long size;
-    IDPListNode * first;
-    IDPListNode * last;
-    IDPListFunctions * functions;
+    IDPListNode *first;
+    IDPListNode *last;
+    IDPListFunctions *functions;
 } IDPList;
 
 

@@ -20,19 +20,19 @@ void IDPPopulateFrontNodeForListWithData(IDPList *, void *);
 void * IDPRemoveFrontNodeForList(IDPList *);
 
 
-bool IDPIsEmptyList(const struct IDPList *list) {
+bool IDPIsEmptyList(const IDPList *list) {
     return list->size == 0;
 }
 
-unsigned long IDPGetSizeForList(const struct IDPList *list) {
+unsigned long IDPGetSizeForList(const IDPList *list) {
     return list->size;
 }
 
-void * IDPGetFrontNodeDataForList(const struct IDPList *list) {
+void * IDPGetFrontNodeDataForList(const IDPList *list) {
     return list->first->data;
 }
 
-void IDPPopulateFrontNodeForListWithData(struct IDPList *list, void *data) {
+void IDPPopulateFrontNodeForListWithData(IDPList *list, void *data) {
     
     IDPListNode *newNode = (IDPListNode *) malloc(sizeof(IDPListNode));
     newNode->data = data;
@@ -53,41 +53,22 @@ void * IDPRemoveFrontNodeForList(IDPList *list) {
     return data;
 }
 
-/*
-IDPListFunctions* idpListFunctions = {
-    //&IDPCreateNewList,
+
+IDPListFunctions idpListFunctions = {
     &IDPIsEmptyList,
     &IDPGetSizeForList,
     &IDPGetFrontNodeDataForList,
     &IDPPopulateFrontNodeForListWithData,
     &IDPRemoveFrontNodeForList
 };
-*/
+
 
 IDPList * IDPCreateNewList() {
-    IDPList* res = (IDPList*) malloc(sizeof(IDPList));
+    IDPList *res = (IDPList *)malloc(sizeof(IDPList));
     res->size = 0;
     res->first = NULL;
     
-    IDPListFunctions* idpListFunctions = (IDPListFunctions*) malloc(sizeof(IDPListFunctions));
-    idpListFunctions->IDPIsEmptyList = &IDPIsEmptyList;
-    idpListFunctions->IDPGetSizeForList = &IDPGetSizeForList;
-    idpListFunctions->IDPGetFrontNodeDataForList = &IDPGetFrontNodeDataForList;
-    idpListFunctions->IDPPopulateFrontNodeForListWithData = &IDPPopulateFrontNodeForListWithData;
-    idpListFunctions->IDPRemoveFrontNodeForList = &IDPRemoveFrontNodeForList;
-    
-    res->functions = idpListFunctions;
-    
-    //res->functions = &idpListFunctions;
-    
-    /*
-    res->functions->IDPPopulateFrontNodeForListWithData(res, "f");
-    res->functions->IDPPopulateFrontNodeForListWithData(res, "d");
-    res->functions->IDPPopulateFrontNodeForListWithData(res, "s");
-    
-    char* t = (char *)res->functions->IDPRemoveFrontNodeForList(res);
-    t = (char *)res->functions->IDPRemoveFrontNodeForList(res);
-    */
+    res->functions = &idpListFunctions;
     
     return res;
 }

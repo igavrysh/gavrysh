@@ -14,11 +14,11 @@
 #define IDP_MAX_READ_BUFFER_SIZE 1024
 
 
-char* IDPGetReversedStringForString(char *inputString)
+char * IDPCreateReversedStringForString(char *inputString)
 {
-    IDPList * myExpGenericList = IDPCreateNewList();
+    IDPList *myExpGenericList = IDPCreateNewList();
     
-    printf("New list size = %d\n", myExpGenericList->functions->IDPGetSizeForList(myExpGenericList));
+    printf("New list size = %lu\n", myExpGenericList->functions->IDPGetSizeForList(myExpGenericList));
     
     int currentPosition = 0;
     char currentSymbol;

@@ -10,6 +10,7 @@
 		3EBEE5EF1CB2D7830053546C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5EE1CB2D7830053546C /* main.c */; };
 		3EBEE5F71CB2DEF50053546C /* IDPPrintingFunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */; };
 		850B6D451CB5984B006740E5 /* IDPPrintReversed.c in Sources */ = {isa = PBXBuildFile; fileRef = 850B6D431CB5984B006740E5 /* IDPPrintReversed.c */; };
+		8560775E1CB815ED00816F53 /* IDPPrintRange.c in Sources */ = {isa = PBXBuildFile; fileRef = 8560775D1CB815ED00816F53 /* IDPPrintRange.c */; };
 		85D7791C1CB704AB00229064 /* IDPApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = 85D7791A1CB704AB00229064 /* IDPApplication.c */; };
 		85D7791E1CB74C4800229064 /* IDPGenericList.c in Sources */ = {isa = PBXBuildFile; fileRef = 85D7791D1CB74C4800229064 /* IDPGenericList.c */; };
 		85E3BDEF1CB47EB80047C88D /* IDPBranchingAndStates.c in Sources */ = {isa = PBXBuildFile; fileRef = 85E3BDED1CB47EB80047C88D /* IDPBranchingAndStates.c */; };
@@ -36,6 +37,7 @@
 		850B6D441CB5984B006740E5 /* IDPPrintReversed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPPrintReversed.h; sourceTree = "<group>"; };
 		850B6D471CB5A311006740E5 /* IDPGenericList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPGenericList.h; sourceTree = "<group>"; };
 		850B6D4A1CB5D962006740E5 /* IDPPrintRange.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPPrintRange.h; sourceTree = "<group>"; };
+		8560775D1CB815ED00816F53 /* IDPPrintRange.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPPrintRange.c; sourceTree = "<group>"; };
 		85D7791A1CB704AB00229064 /* IDPApplication.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPApplication.c; sourceTree = "<group>"; };
 		85D7791B1CB704AB00229064 /* IDPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPApplication.h; sourceTree = "<group>"; };
 		85D7791D1CB74C4800229064 /* IDPGenericList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPGenericList.c; sourceTree = "<group>"; };
@@ -91,8 +93,9 @@
 				850B6D471CB5A311006740E5 /* IDPGenericList.h */,
 				85D7791D1CB74C4800229064 /* IDPGenericList.c */,
 				850B6D4A1CB5D962006740E5 /* IDPPrintRange.h */,
-				85D7791A1CB704AB00229064 /* IDPApplication.c */,
+				8560775D1CB815ED00816F53 /* IDPPrintRange.c */,
 				85D7791B1CB704AB00229064 /* IDPApplication.h */,
+				85D7791A1CB704AB00229064 /* IDPApplication.c */,
 			);
 			name = Sources;
 			path = SuperCProject;
@@ -155,6 +158,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				85D7791C1CB704AB00229064 /* IDPApplication.c in Sources */,
+				8560775E1CB815ED00816F53 /* IDPPrintRange.c in Sources */,
 				85D7791E1CB74C4800229064 /* IDPGenericList.c in Sources */,
 				3EBEE5F71CB2DEF50053546C /* IDPPrintingFunctions.c in Sources */,
 				850B6D451CB5984B006740E5 /* IDPPrintReversed.c in Sources */,

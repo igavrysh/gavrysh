@@ -35,8 +35,9 @@ void IDPTestFirstAssignment()
 void IDPTestStackBasedStringReversal() {
     puts("-- Testing stack-based string reversal");
     char *inputString = "1234567890";
-    char *reversedString = IDPGetReversedStringForString(inputString);
+    char *reversedString = IDPCreateReversedStringForString(inputString);
     printf("Reversed string for %s is %s\n", inputString, reversedString);
+    free(reversedString);
 }
 
 void IDPTestBoolToStringConversion() {
@@ -69,23 +70,13 @@ void IDPTestTypeConversionAndRangeIdentification() {
     
     // Signed Range [-X-1; +X]  ->  Unsigned Range with the same size =-> [0; 2^{log2(X+1) + 1} - 1]
     // Test size = 3bits  signed range [-4;3] -> unsigned range [0, 7]
-    // 011 = 3
-    // 010 = 2
-    // 001 = 1
-    // 000 = 0
-    // 100 = -1
-    // 101 = -2
-    // 110 = -3
-    // 111 = -4
-    // ------
-    // ------
     
     // Create Variables with all possible types
-    IDP_PRINT_RANGE(signed char);
-    IDP_PRINT_RANGE(short);
-    IDP_PRINT_RANGE(int);
-    IDP_PRINT_RANGE(long);
-    IDP_PRINT_RANGE(unsigned long);
+    IDPPrintRangeForType("char");
+    IDPPrintRangeForType("short");
+    IDPPrintRangeForType("int");
+    IDPPrintRangeForType("long");
+    IDPPrintRangeForType("unsigned long");
     char charVar = 'A';
     short shortVar = -10;
     int iVar = -100;
