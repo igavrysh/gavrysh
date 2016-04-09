@@ -37,11 +37,13 @@ void * IDPRemoveFrontNodeForList(IDPList *list) {
     if (list->size == 0) {
         return NULL;
     }
+    
     IDPListNode *listNodeToDrop = list->first;
     list->first = list->first->next;
     list->size--;
     void *data = listNodeToDrop->data;
     free(listNodeToDrop);
+    
     return data;
 }
 

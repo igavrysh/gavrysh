@@ -13,8 +13,7 @@
 
 #define IDP_MAX_READ_BUFFER_SIZE 1024
 
-char * IDPCreateReversedStringForString(char *inputString)
-{
+char * IDPCreateReversedStringForString(char *inputString) {
     IDPList *myExpGenericList = IDPCreateNewList();
     
     int currentPosition = 0;
