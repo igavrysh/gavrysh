@@ -11,6 +11,8 @@
 
 void IDPPrintHelloWorld();
 
+void IDPPrintTestMessage(char *msg);
+
 void IDPPrintTest(const char *text);
 
 void ICPrintNewLine();

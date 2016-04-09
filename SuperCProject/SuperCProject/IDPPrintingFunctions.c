@@ -36,3 +36,7 @@ void ICPrintGreetingToPapa() {
     ICPrintNewLine();
     printf("Hello, Papa!");
 }
+
+void IDPPrintTestMessage(char *msg) {
+    printf("--- %s ---\n", msg);
+}

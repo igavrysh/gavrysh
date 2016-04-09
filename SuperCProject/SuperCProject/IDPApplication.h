@@ -13,8 +13,6 @@ void IDPTestFirstAssignment();
 
 void IDPTestSecondAssignment();
 
-void IDPPrintTestMessage(char *msg);
-
 void IDPRunApplication();
 
 #endif /* IDPApplication_h */

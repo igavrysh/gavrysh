@@ -16,4 +16,6 @@ void IDPPrintCastingOperationResults();
 
 void IDPPrintResultOfSepararedOperations();
 
+void IDPrintPrePosfixIncrementResult();
+
 #endif /* IDPBasicMathOperations_h */

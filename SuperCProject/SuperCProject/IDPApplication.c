@@ -111,8 +111,14 @@ void IDPTestCastingOperations() {
     IDPPrintCastingOperationResults();
 }
 
-void IDPPrintTestMessage(char *msg) {
-    printf("--- %s ---\n", msg);
+void IDPTestExpressionExpansion() {
+    IDPPrintTestMessage("Testing formula expansion");
+    IDPPrintResultOfSepararedOperations();
+}
+
+void IDPTestPrePostFixIncrement() {
+    IDPPrintTestMessage("Testing pre/postfix increment");
+    IDPrintPrePosfixIncrementResult();
 }
 
 void IDPTestSecondAssignment() {
@@ -128,6 +134,10 @@ void IDPTestSecondAssignment() {
     
     IDPTestCastingOperations();
     
+    IDPTestExpressionExpansion();
+    
     IDPTestStateIdentification();
+    
+    IDPTestPrePostFixIncrement();
 }
 

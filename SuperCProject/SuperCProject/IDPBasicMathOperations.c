@@ -39,5 +39,28 @@ void IDPPrintCastingOperationResults() {
 
 void IDPPrintResultOfSepararedOperations() {
     double doubleResult = 3.0;
-    //doubleResult = doubleResult * doubleResult / 4 % 7 + 4.0 * doubleResult - 1.5 + 'A';
+    doubleResult = (int)(doubleResult * doubleResult / 4) % 7 + 4.0 * doubleResult - 1.5 + 'A';
+    double replInitialDoubleResult = 3.0;
+    double replDoubleRes = 3.0;
+    replDoubleRes *= replInitialDoubleResult;
+    replDoubleRes /= 4;
+    replDoubleRes = (int)replDoubleRes % 7;
+    double secondPartOfExpression = 4.0;
+    secondPartOfExpression *= replInitialDoubleResult;
+    replDoubleRes += secondPartOfExpression;
+    replDoubleRes -= 1.5;
+    replDoubleRes += 'A';
+    printf("Result of initial expression is %f\n", doubleResult);
+    printf("Result of expanded expression is %f\n", replDoubleRes);
+}
+
+void IDPrintPrePosfixIncrementResult() {
+    int initialNum = 777;
+    printf("Initial number = %d, prefix increment result = %d, postfix increment result = %d\n", initialNum, ++initialNum, initialNum++);
+    
+    initialNum = 999;
+    printf("Initial number = %d, prefix increment result = %d\n", initialNum, ++initialNum);
+    
+    initialNum = 999;
+    printf("Initial number = %d, postfix increment result = %d\n", initialNum, initialNum++);
 }
