@@ -6,9 +6,11 @@
 //  Copyright © 2016 1milliondollarsstartup. All rights reserved.
 //
 
-#ifndef IDPPrintRange_h
-#define IDPPrintRange_h
+#ifndef IDPTypesAndRanges_h
+#define IDPTypesAndRanges_h
 
 int IDPPrintRangeForType(char *type);
 
-#endif /* IDPPrintRange_h */
+void IDPPrintMostCommonTypes();
+
+#endif /* IDPTypesAndRanges_h */

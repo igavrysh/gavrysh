@@ -13,9 +13,9 @@
 char * IDPCreateStringForBoolValue(bool boolValue) {
     char *resultStringForBool = malloc(sizeof(char) * 10);
     if (boolValue) {
-        strcpy(resultStringForBool, "true\0");
+        strcpy(resultStringForBool, "true");
     } else {
-        strcpy(resultStringForBool, "false\0");
+        strcpy(resultStringForBool, "false");
     }
     
     return resultStringForBool;
@@ -73,37 +73,21 @@ void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income) {
     IDPPrintDeputyState(state);
 }
 
-typedef enum {
-    IDPPrintStateMama,
-    IDPPrintStatePapa,
-    IDPPrintStateMamaPapa,
-    IDPPrintStateNone
-} IDPPrintState;
-
-void IDPDisplayPrintState(IDPPrintState state) {
-    switch (state) {
-        case IDPPrintStateMama:
-            puts("mama");
-            break;
-            
-        case IDPPrintStatePapa:
-            puts("papa");
-            break;
-            
-        case IDPPrintStateMamaPapa:
-            puts("mamapapa");
-            break;
-            
-        default:
-            puts("No valid state selected");
-            break;
-    }
-}
-
-void IDPDisplayStateForNumber(int num) {
-    IDPPrintState state = (num % 15 == 0) ? IDPPrintStateMamaPapa : (
-        (num % 3 == 0) ? IDPPrintStateMama : (
-            (num % 5 == 0) ? IDPPrintStatePapa : IDPPrintStateNone));
+IDPPrintState IDPDisplayStateForNumber(int num) {
     
-    IDPDisplayPrintState(state);
+    IDPPrintState state = IDPPrintStateNone;
+    
+    if (0 == num % 3) {
+        printf("mama");
+        state |= IDPPrintStateMama;
+    }
+    
+    if (0 == num % 5) {
+        printf("papa");
+        state |= IDPPrintStatePapa;
+    }
+    
+    printf("\n");
+    
+    return state;
 }

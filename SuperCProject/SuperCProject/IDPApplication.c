@@ -14,7 +14,7 @@
 #include "IDPApplication.h"
 #include "IDPPrintingFunctions.h"
 #include "IDPBranchingAndStates.h"
-#include "IDPPrintRange.h"
+#include "IDPTypesAndRanges.h"
 #include "IDPPrintReversed.h"
 #include "IDPBasicMathOperations.h"
 
@@ -59,39 +59,21 @@ void IDPTestStateIdentification() {
     IDPPrintTestMessage("Testing State Identification: Deputy task");
     IDPPrintDeputyStateForSalaryAndIncome(12.f, 10000000.f);
     IDPPrintTestMessage("Testing State Identification: mama, papa, mamapapa task");
-    IDPDisplayStateForNumber(6);
+    IDPDisplayStateForNumber(15);
 }
 
 void IDPTestTypeConversionAndRangeIdentification() {
     IDPPrintTestMessage("Testing type conversion and range identification");
-    // What is the result of the following two lines?
-    int intValue = 3;
-    double doubleResult = intValue * intValue / 4 % 7 + 4.0 * intValue - 1.5 + 'A';
-    // {'A' = 65} -> ( 3 * 3 / 4 % 7 ) + ( 4.0 * 3 ) - 1.5 + 65 ) -> 2 + 12.0 - 1.5 + 65 -> 77.5
-    printf("Expected result of  77.5f, actual result %f\n", doubleResult);
-    
-    // Signed Range [-X-1; +X]  ->  Unsigned Range with the same size =-> [0; 2^{log2(X+1) + 1} - 1]
-    // Test size = 3bits  signed range [-4;3] -> unsigned range [0, 7]
-    
-    // Create Variables with all possible types
     IDPPrintRangeForType("char");
     IDPPrintRangeForType("short");
     IDPPrintRangeForType("int");
     IDPPrintRangeForType("long");
     IDPPrintRangeForType("unsigned long");
-    char charVar = 'A';
-    short shortVar = -10;
-    int iVar = -100;
-    long lVar = -12312312l;
-    long long dLVar = -43242ll;
-    float fVar = -12313.f;
-    double dVar = -12312312.123123;
-    long double lDVar = -2121321.12l;
-    unsigned char uCharVar = 'A';
-    unsigned short uShortVar = 'A';
-    unsigned int uIVar = 120u;
-    unsigned long uLongVar = 1231231231lu;
-    unsigned long long uDLVar = 3223423llu;
+}
+
+void IDPTestDifferentTypesPrinting() {
+    IDPPrintTestMessage("Testing different data types printing");
+    IDPPrintMostCommonTypes();
 }
 
 void IDPTestBasicMathOperations() {
@@ -125,6 +107,8 @@ void IDPTestSecondAssignment() {
     IDPTestStackBasedStringReversal();
     
     IDPTestTypeConversionAndRangeIdentification();
+    
+    IDPTestDifferentTypesPrinting();
     
     IDPTestBoolToStringConversion();
     

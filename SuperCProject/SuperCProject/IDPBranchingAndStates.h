@@ -19,6 +19,13 @@ void IDPPrintMamaPapaTernaryBranching(int firstNum, int secondNum);
 
 void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income);
 
-void IDPDisplayStateForNumber(int num);
+typedef enum {
+    IDPPrintStateMama       = 1 << 0,
+    IDPPrintStatePapa       = 1 << 1,
+    IDPPrintStateMamaPapa   = 1 << 2,
+    IDPPrintStateNone       = 0
+} IDPPrintState;
+
+IDPPrintState IDPDisplayStateForNumber(int num);
 
 #endif /* IDPBranchingAndStates_h */
