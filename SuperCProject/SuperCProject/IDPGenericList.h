@@ -27,11 +27,11 @@ struct IDPList {
     IDPListNode *last;
 };
 
-bool IDPIsEmptyList(const IDPList *list);
+bool    IDPIsEmptyList(const IDPList *list);
 unsigned long IDPGetSizeForList(const IDPList *list);
-void * IDPGetFrontNodeDataForList(const IDPList *list);
-void IDPPopulateFrontNodeForListWithData(IDPList *list, void *data);
-void * IDPRemoveFrontNodeForList(IDPList *list);
+void *  IDPGetFrontNodeDataForList(const IDPList *list);
+void    IDPPopulateFrontNodeForListWithData(IDPList *list, void *data);
+void *  IDPRemoveFrontNodeForList(IDPList *list);
 IDPList * IDPCreateNewList();
 
 #endif /* IDPGenericDefineList_h */
