@@ -42,7 +42,7 @@ char * IDPCreateReversedStringForString(char *inputString) {
 }
 
 char * IDPCreateReversedStringForStringSimple(char *inputString) {
-    int size = strlen(inputString);
+    unsigned long size = strlen(inputString);
     char *reversedString = malloc(sizeof(char) * size);
     for (int i = 0; i < size / 2; i++) {
         reversedString[i] = inputString[size - 1 - i];
