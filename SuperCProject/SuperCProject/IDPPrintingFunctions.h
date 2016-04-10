@@ -23,4 +23,8 @@ void ICPrintGreetingToMama();
 
 void ICPrintGreetingToPapa();
 
+void IDPPrintNullTerminatedString(char *str);
+
+void IDPPrintNoneNullTerminatedStringWithSize(char *str, unsigned long size);
+
 #endif /* defined(__SuperCProject__IDPPrintingFunctions__) */

@@ -54,7 +54,7 @@ void IDPPrintResultOfSepararedOperations() {
     printf("Result of expanded expression is %f\n", replDoubleRes);
 }
 
-void IDPrintPrePosfixIncrementResult() {
+void IDPPrintPrePosfixIncrementResult() {
     int initialNum = 777;
     printf("Initial number = %d, prefix increment result = %d, postfix increment result = %d\n", initialNum, ++initialNum, initialNum++);
     

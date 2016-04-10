@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <string.h>
 
 #include "IDPPrintingFunctions.h"
 
@@ -39,4 +40,18 @@ void ICPrintGreetingToPapa() {
 
 void IDPPrintTestMessage(char *msg) {
     printf("--- %s ---\n", msg);
+}
+
+void IDPPrintNullTerminatedString(char *str) {
+    unsigned long size = strlen(str);
+    IDPPrintNoneNullTerminatedStringWithSize(str, size);
+    
+}
+
+void IDPPrintNoneNullTerminatedStringWithSize(char *str, unsigned long size) {
+    for(int i = 0; i < size; i++) {
+        printf("%c", str[i]);
+    }
+    
+    printf("\n");
 }

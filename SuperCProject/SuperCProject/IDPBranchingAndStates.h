@@ -26,6 +26,6 @@ typedef enum {
     IDPPrintStateNone       = 0
 } IDPPrintState;
 
-IDPPrintState IDPDisplayStateForNumber(int num);
+IDPPrintState IDPDisplayAndGetStateForNumber(int num);
 
 #endif /* IDPBranchingAndStates_h */

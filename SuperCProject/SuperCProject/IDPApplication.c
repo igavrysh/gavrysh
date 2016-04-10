@@ -17,6 +17,7 @@
 #include "IDPTypesAndRanges.h"
 #include "IDPPrintReversed.h"
 #include "IDPBasicMathOperations.h"
+#include "IDPCycles.h"
 
 void IDPRunApplication() {
     IDPTestSecondAssignment();
@@ -40,6 +41,11 @@ void IDPTestStackBasedStringReversal() {
     char *reversedString = IDPCreateReversedStringForString(inputString);
     printf("Reversed string for %s is %s\n", inputString, reversedString);
     free(reversedString);
+    
+    IDPPrintTestMessage("Testing simple string reversal");
+    reversedString = IDPCreateReversedStringForStringSimple(inputString);
+    printf("Reversed string for %s is %s\n", inputString, reversedString);
+    free(reversedString);
 }
 
 void IDPTestBoolToStringConversion() {
@@ -59,7 +65,7 @@ void IDPTestStateIdentification() {
     IDPPrintTestMessage("Testing State Identification: Deputy task");
     IDPPrintDeputyStateForSalaryAndIncome(12.f, 10000000.f);
     IDPPrintTestMessage("Testing State Identification: mama, papa, mamapapa task");
-    IDPDisplayStateForNumber(15);
+    IDPDisplayAndGetStateForNumber(15);
 }
 
 void IDPTestTypeConversionAndRangeIdentification() {
@@ -85,7 +91,6 @@ void IDPTestBasicMathOperations() {
            initialVar,
            decrementedVar,
            incrementedVar);
-    
 }
 
 void IDPTestCastingOperations() {
@@ -100,7 +105,33 @@ void IDPTestExpressionExpansion() {
 
 void IDPTestPrePostFixIncrement() {
     IDPPrintTestMessage("Testing pre/postfix increment");
-    IDPrintPrePosfixIncrementResult();
+    IDPPrintPrePosfixIncrementResult();
+}
+
+void IDPTestPrintingNullNoneNullTerminatedStrings() {
+    IDPPrintTestMessage("Testing null-none null terminating sting printing");
+    char *nullTerminatedStr = "Hello, zhenya!";
+    char noneNullTerminatedStr[5] = {'H', 'e', 'l', 'l', 'o'};
+    puts("Null terminated string: ");
+    IDPPrintNullTerminatedString(nullTerminatedStr);
+    puts("None null terminated string: ");
+    IDPPrintNoneNullTerminatedStringWithSize(noneNullTerminatedStr, 5);
+}
+
+void IDPTestPrintingValuesWithinRange() {
+    unsigned int nTimes = 2;
+    int moreThan = 2;
+    int lessThan = 9;
+    
+    char * headerMsg;
+    asprintf(&headerMsg, "Print every value, but less than 50, every 3rd is dropped, max output 20 in a row, from the range[%d, %d], %d times", moreThan, lessThan, nTimes);
+    IDPPrintTestMessage(headerMsg);
+    
+    IDPPrintTestMessage("Testing For cycle impelementation");
+    IDPPrintNumberNTimesWithinRangeWithForCycle(2, 2, 9);
+    
+    IDPPrintTestMessage("Testing While cycle impelementation");
+    IDPPrintNumberNTimesWithinRangeWithWhileCycle(2, 2, 9);
 }
 
 void IDPTestSecondAssignment() {
@@ -123,5 +154,9 @@ void IDPTestSecondAssignment() {
     IDPTestStateIdentification();
     
     IDPTestPrePostFixIncrement();
+    
+    IDPTestPrintingNullNoneNullTerminatedStrings();
+    
+    IDPTestPrintingValuesWithinRange();
 }
 

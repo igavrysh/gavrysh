@@ -66,14 +66,14 @@ void IDPPrintDeputyState(IDPDeputyState state) {
 
 void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income) {
     IDPDeputyState state =
-        (income == salary * 1000 * 1000) ? IDPDeputyStateThief :
-            (income == salary * 120) ? IDPDeputyStateHonest :
-                (income == salary * 12) ? IDPDeputyStateAngel : IDPDeputyStateDead;
+        (income >= salary * 1000 * 1000) ? IDPDeputyStateThief :
+            (income >= salary * 120) ? IDPDeputyStateHonest :
+                (income >= salary * 12) ? IDPDeputyStateAngel : IDPDeputyStateDead;
     
     IDPPrintDeputyState(state);
 }
 
-IDPPrintState IDPDisplayStateForNumber(int num) {
+IDPPrintState IDPDisplayAndGetStateForNumber(int num) {
     
     IDPPrintState state = IDPPrintStateNone;
     
