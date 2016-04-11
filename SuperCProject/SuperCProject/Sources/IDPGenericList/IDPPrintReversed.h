@@ -11,4 +11,6 @@
 
 char * IDPCreateReversedStringForString(char *inputString);
 
+char * IDPCreateReversedStringForStringSimple(char *inputString);
+
 #endif /* IDPPrintReversed_h */

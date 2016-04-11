@@ -13,42 +13,44 @@
 #include "IDPGenericList.h"
 
 bool IDPIsEmptyList(const IDPList *list) {
-    return list->size == 0;
+    return list->_size == 0;
 }
 
 unsigned long IDPGetSizeForList(const IDPList *list) {
-    return list->size;
+    return list->_size;
 }
 
 void * IDPGetFrontNodeDataForList(const IDPList *list) {
-    return list->first->data;
+    return list->_first->_data;
 }
 
 void IDPPopulateFrontNodeForListWithData(IDPList *list, void *data) {
     
     IDPListNode *newNode = (IDPListNode *) malloc(sizeof(IDPListNode));
-    newNode->data = data;
-    newNode->next = list->first;
-    list->first = newNode;
-    list->size++;
+    newNode->_data = data;
+    newNode->_next = list->_first;
+    list->_first = newNode;
+    list->_size++;
 }
 
 void * IDPRemoveFrontNodeForList(IDPList *list) {
-    if (list->size == 0) {
+    if (list->_size == 0) {
         return NULL;
     }
-    IDPListNode *listNodeToDrop = list->first;
-    list->first = list->first->next;
-    list->size--;
-    void *data = listNodeToDrop->data;
+    
+    IDPListNode *listNodeToDrop = list->_first;
+    list->_first = list->_first->_next;
+    list->_size--;
+    void *data = listNodeToDrop->_data;
     free(listNodeToDrop);
+    
     return data;
 }
 
 IDPList * IDPCreateNewList() {
     IDPList *res = (IDPList *)malloc(sizeof(IDPList));
-    res->size = 0;
-    res->first = NULL;
+    res->_size = 0;
+    res->_first = NULL;
     
     return res;
 }

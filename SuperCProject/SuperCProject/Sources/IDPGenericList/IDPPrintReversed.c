@@ -13,8 +13,7 @@
 
 #define IDP_MAX_READ_BUFFER_SIZE 1024
 
-char * IDPCreateReversedStringForString(char *inputString)
-{
+char * IDPCreateReversedStringForString(char *inputString) {
     IDPList *myExpGenericList = IDPCreateNewList();
     
     int currentPosition = 0;
@@ -25,7 +24,8 @@ char * IDPCreateReversedStringForString(char *inputString)
         if (currentPosition > IDP_MAX_READ_BUFFER_SIZE) {
             return NULL;
         }
-        IDPPopulateFrontNodeForListWithData(myExpGenericList, (void*)currentSymbol);
+        
+        IDPPopulateFrontNodeForListWithData(myExpGenericList, currentSymbol);
     }
     
     char *reversedString = malloc(IDPGetSizeForList(myExpGenericList) + 1);
@@ -35,7 +35,19 @@ char * IDPCreateReversedStringForString(char *inputString)
            currentSymbol != NULL) {
         reversedString[currentPosition++] = currentSymbol;
     }
+    
     reversedString[currentPosition] = '\0';
+    
+    return reversedString;
+}
+
+char * IDPCreateReversedStringForStringSimple(char *inputString) {
+    unsigned long size = strlen(inputString);
+    char *reversedString = malloc(sizeof(char) * size);
+    for (int i = 0; i < size / 2; i++) {
+        reversedString[i] = inputString[size - 1 - i];
+        reversedString[size - 1 - i] = inputString[i];
+    }
     
     return reversedString;
 }
