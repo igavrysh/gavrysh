@@ -30,6 +30,7 @@ void IDPMamaPapaAssignmentTestsPerform() {
     for (int counter = 0; counter <= 1000; counter++) {
         printf("Iteration #%d :", counter + 1);
         IDPDisplayAndGetStateForNumber(counter);
+        printf("\n");
     }
 }
 

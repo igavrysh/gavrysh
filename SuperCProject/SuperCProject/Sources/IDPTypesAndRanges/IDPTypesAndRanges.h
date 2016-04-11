@@ -10,6 +10,7 @@
 #define IDPTypesAndRanges_h
 
 #define char_ref char*
+#define unsigned_int unsigned int
 
 #define IDPValueOutput(type, specifier) \
     void output_##type(type value) { \
@@ -21,7 +22,20 @@
     output_##type(value); \
 
 
-int IDPPrintRangeForType(char *type);
+#define BITS_PER_BYTE 8
+
+#define IDPGetMaxNumForType(type) \
+    type get_max_num_for_##type() { \
+        return (type)((1UL << (sizeof(type) * BITS_PER_BYTE - 1)) - 1); \
+    } \
+
+#define IDPPrintMaxMinNumForType(type) \
+    do { \
+        type num_max = get_max_num_for_##type(); \
+        printf("Maximum value of %s: %llu\n", #type, (unsigned long long)num_max); \
+        printf("Minimum value of %s: %ld\n", #type, (long)(-num_max - 1)); \
+    } while(0); \
+
 
 void IDPPrintMostCommonTypes();
 

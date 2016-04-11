@@ -27,6 +27,8 @@ void IDPRunApplication() {
     performTest(IDPMamaPapaAssignmentTestsPerform);
     
     performTest(IDPPrintBaseTypeVarsTestsPerform);
+    
+    performTest(IDPPrintMaxMinForDecimalVarTestsPerform);
 }
 
 

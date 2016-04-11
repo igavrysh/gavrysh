@@ -9,10 +9,8 @@
 #ifndef IDPTypesAndRangesTests_h
 #define IDPTypesAndRangesTests_h
 
-#include <stdio.h>
-
-void IDPTypeConversionAndRangeIdenttifTestsPerform();
-
 void IDPPrintBaseTypeVarsTestsPerform();
+
+void IDPPrintMaxMinForDecimalVarTestsPerform();
 
 #endif /* IDPTypesAndRangesTests_h */

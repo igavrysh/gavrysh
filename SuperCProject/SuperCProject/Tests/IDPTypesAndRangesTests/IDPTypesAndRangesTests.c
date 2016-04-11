@@ -6,16 +6,11 @@
 //  Copyright © 2016 Ievgen Gavrysh. All rights reserved.
 //
 
+#include <stdio.h>
+
 #include "IDPTypesAndRanges.h"
 #include "IDPTypesAndRangesTests.h"
 
-void IDPTypeConversionAndRangeIdenttifTestsPerform() {
-    IDPPrintRangeForType("char");
-    IDPPrintRangeForType("short");
-    IDPPrintRangeForType("int");
-    IDPPrintRangeForType("long");
-    IDPPrintRangeForType("unsigned long");
-}
 
 IDPValueOutput(int, "%d");
 IDPValueOutput(float, "%f");
@@ -28,3 +23,19 @@ void IDPPrintBaseTypeVarsTestsPerform() {
     IDPTypeOutput(char, 'H');
     IDPTypeOutput(char_ref, "Hellow!!!");
 }
+
+IDPGetMaxNumForType(int);
+IDPGetMaxNumForType(short);
+IDPGetMaxNumForType(long);
+IDPGetMaxNumForType(unsigned_int);
+
+void IDPPrintMaxMinForDecimalVarTestsPerform() {
+    IDPPrintMaxMinNumForType(int);
+    IDPPrintMaxMinNumForType(short);
+    IDPPrintMaxMinNumForType(long);
+    IDPPrintMaxMinNumForType(unsigned_int);
+}
+
+
+
+

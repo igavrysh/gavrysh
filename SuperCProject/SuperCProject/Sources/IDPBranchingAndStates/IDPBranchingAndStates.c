@@ -87,9 +87,11 @@ IDPPrintState IDPDisplayAndGetStateForNumber(int num) {
         state |= IDPPrintStatePapa;
     }
     
+    /*
     if (state != IDPPrintStateNone) {
         printf("\n");
     }
+     */
     
     return state;
 }
