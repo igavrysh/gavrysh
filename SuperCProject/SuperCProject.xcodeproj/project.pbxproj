@@ -42,6 +42,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		852F2B841CBC07E600DBDB34 /* IDPStructures.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPStructures.c; sourceTree = "<group>"; };
+		852F2B851CBC07E600DBDB34 /* IDPStructures.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPStructures.h; sourceTree = "<group>"; };
+		852F2B871CBC07F500DBDB34 /* IDPStructuresTest.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPStructuresTest.c; sourceTree = "<group>"; };
+		852F2B881CBC07F500DBDB34 /* IDPStructuresTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPStructuresTest.h; sourceTree = "<group>"; };
 		8550BC551CBB23B400813085 /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		8550BC581CBB23B400813085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		8550BC611CBB23E300813085 /* IDPApplication.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPApplication.c; sourceTree = "<group>"; };
@@ -79,6 +83,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		852F2B831CBC07E600DBDB34 /* IDPStructures */ = {
+			isa = PBXGroup;
+			children = (
+				852F2B841CBC07E600DBDB34 /* IDPStructures.c */,
+				852F2B851CBC07E600DBDB34 /* IDPStructures.h */,
+			);
+			path = IDPStructures;
+			sourceTree = "<group>";
+		};
+		852F2B861CBC07F500DBDB34 /* IDPStructuresTest */ = {
+			isa = PBXGroup;
+			children = (
+				852F2B871CBC07F500DBDB34 /* IDPStructuresTest.c */,
+				852F2B881CBC07F500DBDB34 /* IDPStructuresTest.h */,
+			);
+			path = IDPStructuresTest;
+			sourceTree = "<group>";
+		};
 		8550BC4C1CBB23B400813085 = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +130,7 @@
 		8550BC5F1CBB23E300813085 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				852F2B831CBC07E600DBDB34 /* IDPStructures */,
 				8550BC601CBB23E300813085 /* IDPApplication */,
 				8550BC631CBB23E300813085 /* IDPBasicMathOperations */,
 				8550BC661CBB23E300813085 /* IDPBranchingAndStates */,
@@ -187,6 +210,7 @@
 		8550BC771CBB23E300813085 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				852F2B861CBC07F500DBDB34 /* IDPStructuresTest */,
 				8572775D1CBB7EED00558052 /* IDPTypesAndRangesTests */,
 				8550BC8A1CBB268600813085 /* IDPBranchingAndStatesTests */,
 				8550BC781CBB23E300813085 /* IDPPrintingFunctionsTests */,
