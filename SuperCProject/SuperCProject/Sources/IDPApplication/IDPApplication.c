@@ -19,21 +19,15 @@
 #include "IDPBasicMathOperations.h"
 #include "IDPCycles.h"
 
+#include "IDPBranchingAndStatesTests.h"
+
 void IDPRunApplication() {
-    IDPTestSecondAssignment();
+    
+    performTest(IDPMamaPapaAssignmentTestsPerform);
+    
+    //IDPTestSecondAssignment();
 }
 
-void IDPTestFirstAssignment() {
-    IDPPrintTestMessage("Testing console output");
-    ICPrintNewLine();
-    IDPPrintTest("$1mln dollars start up");
-    
-    ICPrintGreetingToMama();
-    ICPrintNewLineWithCount(2);
-    
-    ICPrintGreetingToPapa();
-    ICPrintNewLineWithCount(3);
-}
 
 void IDPTestStackBasedStringReversal() {
     IDPPrintTestMessage("Testing stack-based string reversal");
@@ -66,15 +60,6 @@ void IDPTestStateIdentification() {
     IDPPrintDeputyStateForSalaryAndIncome(12.f, 10000000.f);
     IDPPrintTestMessage("Testing State Identification: mama, papa, mamapapa task");
     IDPDisplayAndGetStateForNumber(15);
-}
-
-void IDPTestTypeConversionAndRangeIdentification() {
-    IDPPrintTestMessage("Testing type conversion and range identification");
-    IDPPrintRangeForType("char");
-    IDPPrintRangeForType("short");
-    IDPPrintRangeForType("int");
-    IDPPrintRangeForType("long");
-    IDPPrintRangeForType("unsigned long");
 }
 
 void IDPTestDifferentTypesPrinting() {
@@ -136,8 +121,6 @@ void IDPTestPrintingValuesWithinRange() {
 
 void IDPTestSecondAssignment() {
     IDPTestStackBasedStringReversal();
-    
-    IDPTestTypeConversionAndRangeIdentification();
     
     IDPTestDifferentTypesPrinting();
     

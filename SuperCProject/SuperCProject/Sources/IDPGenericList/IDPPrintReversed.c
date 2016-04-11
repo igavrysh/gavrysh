@@ -25,7 +25,7 @@ char * IDPCreateReversedStringForString(char *inputString) {
             return NULL;
         }
         
-        IDPPopulateFrontNodeForListWithData(myExpGenericList, (void*)currentSymbol);
+        IDPPopulateFrontNodeForListWithData(myExpGenericList, currentSymbol);
     }
     
     char *reversedString = malloc(IDPGetSizeForList(myExpGenericList) + 1);
