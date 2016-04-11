@@ -9,7 +9,8 @@
 #ifndef IDPStructuresTest_h
 #define IDPStructuresTest_h
 
+void IDPStartUpStructureSizeofTest();
 
-
+void IDPStartUpStructureOffsetofTest();
 
 #endif /* IDPStructuresTest_h */
