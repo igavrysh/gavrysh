@@ -30,6 +30,11 @@ void IDPStartUpStructureSizeofTest() {
     printf("_suppliersNum data size %lu\n", sizeof(myStartUp._suppliersNum));
     printf("_isCreditBorrowed data size %lu\n", sizeof(myStartUp._isCreditBorrowed));
     printf("_employeesNum data size %lu\n", sizeof(myStartUp._employeesNum));
+    
+    IDPStartUpCompressed myStartUpCompressed;
+    
+    printf("My startup compressed struct size %lu\n", sizeof(myStartUpCompressed));
+    printf("Struct IDPStartUp size %lu\n", sizeof(IDPStartUpCompressed));
 }
 
 void IDPStartUpStructureOffsetofTest() {

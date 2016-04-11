@@ -57,7 +57,6 @@ struct IDPStartUpCompressed {
     bool _isMultipleFounders;
     bool _isFounderMajorStakeholder;
     bool _isCreditBorrowed;
-    
 };
 
 #endif /* IDPStructures_h */
