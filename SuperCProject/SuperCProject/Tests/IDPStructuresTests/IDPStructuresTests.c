@@ -10,7 +10,7 @@
 #include <stddef.h>
 
 #include "IDPStructures.h"
-#include "IDPStructuresTest.h"
+#include "IDPStructuresTests.h"
 
 void IDPStartUpStructureSizeofTest() {
     IDPStartUp myStartUp;

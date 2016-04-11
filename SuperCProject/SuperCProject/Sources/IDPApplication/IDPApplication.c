@@ -21,7 +21,7 @@
 
 #include "IDPBranchingAndStatesTests.h"
 #include "IDPTypesAndRangesTests.h"
-#include "IDPStructuresTest.h"
+#include "IDPStructuresTests.h"
 
 void IDPRunApplication() {
     
