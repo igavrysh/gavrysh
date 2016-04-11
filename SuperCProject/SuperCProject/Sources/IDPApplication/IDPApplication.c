@@ -22,9 +22,11 @@
 #include "IDPBranchingAndStatesTests.h"
 #include "IDPTypesAndRangesTests.h"
 #include "IDPStructuresTests.h"
+#include "IDPBitOutputTests.h"
 
 void IDPRunApplication() {
     
+    /*
     performTest(IDPMamaPapaAssignmentTestsPerform);
     
     performTest(IDPPrintBaseTypeVarsTestsPerform);
@@ -34,6 +36,9 @@ void IDPRunApplication() {
     performTest(IDPStartUpStructureSizeofTest);
     
     performTest(IDPStartUpStructureOffsetofTest);
+    */
+    
+    performTest(IDPBitOutputTests);
 }
 
 void IDPTestStackBasedStringReversal() {

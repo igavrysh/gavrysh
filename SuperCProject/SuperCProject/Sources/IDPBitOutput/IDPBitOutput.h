@@ -14,4 +14,7 @@
 extern
 void IDPPrintBitsForValueWithSize(void *value, size_t size);
 
+extern
+void IDPPrintByteForValue(char *byteAddress);
+
 #endif /* defined(__SuperCProject__IDPBitOutput__) */

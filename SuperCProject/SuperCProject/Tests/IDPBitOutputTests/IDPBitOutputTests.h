@@ -11,4 +11,7 @@
 
 #include <stdio.h>
 
+extern
+void IDPBitOutputTests();
+
 #endif /* defined(__SuperCProject__IDPBitOutputTests__) */
