@@ -21,6 +21,7 @@
 
 #include "IDPBranchingAndStatesTests.h"
 #include "IDPTypesAndRangesTests.h"
+#include "IDPStructuresTest.h"
 
 void IDPRunApplication() {
     
@@ -29,6 +30,10 @@ void IDPRunApplication() {
     performTest(IDPPrintBaseTypeVarsTestsPerform);
     
     performTest(IDPPrintMaxMinForDecimalVarTestsPerform);
+    
+    performTest(IDPStartUpStructureSizeofTest);
+    
+    performTest(IDPStartUpStructureOffsetofTest);
 }
 
 
