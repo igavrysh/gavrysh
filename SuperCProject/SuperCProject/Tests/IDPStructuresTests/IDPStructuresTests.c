@@ -18,18 +18,18 @@ void IDPStartUpStructureSizeofTest() {
     printf("My startup struct size %lu\n", sizeof(myStartUp));
     printf("Struct IDPStartUp size %lu\n", sizeof(IDPStartUp));
     
-    printf("_isAngelInvestments data size %lu\n", sizeof(myStartUp._isAngelInvestments));
-    printf("_startUpName data size %lu\n", sizeof(myStartUp._startUpName));
-    printf("_isVentureFondInverstments data size %lu\n", sizeof(myStartUp._isVentureFondInverstments));
-    printf("_revenueEarned data size %lu\n", sizeof(myStartUp._revenueEarned));
-    printf("_isGovernmetnInverstments data size %lu\n", sizeof(myStartUp._isGovernmetnInverstments));
-    printf("_profitEarned data size %lu\n", sizeof(myStartUp._profitEarned));
-    printf("_isMultipleFounders data size %lu\n", sizeof(myStartUp._isMultipleFounders));
-    printf("_usersCovered data size %lu\n", sizeof(myStartUp._usersCovered));
-    printf("_isFounderMajorStakeholder data size %lu\n", sizeof(myStartUp._isFounderMajorStakeholder));
-    printf("_suppliersNum data size %lu\n", sizeof(myStartUp._suppliersNum));
-    printf("_isCreditBorrowed data size %lu\n", sizeof(myStartUp._isCreditBorrowed));
-    printf("_employeesNum data size %lu\n", sizeof(myStartUp._employeesNum));
+    printf("isAngelInvestments data size %lu\n", sizeof(myStartUp.isAngelInvestments));
+    printf("startUpName data size %lu\n", sizeof(myStartUp.startUpName));
+    printf("isVentureFondInverstments data size %lu\n", sizeof(myStartUp.isVentureFondInverstments));
+    printf("revenueEarned data size %lu\n", sizeof(myStartUp.revenueEarned));
+    printf("isGovernmetnInverstments data size %lu\n", sizeof(myStartUp.isGovernmetnInverstments));
+    printf("profitEarned data size %lu\n", sizeof(myStartUp.profitEarned));
+    printf("isMultipleFounders data size %lu\n", sizeof(myStartUp.isMultipleFounders));
+    printf("usersCovered data size %lu\n", sizeof(myStartUp.usersCovered));
+    printf("isFounderMajorStakeholder data size %lu\n", sizeof(myStartUp.isFounderMajorStakeholder));
+    printf("suppliersNum data size %lu\n", sizeof(myStartUp.suppliersNum));
+    printf("isCreditBorrowed data size %lu\n", sizeof(myStartUp.isCreditBorrowed));
+    printf("employeesNum data size %lu\n", sizeof(myStartUp.employeesNum));
     
     IDPStartUpCompressed myStartUpCompressed;
     
@@ -39,16 +39,16 @@ void IDPStartUpStructureSizeofTest() {
 
 void IDPStartUpStructureOffsetofTest() {
     printf("IDPStartUp offsetof\n");
-    printf("_isAngelInvestments %lu\n", offsetof(IDPStartUp, _isAngelInvestments));
-    printf("_startUpName %lu\n", offsetof(IDPStartUp, _startUpName));
-    printf("_isVentureFondInverstments %lu\n", offsetof(IDPStartUp, _isVentureFondInverstments));
-    printf("_revenueEarned %lu\n", offsetof(IDPStartUp, _revenueEarned));
-    printf("_isGovernmetnInverstments %lu", offsetof(IDPStartUp, _isGovernmetnInverstments));
-    printf("_profitEarned %lu\n", offsetof(IDPStartUp, _profitEarned));
-    printf("_isMultipleFounders %lu\n", offsetof(IDPStartUp, _isMultipleFounders));
-    printf("_usersCovered %lu\n", offsetof(IDPStartUp, _usersCovered));
-    printf("_isFounderMajorStakeholder %lu\n", offsetof(IDPStartUp, _isFounderMajorStakeholder));
-    printf("_suppliersNum %lu\n", offsetof(IDPStartUp, _suppliersNum));
-    printf("_isCreditBorrowed %lu\n", offsetof(IDPStartUp, _isCreditBorrowed));
-    printf("_employeesNum %lu\n", offsetof(IDPStartUp, _employeesNum));
+    printf("isAngelInvestments %lu\n", offsetof(IDPStartUp, isAngelInvestments));
+    printf("startUpName %lu\n", offsetof(IDPStartUp, startUpName));
+    printf("isVentureFondInverstments %lu\n", offsetof(IDPStartUp, isVentureFondInverstments));
+    printf("revenueEarned %lu\n", offsetof(IDPStartUp, revenueEarned));
+    printf("isGovernmetnInverstments %lu", offsetof(IDPStartUp, isGovernmetnInverstments));
+    printf("profitEarned %lu\n", offsetof(IDPStartUp, profitEarned));
+    printf("isMultipleFounders %lu\n", offsetof(IDPStartUp, isMultipleFounders));
+    printf("usersCovered %lu\n", offsetof(IDPStartUp, usersCovered));
+    printf("isFounderMajorStakeholder %lu\n", offsetof(IDPStartUp, isFounderMajorStakeholder));
+    printf("suppliersNum %lu\n", offsetof(IDPStartUp, suppliersNum));
+    printf("isCreditBorrowed %lu\n", offsetof(IDPStartUp, isCreditBorrowed));
+    printf("employeesNum %lu\n", offsetof(IDPStartUp, employeesNum));
 }

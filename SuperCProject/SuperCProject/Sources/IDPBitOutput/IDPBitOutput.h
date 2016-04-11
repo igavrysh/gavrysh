@@ -11,6 +11,7 @@
 
 #include <stdio.h>
 
-void IDPPrintBitsForValueWithSize(void * value, size_t size);
+extern
+void IDPPrintBitsForValueWithSize(void *value, size_t size);
 
 #endif /* defined(__SuperCProject__IDPBitOutput__) */

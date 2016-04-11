@@ -16,21 +16,28 @@ void IDPPrintHelloWorld();
     testName(); \
     printf("--- ..." #testName " finished\n");
 
-
+extern
 void IDPPrintTestMessage(char *msg);
 
+extern
 void IDPPrintTest(const char *text);
 
+extern
 void ICPrintNewLine();
 
+extern
 void ICPrintNewLineWithCount(unsigned int count);
 
+extern
 void ICPrintGreetingToMama();
 
+extern
 void ICPrintGreetingToPapa();
 
+extern
 void IDPPrintNullTerminatedString(char *str);
 
-void IDPPrintNoneNullTerminatedStringWithSize(char *str, unsigned long size);
+extern
+void IDPPrintNonNullTerminatedStringWithSize(char *str, unsigned long size);
 
 #endif /* defined(__SuperCProject__IDPPrintingFunctions__) */

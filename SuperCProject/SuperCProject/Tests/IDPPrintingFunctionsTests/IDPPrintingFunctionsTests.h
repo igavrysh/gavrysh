@@ -9,6 +9,7 @@
 #ifndef IDPPrintingFunctionsTests_h
 #define IDPPrintingFunctionsTests_h
 
+extern
 void IDPPrintingTestsPerform();
 
 #endif /* IDPPrintingFunctionsTests_h */

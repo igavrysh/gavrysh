@@ -36,7 +36,7 @@
         printf("Minimum value of %s: %ld\n", #type, (long)(-num_max - 1)); \
     } while(0); \
 
-
+extern
 void IDPPrintMostCommonTypes();
 
 #endif /* IDPTypesAndRanges_h */

@@ -10,7 +10,7 @@
 
 #include "IDPBranchingAndStates.h"
 
-char * IDPCreateStringForBoolValue(bool boolValue) {
+char *IDPCreateStringForBoolValue(bool boolValue) {
     char *resultStringForBool = malloc(sizeof(char) * 10);
     if (boolValue) {
         strcpy(resultStringForBool, "true");
@@ -64,7 +64,7 @@ void IDPPrintDeputyState(IDPDeputyState state) {
     }
 }
 
-void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income) {
+void IDPPrintDeputyStateWithSalaryAndIncome(float salary, float income) {
     IDPDeputyState state =
         (income >= salary * 1000 * 1000) ? IDPDeputyStateThief :
             (income >= salary * 120) ? IDPDeputyStateHonest :
@@ -73,7 +73,7 @@ void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income) {
     IDPPrintDeputyState(state);
 }
 
-IDPPrintState IDPDisplayAndGetStateForNumber(int num) {
+IDPPrintState IDPPrintStatePrintWithNumber(int num) {
     
     IDPPrintState state = IDPPrintStateNone;
     
@@ -87,11 +87,9 @@ IDPPrintState IDPDisplayAndGetStateForNumber(int num) {
         state |= IDPPrintStatePapa;
     }
     
-    /*
     if (state != IDPPrintStateNone) {
         printf("\n");
     }
-     */
     
     return state;
 }

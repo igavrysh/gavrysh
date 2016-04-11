@@ -9,8 +9,10 @@
 #ifndef IDPCycles_h
 #define IDPCycles_h
 
-void IDPPrintNumberNTimesWithinRangeWithForCycle(unsigned int ntimes, int moreThan, int lessThan);
+extern
+void IDPPrintNumberNTimesWithinRangeWithForCycle(unsigned int count, int moreThan, int lessThan);
 
-void IDPPrintNumberNTimesWithinRangeWithWhileCycle(unsigned int nTimes, int moreThan, int lessThan);
+extern
+void IDPPrintNumberNTimesWithinRangeWithWhileCycle(unsigned int count, int moreThan, int lessThan);
 
 #endif /* IDPCycles_h */

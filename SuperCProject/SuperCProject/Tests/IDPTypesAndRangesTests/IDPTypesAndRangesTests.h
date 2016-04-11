@@ -9,8 +9,10 @@
 #ifndef IDPTypesAndRangesTests_h
 #define IDPTypesAndRangesTests_h
 
+extern
 void IDPPrintBaseTypeVarsTestsPerform();
 
+extern
 void IDPPrintMaxMinForDecimalVarTestsPerform();
 
 #endif /* IDPTypesAndRangesTests_h */

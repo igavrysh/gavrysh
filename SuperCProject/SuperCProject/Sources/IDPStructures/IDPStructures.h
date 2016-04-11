@@ -14,65 +14,65 @@
 typedef struct IDPStartUp IDPStartUp;
 
 struct IDPStartUp {
-    bool _isAngelInvestments;
-    char *_startUpName;
-    bool _isVentureFondInverstments;
-    float _revenueEarned;
-    bool _isGovernmetnInverstments;
-    double _profitEarned;
-    bool _isMultipleFounders;
-    long long _usersCovered;
-    bool _isFounderMajorStakeholder;
-    int _suppliersNum;
-    bool _isCreditBorrowed;
-    short _employeesNum;
+    bool isAngelInvestments;
+    char *startUpName;
+    bool isVentureFondInverstments;
+    float revenueEarned;
+    bool isGovernmetnInverstments;
+    double profitEarned;
+    bool isMultipleFounders;
+    long long usersCovered;
+    bool isFounderMajorStakeholder;
+    int suppliersNum;
+    bool isCreditBorrowed;
+    short employeesNum;
 };
 
 typedef struct IDPStartUpCompressed IDPStartUpCompressed;
 
 struct IDPStartUpCompressed {
-    char *_startUpName;
+    char *startUpName;
     //
-    float _revenueEarned;
-    int _suppliersNum;
+    float revenueEarned;
+    int suppliersNum;
     //
-    double _profitEarned;
+    double profitEarned;
     //
-    long long _usersCovered;
+    long long usersCovered;
     //
-    short _employeesNum;
-    bool _isAngelInvestments;
-    bool _isVentureFondInverstments;
-    bool _isGovernmetnInverstments;
-    bool _isMultipleFounders;
-    bool _isFounderMajorStakeholder;
-    bool _isCreditBorrowed;
+    short employeesNum;
+    bool isAngelInvestments;
+    bool isVentureFondInverstments;
+    bool isGovernmetnInverstments;
+    bool isMultipleFounders;
+    bool isFounderMajorStakeholder;
+    bool isCreditBorrowed;
 };
 
 typedef struct IDPStartUpUnionized IDPStartUpUnionized;
 
 struct IDPStartUpUnionized {
-    char *_startUpName;
+    char *startUpName;
     //
-    float _revenueEarned;
-    int _suppliersNum;
+    float revenueEarned;
+    int suppliersNum;
     //
-    double _profitEarned;
+    double profitEarned;
     //
-    long long _usersCovered;
+    long long usersCovered;
     //
     union {
         struct {
-            bool _isAngelInvestments;
-            bool _isVentureFondInverstments;
-            bool _isGovernmetnInverstments;
-            bool _isMultipleFounders;
-            bool _isFounderMajorStakeholder;
-            bool _isCreditBorrowed;
+            bool isAngelInvestments:1;
+            bool isVentureFondInverstments:1;
+            bool isGovernmetnInverstments:1;
+            bool isMultipleFounders:1;
+            bool isFounderMajorStakeholder:1;
+            bool sCreditBorrowed:1;
         } flags;
         char bitFields;
     };
-    short _employeesNum;
+    short employeesNum;
 };
 
 #endif /* IDPStructures_h */

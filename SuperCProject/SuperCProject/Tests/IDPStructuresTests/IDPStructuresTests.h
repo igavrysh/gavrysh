@@ -9,8 +9,10 @@
 #ifndef IDPStructuresTests_h
 #define IDPStructuresTests_h
 
+extern
 void IDPStartUpStructureSizeofTest();
 
+extern
 void IDPStartUpStructureOffsetofTest();
 
 #endif /* IDPStructuresTests_h */

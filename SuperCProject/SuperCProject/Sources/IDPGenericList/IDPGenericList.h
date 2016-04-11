@@ -17,21 +17,32 @@ typedef struct IDPListNode IDPListNode;
 typedef struct IDPList IDPList;
 
 struct IDPListNode {
-    void *_data;
-    IDPListNode *_next;
+    void *data;
+    IDPListNode *next;
 };
 
 struct IDPList {
-    unsigned long _size;
-    IDPListNode *_first;
-    IDPListNode *_last;
+    unsigned long size;
+    IDPListNode *first;
+    IDPListNode *last;
 };
 
-bool    IDPIsEmptyList(const IDPList *list);
-unsigned long IDPGetSizeForList(const IDPList *list);
-void *  IDPGetFrontNodeDataForList(const IDPList *list);
-void    IDPPopulateFrontNodeForListWithData(IDPList *list, void *data);
-void *  IDPRemoveFrontNodeForList(IDPList *list);
-IDPList * IDPCreateNewList();
+extern
+IDPList *IDPCreateNewList();
+
+extern
+bool IDPIsEmptyList(IDPList *list);
+
+extern
+unsigned long IDPGetSizeForList(IDPList *list);
+
+extern
+void *IDPGetFrontNodeDataForList(IDPList *list);
+
+extern
+void IDPPopulateFrontNodeForListWithData(IDPList *list, void *data);
+
+extern
+void *IDPRemoveFrontNodeForList(IDPList *list);
 
 #endif /* IDPGenericDefineList_h */

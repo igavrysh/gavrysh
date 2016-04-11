@@ -11,13 +11,17 @@
 
 #include <stdbool.h>
 
-char * IDPCreateStringForBoolValue(bool boolValue);
+extern
+char *IDPCreateStringForBoolValue(bool boolValue);
 
+extern
 void IDPPrintMamaPapaStdBranching(int firstNum, int secondNum);
 
+extern
 void IDPPrintMamaPapaTernaryBranching(int firstNum, int secondNum);
 
-void IDPPrintDeputyStateForSalaryAndIncome(float salary, float income);
+extern
+void IDPPrintDeputyStateForSalaryWithIncome(float salary, float income);
 
 typedef enum {
     IDPPrintStateMama       = 1 << 0,
@@ -26,6 +30,7 @@ typedef enum {
     IDPPrintStateNone       = 0
 } IDPPrintState;
 
-IDPPrintState IDPDisplayAndGetStateForNumber(int num);
+extern
+IDPPrintState IDPPrintStatePrintWithNumber(int num);
 
 #endif /* IDPBranchingAndStates_h */

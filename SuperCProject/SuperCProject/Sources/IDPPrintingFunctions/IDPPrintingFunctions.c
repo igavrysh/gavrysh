@@ -44,11 +44,11 @@ void IDPPrintTestMessage(char *msg) {
 
 void IDPPrintNullTerminatedString(char *str) {
     unsigned long size = strlen(str);
-    IDPPrintNoneNullTerminatedStringWithSize(str, size);
+    IDPPrintNonNullTerminatedStringWithSize(str, size);
     
 }
 
-void IDPPrintNoneNullTerminatedStringWithSize(char *str, unsigned long size) {
+void IDPPrintNonNullTerminatedStringWithSize(char *str, unsigned long size) {
     for(int i = 0; i < size; i++) {
         printf("%c", str[i]);
     }
