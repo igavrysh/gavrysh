@@ -7,19 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3EBEE5EF1CB2D7830053546C /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5EE1CB2D7830053546C /* main.c */; };
-		3EBEE5F71CB2DEF50053546C /* IDPPrintingFunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */; };
-		850B6D451CB5984B006740E5 /* IDPPrintReversed.c in Sources */ = {isa = PBXBuildFile; fileRef = 850B6D431CB5984B006740E5 /* IDPPrintReversed.c */; };
-		851E8BAD1CBA23AE00E4FE1C /* IDPCycles.c in Sources */ = {isa = PBXBuildFile; fileRef = 851E8BAB1CBA23AE00E4FE1C /* IDPCycles.c */; };
-		855D977F1CB8F40100FA9E95 /* IDPBasicMathOperations.c in Sources */ = {isa = PBXBuildFile; fileRef = 855D977D1CB8F40100FA9E95 /* IDPBasicMathOperations.c */; };
-		8560775E1CB815ED00816F53 /* IDPTypesAndRanges.c in Sources */ = {isa = PBXBuildFile; fileRef = 8560775D1CB815ED00816F53 /* IDPTypesAndRanges.c */; };
-		85D7791C1CB704AB00229064 /* IDPApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = 85D7791A1CB704AB00229064 /* IDPApplication.c */; };
-		85D7791E1CB74C4800229064 /* IDPGenericList.c in Sources */ = {isa = PBXBuildFile; fileRef = 85D7791D1CB74C4800229064 /* IDPGenericList.c */; };
-		85E3BDEF1CB47EB80047C88D /* IDPBranchingAndStates.c in Sources */ = {isa = PBXBuildFile; fileRef = 85E3BDED1CB47EB80047C88D /* IDPBranchingAndStates.c */; };
+		8550BC591CBB23B400813085 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC581CBB23B400813085 /* main.c */; };
+		8550BC7A1CBB24F400813085 /* IDPApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC611CBB23E300813085 /* IDPApplication.c */; };
+		8550BC7B1CBB24F400813085 /* IDPApplication.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC621CBB23E300813085 /* IDPApplication.h */; };
+		8550BC7C1CBB24F400813085 /* IDPBasicMathOperations.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC641CBB23E300813085 /* IDPBasicMathOperations.c */; };
+		8550BC7D1CBB24F400813085 /* IDPBasicMathOperations.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC651CBB23E300813085 /* IDPBasicMathOperations.h */; };
+		8550BC7E1CBB24F400813085 /* IDPBranchingAndStates.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC671CBB23E300813085 /* IDPBranchingAndStates.c */; };
+		8550BC7F1CBB24F400813085 /* IDPBranchingAndStates.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC681CBB23E300813085 /* IDPBranchingAndStates.h */; };
+		8550BC801CBB24F400813085 /* IDPCycles.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC6A1CBB23E300813085 /* IDPCycles.c */; };
+		8550BC811CBB24F400813085 /* IDPCycles.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC6B1CBB23E300813085 /* IDPCycles.h */; };
+		8550BC821CBB24F400813085 /* IDPGenericList.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC6D1CBB23E300813085 /* IDPGenericList.c */; };
+		8550BC831CBB24F400813085 /* IDPGenericList.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC6E1CBB23E300813085 /* IDPGenericList.h */; };
+		8550BC841CBB24F400813085 /* IDPPrintReversed.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC6F1CBB23E300813085 /* IDPPrintReversed.c */; };
+		8550BC851CBB24F400813085 /* IDPPrintReversed.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC701CBB23E300813085 /* IDPPrintReversed.h */; };
+		8550BC861CBB24F400813085 /* IDPPrintingFunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC721CBB23E300813085 /* IDPPrintingFunctions.c */; };
+		8550BC871CBB24F400813085 /* IDPPrintingFunctions.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC731CBB23E300813085 /* IDPPrintingFunctions.h */; };
+		8550BC881CBB24F400813085 /* IDPTypesAndRanges.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC751CBB23E300813085 /* IDPTypesAndRanges.c */; };
+		8550BC891CBB24F400813085 /* IDPTypesAndRanges.h in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC761CBB23E300813085 /* IDPTypesAndRanges.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		3EBEE5E91CB2D7820053546C /* CopyFiles */ = {
+		8550BC531CBB23B400813085 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -31,28 +39,28 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		3EBEE5EB1CB2D7830053546C /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EBEE5EE1CB2D7830053546C /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
-		3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPPrintingFunctions.c; sourceTree = "<group>"; };
-		3EBEE5F61CB2DEF50053546C /* IDPPrintingFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPPrintingFunctions.h; sourceTree = "<group>"; };
-		850B6D431CB5984B006740E5 /* IDPPrintReversed.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPPrintReversed.c; sourceTree = "<group>"; };
-		850B6D441CB5984B006740E5 /* IDPPrintReversed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPPrintReversed.h; sourceTree = "<group>"; };
-		850B6D471CB5A311006740E5 /* IDPGenericList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPGenericList.h; sourceTree = "<group>"; };
-		850B6D4A1CB5D962006740E5 /* IDPTypesAndRanges.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPTypesAndRanges.h; sourceTree = "<group>"; };
-		851E8BAB1CBA23AE00E4FE1C /* IDPCycles.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPCycles.c; sourceTree = "<group>"; };
-		851E8BAC1CBA23AE00E4FE1C /* IDPCycles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPCycles.h; sourceTree = "<group>"; };
-		855D977D1CB8F40100FA9E95 /* IDPBasicMathOperations.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPBasicMathOperations.c; sourceTree = "<group>"; };
-		855D977E1CB8F40100FA9E95 /* IDPBasicMathOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPBasicMathOperations.h; sourceTree = "<group>"; };
-		8560775D1CB815ED00816F53 /* IDPTypesAndRanges.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPTypesAndRanges.c; sourceTree = "<group>"; };
-		85D7791A1CB704AB00229064 /* IDPApplication.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPApplication.c; sourceTree = "<group>"; };
-		85D7791B1CB704AB00229064 /* IDPApplication.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPApplication.h; sourceTree = "<group>"; };
-		85D7791D1CB74C4800229064 /* IDPGenericList.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPGenericList.c; sourceTree = "<group>"; };
-		85E3BDED1CB47EB80047C88D /* IDPBranchingAndStates.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPBranchingAndStates.c; sourceTree = "<group>"; };
-		85E3BDEE1CB47EB80047C88D /* IDPBranchingAndStates.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPBranchingAndStates.h; sourceTree = "<group>"; };
+		8550BC551CBB23B400813085 /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
+		8550BC581CBB23B400813085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		8550BC611CBB23E300813085 /* IDPApplication.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPApplication.c; sourceTree = "<group>"; };
+		8550BC621CBB23E300813085 /* IDPApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPApplication.h; sourceTree = "<group>"; };
+		8550BC641CBB23E300813085 /* IDPBasicMathOperations.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPBasicMathOperations.c; sourceTree = "<group>"; };
+		8550BC651CBB23E300813085 /* IDPBasicMathOperations.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPBasicMathOperations.h; sourceTree = "<group>"; };
+		8550BC671CBB23E300813085 /* IDPBranchingAndStates.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPBranchingAndStates.c; sourceTree = "<group>"; };
+		8550BC681CBB23E300813085 /* IDPBranchingAndStates.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPBranchingAndStates.h; sourceTree = "<group>"; };
+		8550BC6A1CBB23E300813085 /* IDPCycles.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPCycles.c; sourceTree = "<group>"; };
+		8550BC6B1CBB23E300813085 /* IDPCycles.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPCycles.h; sourceTree = "<group>"; };
+		8550BC6D1CBB23E300813085 /* IDPGenericList.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPGenericList.c; sourceTree = "<group>"; };
+		8550BC6E1CBB23E300813085 /* IDPGenericList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPGenericList.h; sourceTree = "<group>"; };
+		8550BC6F1CBB23E300813085 /* IDPPrintReversed.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPPrintReversed.c; sourceTree = "<group>"; };
+		8550BC701CBB23E300813085 /* IDPPrintReversed.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPPrintReversed.h; sourceTree = "<group>"; };
+		8550BC721CBB23E300813085 /* IDPPrintingFunctions.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPPrintingFunctions.c; sourceTree = "<group>"; };
+		8550BC731CBB23E300813085 /* IDPPrintingFunctions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPPrintingFunctions.h; sourceTree = "<group>"; };
+		8550BC751CBB23E300813085 /* IDPTypesAndRanges.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPTypesAndRanges.c; sourceTree = "<group>"; };
+		8550BC761CBB23E300813085 /* IDPTypesAndRanges.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPTypesAndRanges.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		3EBEE5E81CB2D7820053546C /* Frameworks */ = {
+		8550BC521CBB23B400813085 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -62,65 +70,136 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3EBEE5E21CB2D7820053546C = {
+		8550BC4C1CBB23B400813085 = {
 			isa = PBXGroup;
 			children = (
-				3EBEE5F81CB2DF030053546C /* Sources */,
-				3EBEE5ED1CB2D7830053546C /* SuperCProject */,
-				3EBEE5EC1CB2D7830053546C /* Products */,
+				8550BC571CBB23B400813085 /* SuperCProject */,
+				8550BC561CBB23B400813085 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		3EBEE5EC1CB2D7830053546C /* Products */ = {
+		8550BC561CBB23B400813085 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3EBEE5EB1CB2D7830053546C /* SuperCProject */,
+				8550BC551CBB23B400813085 /* SuperCProject */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3EBEE5ED1CB2D7830053546C /* SuperCProject */ = {
+		8550BC571CBB23B400813085 /* SuperCProject */ = {
 			isa = PBXGroup;
 			children = (
-				3EBEE5EE1CB2D7830053546C /* main.c */,
+				8550BC5F1CBB23E300813085 /* Sources */,
+				8550BC771CBB23E300813085 /* Tests */,
+				8550BC581CBB23B400813085 /* main.c */,
 			);
 			path = SuperCProject;
 			sourceTree = "<group>";
 		};
-		3EBEE5F81CB2DF030053546C /* Sources */ = {
+		8550BC5F1CBB23E300813085 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				3EBEE5F51CB2DEF50053546C /* IDPPrintingFunctions.c */,
-				3EBEE5F61CB2DEF50053546C /* IDPPrintingFunctions.h */,
-				85E3BDED1CB47EB80047C88D /* IDPBranchingAndStates.c */,
-				85E3BDEE1CB47EB80047C88D /* IDPBranchingAndStates.h */,
-				850B6D431CB5984B006740E5 /* IDPPrintReversed.c */,
-				850B6D441CB5984B006740E5 /* IDPPrintReversed.h */,
-				85D7791D1CB74C4800229064 /* IDPGenericList.c */,
-				850B6D471CB5A311006740E5 /* IDPGenericList.h */,
-				8560775D1CB815ED00816F53 /* IDPTypesAndRanges.c */,
-				850B6D4A1CB5D962006740E5 /* IDPTypesAndRanges.h */,
-				855D977D1CB8F40100FA9E95 /* IDPBasicMathOperations.c */,
-				855D977E1CB8F40100FA9E95 /* IDPBasicMathOperations.h */,
-				851E8BAB1CBA23AE00E4FE1C /* IDPCycles.c */,
-				851E8BAC1CBA23AE00E4FE1C /* IDPCycles.h */,
-				85D7791B1CB704AB00229064 /* IDPApplication.h */,
-				85D7791A1CB704AB00229064 /* IDPApplication.c */,
+				8550BC601CBB23E300813085 /* IDPApplication */,
+				8550BC631CBB23E300813085 /* IDPBasicMathOperations */,
+				8550BC661CBB23E300813085 /* IDPBranchingAndStates */,
+				8550BC691CBB23E300813085 /* IDPCycles */,
+				8550BC6C1CBB23E300813085 /* IDPGenericList */,
+				8550BC711CBB23E300813085 /* IDPPrintingFunctions */,
+				8550BC741CBB23E300813085 /* IDPTypesAndRanges */,
 			);
-			name = Sources;
-			path = SuperCProject;
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8550BC601CBB23E300813085 /* IDPApplication */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC611CBB23E300813085 /* IDPApplication.c */,
+				8550BC621CBB23E300813085 /* IDPApplication.h */,
+			);
+			path = IDPApplication;
+			sourceTree = "<group>";
+		};
+		8550BC631CBB23E300813085 /* IDPBasicMathOperations */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC641CBB23E300813085 /* IDPBasicMathOperations.c */,
+				8550BC651CBB23E300813085 /* IDPBasicMathOperations.h */,
+			);
+			path = IDPBasicMathOperations;
+			sourceTree = "<group>";
+		};
+		8550BC661CBB23E300813085 /* IDPBranchingAndStates */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC671CBB23E300813085 /* IDPBranchingAndStates.c */,
+				8550BC681CBB23E300813085 /* IDPBranchingAndStates.h */,
+			);
+			path = IDPBranchingAndStates;
+			sourceTree = "<group>";
+		};
+		8550BC691CBB23E300813085 /* IDPCycles */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC6A1CBB23E300813085 /* IDPCycles.c */,
+				8550BC6B1CBB23E300813085 /* IDPCycles.h */,
+			);
+			path = IDPCycles;
+			sourceTree = "<group>";
+		};
+		8550BC6C1CBB23E300813085 /* IDPGenericList */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC6D1CBB23E300813085 /* IDPGenericList.c */,
+				8550BC6E1CBB23E300813085 /* IDPGenericList.h */,
+				8550BC6F1CBB23E300813085 /* IDPPrintReversed.c */,
+				8550BC701CBB23E300813085 /* IDPPrintReversed.h */,
+			);
+			path = IDPGenericList;
+			sourceTree = "<group>";
+		};
+		8550BC711CBB23E300813085 /* IDPPrintingFunctions */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC721CBB23E300813085 /* IDPPrintingFunctions.c */,
+				8550BC731CBB23E300813085 /* IDPPrintingFunctions.h */,
+			);
+			path = IDPPrintingFunctions;
+			sourceTree = "<group>";
+		};
+		8550BC741CBB23E300813085 /* IDPTypesAndRanges */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC751CBB23E300813085 /* IDPTypesAndRanges.c */,
+				8550BC761CBB23E300813085 /* IDPTypesAndRanges.h */,
+			);
+			path = IDPTypesAndRanges;
+			sourceTree = "<group>";
+		};
+		8550BC771CBB23E300813085 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+				8550BC781CBB23E300813085 /* IDPPrintingFunctionsTests */,
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		8550BC781CBB23E300813085 /* IDPPrintingFunctionsTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IDPPrintingFunctionsTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3EBEE5EA1CB2D7820053546C /* SuperCProject */ = {
+		8550BC541CBB23B400813085 /* SuperCProject */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3EBEE5F21CB2D7830053546C /* Build configuration list for PBXNativeTarget "SuperCProject" */;
+			buildConfigurationList = 8550BC5C1CBB23B400813085 /* Build configuration list for PBXNativeTarget "SuperCProject" */;
 			buildPhases = (
-				3EBEE5E71CB2D7820053546C /* Sources */,
-				3EBEE5E81CB2D7820053546C /* Frameworks */,
-				3EBEE5E91CB2D7820053546C /* CopyFiles */,
+				8550BC511CBB23B400813085 /* Sources */,
+				8550BC521CBB23B400813085 /* Frameworks */,
+				8550BC531CBB23B400813085 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -128,61 +207,69 @@
 			);
 			name = SuperCProject;
 			productName = SuperCProject;
-			productReference = 3EBEE5EB1CB2D7830053546C /* SuperCProject */;
+			productReference = 8550BC551CBB23B400813085 /* SuperCProject */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		3EBEE5E31CB2D7820053546C /* Project object */ = {
+		8550BC4D1CBB23B400813085 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
-				ORGANIZATIONNAME = 1milliondollarsstartup;
+				LastUpgradeCheck = 0720;
+				ORGANIZATIONNAME = "Ievgen Gavrysh";
 				TargetAttributes = {
-					3EBEE5EA1CB2D7820053546C = {
-						CreatedOnToolsVersion = 6.1.1;
+					8550BC541CBB23B400813085 = {
+						CreatedOnToolsVersion = 7.2;
 					};
 				};
 			};
-			buildConfigurationList = 3EBEE5E61CB2D7820053546C /* Build configuration list for PBXProject "SuperCProject" */;
+			buildConfigurationList = 8550BC501CBB23B400813085 /* Build configuration list for PBXProject "SuperCProject" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 3EBEE5E21CB2D7820053546C;
-			productRefGroup = 3EBEE5EC1CB2D7830053546C /* Products */;
+			mainGroup = 8550BC4C1CBB23B400813085;
+			productRefGroup = 8550BC561CBB23B400813085 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3EBEE5EA1CB2D7820053546C /* SuperCProject */,
+				8550BC541CBB23B400813085 /* SuperCProject */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3EBEE5E71CB2D7820053546C /* Sources */ = {
+		8550BC511CBB23B400813085 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				85D7791C1CB704AB00229064 /* IDPApplication.c in Sources */,
-				8560775E1CB815ED00816F53 /* IDPTypesAndRanges.c in Sources */,
-				85D7791E1CB74C4800229064 /* IDPGenericList.c in Sources */,
-				3EBEE5F71CB2DEF50053546C /* IDPPrintingFunctions.c in Sources */,
-				850B6D451CB5984B006740E5 /* IDPPrintReversed.c in Sources */,
-				3EBEE5EF1CB2D7830053546C /* main.c in Sources */,
-				851E8BAD1CBA23AE00E4FE1C /* IDPCycles.c in Sources */,
-				855D977F1CB8F40100FA9E95 /* IDPBasicMathOperations.c in Sources */,
-				85E3BDEF1CB47EB80047C88D /* IDPBranchingAndStates.c in Sources */,
+				8550BC7A1CBB24F400813085 /* IDPApplication.c in Sources */,
+				8550BC7B1CBB24F400813085 /* IDPApplication.h in Sources */,
+				8550BC7C1CBB24F400813085 /* IDPBasicMathOperations.c in Sources */,
+				8550BC7D1CBB24F400813085 /* IDPBasicMathOperations.h in Sources */,
+				8550BC7E1CBB24F400813085 /* IDPBranchingAndStates.c in Sources */,
+				8550BC7F1CBB24F400813085 /* IDPBranchingAndStates.h in Sources */,
+				8550BC801CBB24F400813085 /* IDPCycles.c in Sources */,
+				8550BC811CBB24F400813085 /* IDPCycles.h in Sources */,
+				8550BC821CBB24F400813085 /* IDPGenericList.c in Sources */,
+				8550BC831CBB24F400813085 /* IDPGenericList.h in Sources */,
+				8550BC841CBB24F400813085 /* IDPPrintReversed.c in Sources */,
+				8550BC851CBB24F400813085 /* IDPPrintReversed.h in Sources */,
+				8550BC861CBB24F400813085 /* IDPPrintingFunctions.c in Sources */,
+				8550BC871CBB24F400813085 /* IDPPrintingFunctions.h in Sources */,
+				8550BC881CBB24F400813085 /* IDPTypesAndRanges.c in Sources */,
+				8550BC891CBB24F400813085 /* IDPTypesAndRanges.h in Sources */,
+				8550BC591CBB23B400813085 /* main.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		3EBEE5F01CB2D7830053546C /* Debug */ = {
+		8550BC5A1CBB23B400813085 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -199,16 +286,19 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -222,7 +312,7 @@
 			};
 			name = Debug;
 		};
-		3EBEE5F11CB2D7830053546C /* Release */ = {
+		8550BC5B1CBB23B400813085 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -239,11 +329,13 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				COPY_PHASE_STRIP = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -256,14 +348,14 @@
 			};
 			name = Release;
 		};
-		3EBEE5F31CB2D7830053546C /* Debug */ = {
+		8550BC5D1CBB23B400813085 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
-		3EBEE5F41CB2D7830053546C /* Release */ = {
+		8550BC5E1CBB23B400813085 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -273,25 +365,24 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3EBEE5E61CB2D7820053546C /* Build configuration list for PBXProject "SuperCProject" */ = {
+		8550BC501CBB23B400813085 /* Build configuration list for PBXProject "SuperCProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3EBEE5F01CB2D7830053546C /* Debug */,
-				3EBEE5F11CB2D7830053546C /* Release */,
+				8550BC5A1CBB23B400813085 /* Debug */,
+				8550BC5B1CBB23B400813085 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3EBEE5F21CB2D7830053546C /* Build configuration list for PBXNativeTarget "SuperCProject" */ = {
+		8550BC5C1CBB23B400813085 /* Build configuration list for PBXNativeTarget "SuperCProject" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				3EBEE5F31CB2D7830053546C /* Debug */,
-				3EBEE5F41CB2D7830053546C /* Release */,
+				8550BC5D1CBB23B400813085 /* Debug */,
+				8550BC5E1CBB23B400813085 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 3EBEE5E31CB2D7820053546C /* Project object */;
+	rootObject = 8550BC4D1CBB23B400813085 /* Project object */;
 }
