@@ -20,12 +20,13 @@
 #include "IDPCycles.h"
 
 #include "IDPBranchingAndStatesTests.h"
+#include "IDPTypesAndRangesTests.h"
 
 void IDPRunApplication() {
     
     performTest(IDPMamaPapaAssignmentTestsPerform);
     
-    //IDPTestSecondAssignment();
+    performTest(IDPPrintBaseTypeVarsTestsPerform);
 }
 
 
