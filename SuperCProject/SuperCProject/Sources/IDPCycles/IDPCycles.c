@@ -22,21 +22,21 @@ void IDPPrintNumberNTimes(int value, unsigned count) {
     printf("\n");
 }
 
-bool IDPCyclesIsReturnWithValue(int value) {
+bool IDPCyclesShouldReturnWithValue(int value) {
     return value == 50;
 }
 
-bool IDPCyclesIsContinueWithCurrentValueAndRangeStart(int value, int moreThan) {
+bool IDPCyclesShouldContinueWithCurrentValueAndRangeStart(int value, int moreThan) {
     return (value - moreThan + 1) % 3 == 0;
 }
 
 void IDPPrintNumberNTimesWithinRangeWithForCycle(unsigned int count, int moreThan, int lessThan) {
     for (int value = moreThan; value <= lessThan; value++) {
-        if (IDPCyclesIsReturnWithValue(value)) {
+        if (IDPCyclesShouldReturnWithValue(value)) {
             return;
         }
         
-        if (IDPCyclesIsContinueWithCurrentValueAndRangeStart(value, moreThan)) {
+        if (IDPCyclesShouldContinueWithCurrentValueAndRangeStart(value, moreThan)) {
             continue;
         }
         
@@ -47,17 +47,16 @@ void IDPPrintNumberNTimesWithinRangeWithForCycle(unsigned int count, int moreTha
 void IDPPrintNumberNTimesWithinRangeWithWhileCycle(unsigned int count, int moreThan, int lessThan) {
     int value = moreThan;
     while (value <= lessThan) {
-        if (IDPCyclesIsReturnWithValue(value)) {
+        if (IDPCyclesShouldReturnWithValue(value)) {
             return;
         }
         
-        if (IDPCyclesIsContinueWithCurrentValueAndRangeStart(value, moreThan)) {
+        if (IDPCyclesShouldContinueWithCurrentValueAndRangeStart(value, moreThan)) {
             value++;
             continue;
         }
         
-        IDPPrintNumberNTimes(value, count
-                             );
+        IDPPrintNumberNTimes(value, count);
         
         value++;
     }

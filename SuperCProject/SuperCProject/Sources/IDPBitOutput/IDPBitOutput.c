@@ -69,6 +69,9 @@ void IDPPrintByteForValue(char *byteAddress) {
 #endif /* LITTLE_ENDIAN_PROC */
 }
 
+extern
+void IDPTransposedByteWithValue(char *byteAddress);
+
 void IDPTransposedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag) {
     if (changeFlag == IDPTransposeFlagDoNothing) {
         return;
@@ -81,13 +84,12 @@ void IDPTransposedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFla
         valueAddress[i] = valueAddress[size - 1 - i];
         valueAddress[size - 1 - i] = tmp;
         
-        IDPTransposeByteForValue(&valueAddress[i]);
-        IDPTransposeByteForValue(&valueAddress[size - 1 - i]);
+        IDPTransposedByteWithValue(&valueAddress[i]);
+        IDPTransposedByteWithValue(&valueAddress[size - 1 - i]);
     }
-    
 }
 
-void IDPTransposedByteForValue(char *byteAddress) {
+void IDPTransposedByteWithValue(char *byteAddress) {
     uint8_t var = *byteAddress;
     for (uint8_t i = kIDPBitCount; i > 0; i--) {
         uint8_t shiftedVar = var >> (i - 1);
