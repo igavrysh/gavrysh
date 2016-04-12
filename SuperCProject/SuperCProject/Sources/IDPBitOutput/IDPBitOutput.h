@@ -17,4 +17,12 @@ void IDPPrintBitsForValueWithSize(void *value, size_t size);
 extern
 void IDPPrintByteForValue(char *byteAddress);
 
+typedef enum {
+    IDPTransposeFlagTranspose = 1 << 0,
+    IDPTransposeFlagDoNothing = 0 
+} IDPTransposeFlag;
+
+extern
+void IDPPrintTransposedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag);
+
 #endif /* defined(__SuperCProject__IDPBitOutput__) */

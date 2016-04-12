@@ -18,8 +18,8 @@ void IDPBitOutputTests() {
     long valueMin = LONG_MAX + 1;
     IDPPrintBitsForValueWithSize(&valueMin, sizeof(valueMin));
     
-    long valueZero = 0;
-    IDPPrintBitsForValueWithSize(&valueZero, sizeof(valueZero));
+    long valueOne = 1;
+    IDPPrintBitsForValueWithSize(&valueOne, sizeof(valueOne));
     
     char charVar = 'A';
     IDPPrintBitsForValueWithSize(&charVar, sizeof(charVar));
