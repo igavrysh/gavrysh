@@ -12,6 +12,8 @@
 #include "IDPBitOutputTests.h"
 
 void IDPBitOutputTests() {
+    
+    
     long valueMax = LONG_MAX;
     IDPPrintBitsForValueWithSize(&valueMax, sizeof(valueMax));
     

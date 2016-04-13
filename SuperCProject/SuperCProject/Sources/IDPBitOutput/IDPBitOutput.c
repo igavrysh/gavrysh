@@ -10,7 +10,7 @@
 
 #include "IDPBitOutput.h"
 
-#define BIG_ENDIAN_PROC 1
+//#define BIG_ENDIAN_PROC 1
 //#define LITTLE_ENDIAN_PROC 1
 
 static const uint8_t kIDPBitCount = 8;
