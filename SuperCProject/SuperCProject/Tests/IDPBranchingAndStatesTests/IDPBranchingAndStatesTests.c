@@ -15,21 +15,21 @@
 
 void IDPMamaPapaAssignmentTestsPerform() {
     puts("Expected result mama, actual result is ");
-    IDPDisplayAndGetStateForNumber(3);
+    IDPPrintStatePrintWithNumber(3);
     printf("\n");
     
     puts("Expected result papa, actual result is ");
-    IDPDisplayAndGetStateForNumber(5);
+    IDPPrintStatePrintWithNumber(5);
     printf("\n");
     
     puts("Expected result mamapapa, actual result is ");
-    IDPDisplayAndGetStateForNumber(15);
+    IDPPrintStatePrintWithNumber(15);
     printf("\n");
     
     puts("Iterative get state calling");
     for (int counter = 0; counter <= 1000; counter++) {
         printf("Iteration #%d :", counter + 1);
-        IDPDisplayAndGetStateForNumber(counter);
+        IDPPrintStatePrintWithNumber(counter);
         printf("\n");
     }
 }

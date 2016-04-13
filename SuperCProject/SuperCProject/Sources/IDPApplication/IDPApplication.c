@@ -21,10 +21,12 @@
 
 #include "IDPBranchingAndStatesTests.h"
 #include "IDPTypesAndRangesTests.h"
-#include "IDPStructuresTest.h"
+#include "IDPStructuresTests.h"
+#include "IDPBitOutputTests.h"
 
 void IDPRunApplication() {
     
+    /*
     performTest(IDPMamaPapaAssignmentTestsPerform);
     
     performTest(IDPPrintBaseTypeVarsTestsPerform);
@@ -34,26 +36,34 @@ void IDPRunApplication() {
     performTest(IDPStartUpStructureSizeofTest);
     
     performTest(IDPStartUpStructureOffsetofTest);
+    */
+    
+    performTest(IDPBitOutputTests);
 }
-
 
 void IDPTestStackBasedStringReversal() {
     IDPPrintTestMessage("Testing stack-based string reversal");
+    
     char *inputString = "1234567890";
+    
     char *reversedString = IDPCreateReversedStringForString(inputString);
     printf("Reversed string for %s is %s\n", inputString, reversedString);
     free(reversedString);
     
     IDPPrintTestMessage("Testing simple string reversal");
     reversedString = IDPCreateReversedStringForStringSimple(inputString);
+    
     printf("Reversed string for %s is %s\n", inputString, reversedString);
     free(reversedString);
 }
 
 void IDPTestBoolToStringConversion() {
     IDPPrintTestMessage("Testing bool to string conversion");
+    
     char *strForBool = IDPCreateStringForBoolValue(true);
+    
     printf("%s\n", strForBool);
+    
     free(strForBool);
 }
 
@@ -65,9 +75,10 @@ void IDPTestBranchingTypes() {
 
 void IDPTestStateIdentification() {
     IDPPrintTestMessage("Testing State Identification: Deputy task");
-    IDPPrintDeputyStateForSalaryAndIncome(12.f, 10000000.f);
+    IDPPrintDeputyStateWithSalaryAndIncome(12.f, 10000000.f);
+   
     IDPPrintTestMessage("Testing State Identification: mama, papa, mamapapa task");
-    IDPDisplayAndGetStateForNumber(15);
+    IDPPrintStatePrintWithNumber(15);
 }
 
 void IDPTestDifferentTypesPrinting() {
@@ -77,9 +88,12 @@ void IDPTestDifferentTypesPrinting() {
 
 void IDPTestBasicMathOperations() {
     IDPPrintTestMessage("Testing incremental/decremental operations");
+    
     int initialVar = 10;
+    
     int incrementedVar = IDPIncrement(initialVar);
     int decrementedVar = IDPDecrement(initialVar);
+    
     printf("Initial var = %d, its value decremented = %d, and incremented = %d\n",
            initialVar,
            decrementedVar,
@@ -103,12 +117,15 @@ void IDPTestPrePostFixIncrement() {
 
 void IDPTestPrintingNullNoneNullTerminatedStrings() {
     IDPPrintTestMessage("Testing null-none null terminating sting printing");
+    
     char *nullTerminatedStr = "Hello, zhenya!";
     char noneNullTerminatedStr[5] = {'H', 'e', 'l', 'l', 'o'};
+    
     puts("Null terminated string: ");
     IDPPrintNullTerminatedString(nullTerminatedStr);
+    
     puts("None null terminated string: ");
-    IDPPrintNoneNullTerminatedStringWithSize(noneNullTerminatedStr, 5);
+    IDPPrintNonNullTerminatedStringWithSize(noneNullTerminatedStr, 5);
 }
 
 void IDPTestPrintingValuesWithinRange() {
@@ -116,7 +133,7 @@ void IDPTestPrintingValuesWithinRange() {
     int moreThan = 2;
     int lessThan = 9;
     
-    char * headerMsg;
+    char *headerMsg;
     asprintf(&headerMsg, "Print every value, but less than 50, every 3rd is dropped, max output 20 in a row, from the range[%d, %d], %d times", moreThan, lessThan, nTimes);
     IDPPrintTestMessage(headerMsg);
     

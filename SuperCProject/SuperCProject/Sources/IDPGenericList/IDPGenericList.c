@@ -12,45 +12,45 @@
 
 #include "IDPGenericList.h"
 
-bool IDPIsEmptyList(const IDPList *list) {
-    return list->_size == 0;
+bool IDPIsEmptyList(IDPList *list) {
+    return list->size == 0;
 }
 
-unsigned long IDPGetSizeForList(const IDPList *list) {
-    return list->_size;
+unsigned long IDPGetSizeForList(IDPList *list) {
+    return list->size;
 }
 
-void * IDPGetFrontNodeDataForList(const IDPList *list) {
-    return list->_first->_data;
+void *IDPGetFrontNodeDataForList(IDPList *list) {
+    return list->first->data;
 }
 
 void IDPPopulateFrontNodeForListWithData(IDPList *list, void *data) {
     
-    IDPListNode *newNode = (IDPListNode *) malloc(sizeof(IDPListNode));
-    newNode->_data = data;
-    newNode->_next = list->_first;
-    list->_first = newNode;
-    list->_size++;
+    IDPListNode *listNode = (IDPListNode *) malloc(sizeof(*listNode));
+    listNode->data = data;
+    listNode->next = list->first;
+    list->first = listNode;
+    list->size++;
 }
 
-void * IDPRemoveFrontNodeForList(IDPList *list) {
-    if (list->_size == 0) {
+void *IDPRemoveFrontNodeForList(IDPList *list) {
+    if (list->size == 0) {
         return NULL;
     }
     
-    IDPListNode *listNodeToDrop = list->_first;
-    list->_first = list->_first->_next;
-    list->_size--;
-    void *data = listNodeToDrop->_data;
+    IDPListNode *listNodeToDrop = list->first;
+    list->first = list->first->next;
+    list->size--;
+    void *data = listNodeToDrop->data;
     free(listNodeToDrop);
     
     return data;
 }
 
-IDPList * IDPCreateNewList() {
-    IDPList *res = (IDPList *)malloc(sizeof(IDPList));
-    res->_size = 0;
-    res->_first = NULL;
+IDPList *IDPCreateNewList() {
+    IDPList *res = (IDPList *)malloc(sizeof(*res));
+    res->size = 0;
+    res->first = NULL;
     
     return res;
 }

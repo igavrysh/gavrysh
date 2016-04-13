@@ -9,13 +9,19 @@
 #ifndef IDPBasicMathOperations_h
 #define IDPBasicMathOperations_h
 
+extern
 int IDPIncrement(int var);
+
+extern
 int IDPDecrement(int var);
 
+extern
 void IDPPrintCastingOperationResults();
 
+extern
 void IDPPrintResultOfSepararedOperations();
 
+extern
 void IDPPrintPrePosfixIncrementResult();
 
 #endif /* IDPBasicMathOperations_h */

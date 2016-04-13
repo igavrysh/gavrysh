@@ -9,10 +9,13 @@
 #ifndef IDPApplication_h
 #define IDPApplication_h
 
+extern
 void IDPTestFirstAssignment();
 
+extern
 void IDPTestSecondAssignment();
 
+extern
 void IDPRunApplication();
 
 #endif /* IDPApplication_h */

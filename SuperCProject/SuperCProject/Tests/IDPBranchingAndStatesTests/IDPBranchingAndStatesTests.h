@@ -9,6 +9,7 @@
 #ifndef IDPBranchingAndStatesTests_h
 #define IDPBranchingAndStatesTests_h
 
+extern
 void IDPMamaPapaAssignmentTestsPerform();
 
 #endif /* IDPBranchingAndStatesTests_h */

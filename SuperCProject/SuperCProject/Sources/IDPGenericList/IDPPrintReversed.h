@@ -9,8 +9,10 @@
 #ifndef IDPPrintReversed_h
 #define IDPPrintReversed_h
 
-char * IDPCreateReversedStringForString(char *inputString);
+extern
+char *IDPCreateReversedStringForString(char *inputString);
 
-char * IDPCreateReversedStringForStringSimple(char *inputString);
+extern
+char *IDPCreateReversedStringForStringSimple(char *inputString);
 
 #endif /* IDPPrintReversed_h */

@@ -11,8 +11,8 @@
 
 #include "IDPCycles.h"
 
-void IDPPrintNumberNTimes(int value, unsigned nTimes) {
-    for (int i = 0; i < nTimes; i++) {
+void IDPPrintNumberNTimes(int value, unsigned count) {
+    for (int i = 0; i < count; i++) {
         if (i + 1 == 20) {
             break;
         }
@@ -22,49 +22,41 @@ void IDPPrintNumberNTimes(int value, unsigned nTimes) {
     printf("\n");
 }
 
-bool IDPCyclesIsReturnWithValue(int value) {
-    if (value == 50) {
-        return true;
-    }
-    
-    return false;
+bool IDPCyclesShouldReturnWithValue(int value) {
+    return value == 50;
 }
 
-bool IDPCyclesIsContinueWithCurrentValueAndRangeStart(int value, int moreThan) {
-    if ((value - moreThan + 1) % 3 == 0) {
-        return true;
-    }
-    
-    return false;
+bool IDPCyclesShouldContinueWithCurrentValueAndRangeStart(int value, int moreThan) {
+    return (value - moreThan + 1) % 3 == 0;
 }
 
-void IDPPrintNumberNTimesWithinRangeWithForCycle(unsigned int nTimes, int moreThan, int lessThan) {
+void IDPPrintNumberNTimesWithinRangeWithForCycle(unsigned int count, int moreThan, int lessThan) {
     for (int value = moreThan; value <= lessThan; value++) {
-        if (IDPCyclesIsReturnWithValue(value)) {
+        if (IDPCyclesShouldReturnWithValue(value)) {
             return;
         }
         
-        if (IDPCyclesIsContinueWithCurrentValueAndRangeStart(value, moreThan)) {
+        if (IDPCyclesShouldContinueWithCurrentValueAndRangeStart(value, moreThan)) {
             continue;
         }
         
-        IDPPrintNumberNTimes(value, nTimes);
+        IDPPrintNumberNTimes(value, count);
     }
 }
 
-void IDPPrintNumberNTimesWithinRangeWithWhileCycle(unsigned int nTimes, int moreThan, int lessThan) {
+void IDPPrintNumberNTimesWithinRangeWithWhileCycle(unsigned int count, int moreThan, int lessThan) {
     int value = moreThan;
     while (value <= lessThan) {
-        if (IDPCyclesIsReturnWithValue(value)) {
+        if (IDPCyclesShouldReturnWithValue(value)) {
             return;
         }
         
-        if (IDPCyclesIsContinueWithCurrentValueAndRangeStart(value, moreThan)) {
+        if (IDPCyclesShouldContinueWithCurrentValueAndRangeStart(value, moreThan)) {
             value++;
             continue;
         }
         
-        IDPPrintNumberNTimes(value, nTimes);
+        IDPPrintNumberNTimes(value, count);
         
         value++;
     }

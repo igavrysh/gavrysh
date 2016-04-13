@@ -19,20 +19,29 @@ IDPValueOutput(char_ref, "%s");
 
 void IDPPrintBaseTypeVarsTestsPerform() {
     IDPTypeOutput(int, 10);
+    
     IDPTypeOutput(float, 3.141567);
+    
     IDPTypeOutput(char, 'H');
+    
     IDPTypeOutput(char_ref, "Hellow!!!");
 }
 
 IDPGetMaxNumForType(int);
+
 IDPGetMaxNumForType(short);
+
 IDPGetMaxNumForType(long);
+
 IDPGetMaxNumForType(unsigned_int);
 
 void IDPPrintMaxMinForDecimalVarTestsPerform() {
     IDPPrintMaxMinNumForType(int);
+    
     IDPPrintMaxMinNumForType(short);
+    
     IDPPrintMaxMinNumForType(long);
+    
     IDPPrintMaxMinNumForType(unsigned_int);
 }
 

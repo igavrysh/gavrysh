@@ -6,11 +6,13 @@
 //  Copyright © 2016 Ievgen Gavrysh. All rights reserved.
 //
 
-#ifndef IDPStructuresTest_h
-#define IDPStructuresTest_h
+#ifndef IDPStructuresTests_h
+#define IDPStructuresTests_h
 
+extern
 void IDPStartUpStructureSizeofTest();
 
+extern
 void IDPStartUpStructureOffsetofTest();
 
-#endif /* IDPStructuresTest_h */
+#endif /* IDPStructuresTests_h */
