@@ -9,6 +9,8 @@
 #ifndef __SuperCProject__IDPHuman__
 #define __SuperCProject__IDPHuman__
 
+#include <stdbool.h>
+
 #include "IDPName.h"
 #include "IDPPartner.h"
 #include "IDPParents.h"
