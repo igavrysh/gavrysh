@@ -10,9 +10,12 @@
 #define IDPTypesAndRangesTests_h
 
 extern
-void IDPPrintBaseTypeVarsTestsPerform();
+void IDPPrintBaseTypeVarsTestPerform();
 
 extern
-void IDPPrintMaxMinForDecimalVarTestsPerform();
+void IDPPrintMaxMinForDecimalVarTestPerform();
+
+extern
+void IDPCastingOperationsTestPerform();
 
 #endif /* IDPTypesAndRangesTests_h */

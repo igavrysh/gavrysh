@@ -10,6 +10,30 @@
 #define IDPBranchingAndStatesTests_h
 
 extern
-void IDPMamaPapaAssignmentTestsPerform();
+void IDPMamaPapaAssignmentTestPerform();
+
+extern
+void IDPBoolToStringConversionTestPerform();
+
+extern
+void IDPBranchingTypesTestPerform();
+
+extern
+void IDPStateIdentificationTestPerform();
+
+extern
+void IDPDifferentTypesPrintingTestPerform();
+
+extern
+void IDPBasicMathOperationsTestPerform();
+
+extern
+void IDPPrintValuesWithinRangeTestPerform();
+
+extern
+void IDPExpressionExpansionTestPerform();
+
+extern
+void IDPPrePostFixIncrementTestPerform();
 
 #endif /* IDPBranchingAndStatesTests_h */

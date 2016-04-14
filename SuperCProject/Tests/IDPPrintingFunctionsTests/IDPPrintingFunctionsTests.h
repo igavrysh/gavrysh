@@ -12,4 +12,10 @@
 extern
 void IDPPrintingTestsPerform();
 
+extern
+void IDPTestStackBasedStringReversalTestPerform();
+
+extern
+void IDPPrintNullNoneNullTerminatedStringTestPerform();
+
 #endif /* IDPPrintingFunctionsTests_h */

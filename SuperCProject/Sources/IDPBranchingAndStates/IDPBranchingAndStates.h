@@ -21,7 +21,7 @@ extern
 void IDPPrintMamaPapaTernaryBranching(int firstNum, int secondNum);
 
 extern
-void IDPPrintDeputyStateForSalaryWithIncome(float salary, float income);
+void IDPPrintDeputyStateWithSalaryAndIncome(float salary, float income);
 
 typedef enum {
     IDPPrintStateMama       = 1 << 0,

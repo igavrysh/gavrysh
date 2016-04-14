@@ -10,6 +10,8 @@
 
 #include "IDPTypesAndRanges.h"
 #include "IDPTypesAndRangesTests.h"
+#include "IDPBasicMathOperations.h"
+#include "IDPPrintingFunctions.h"
 
 
 IDPValueOutput(int, "%d");
@@ -17,7 +19,7 @@ IDPValueOutput(float, "%f");
 IDPValueOutput(char, "%c");
 IDPValueOutput(char_ref, "%s");
 
-void IDPPrintBaseTypeVarsTestsPerform() {
+void IDPPrintBaseTypeVarsTestPerform() {
     IDPTypeOutput(int, 10);
     
     IDPTypeOutput(float, 3.141567);
@@ -35,7 +37,7 @@ IDPGetMaxNumForType(long);
 
 IDPGetMaxNumForType(unsigned_int);
 
-void IDPPrintMaxMinForDecimalVarTestsPerform() {
+void IDPPrintMaxMinForDecimalVarTestPerform() {
     IDPPrintMaxMinNumForType(int);
     
     IDPPrintMaxMinNumForType(short);
@@ -45,6 +47,10 @@ void IDPPrintMaxMinForDecimalVarTestsPerform() {
     IDPPrintMaxMinNumForType(unsigned_int);
 }
 
+void IDPCastingOperationsTestPerform() {
+    IDPPrintTestMessage("Testing casting operations");
+    IDPPrintCastingOperationResults();
+}
 
 
 
