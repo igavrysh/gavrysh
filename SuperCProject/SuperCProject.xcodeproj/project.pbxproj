@@ -137,10 +137,10 @@
 			isa = PBXGroup;
 			children = (
 				3E0411851CC0092900D74907 /* IDPHuman */,
-				3E0411821CC0092900D74907 /* IDPChildren */,
-				3E0411881CC0092900D74907 /* IDPName */,
-				3E04118B1CC0092900D74907 /* IDPParents */,
 				3E04118E1CC0092900D74907 /* IDPPartner */,
+				3E0411821CC0092900D74907 /* IDPChildren */,
+				3E04118B1CC0092900D74907 /* IDPParents */,
+				3E0411881CC0092900D74907 /* IDPName */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
