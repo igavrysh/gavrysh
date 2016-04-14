@@ -11,11 +11,13 @@
 
 #include <stdio.h>
 
-extern
-void IDPPrintBitsForValueWithSize(void *value, size_t size);
+typedef enum {
+    IDPProcessorTypeBigEndian       = 1 << 0,
+    IDPProcessorTypeLittleEndian    = 0
+} IDPProcessorType;
 
 extern
-void IDPPrintByteForValue(char *byteAddress);
+void IDPPrintBitsWithValueSizeAndType(void *value, size_t size, IDPProcessorType procType);
 
 typedef enum {
     IDPTransposeFlagTranspose = 1 << 0,

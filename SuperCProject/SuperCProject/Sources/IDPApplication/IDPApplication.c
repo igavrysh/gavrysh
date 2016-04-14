@@ -39,6 +39,8 @@ void IDPRunApplication() {
     */
     
     performTest(IDPBitOutputTests);
+    
+    performTest(IDPBitTransposeTests);
 }
 
 void IDPTestStackBasedStringReversal() {

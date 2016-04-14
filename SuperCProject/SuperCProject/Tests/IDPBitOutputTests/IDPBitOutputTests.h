@@ -14,4 +14,7 @@
 extern
 void IDPBitOutputTests();
 
+extern
+void IDPBitTransposeTests();
+
 #endif /* defined(__SuperCProject__IDPBitOutputTests__) */
