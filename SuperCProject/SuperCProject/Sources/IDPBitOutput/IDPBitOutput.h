@@ -25,6 +25,6 @@ typedef enum {
 } IDPTransposeFlag;
 
 extern
-void IDPPrintTransposedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag);
+void IDPReversedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag);
 
 #endif /* defined(__SuperCProject__IDPBitOutput__) */

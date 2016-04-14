@@ -18,7 +18,7 @@ void IDPBitTransposeTests() {
     printf("Big Endian for %d: \n", t);
     IDPPrintBitsWithValueSizeAndType(&t, sizeof(t), IDPProcessorTypeBigEndian);
     
-    IDPTransposedValueWithSizeAndFlag(&t, sizeof(t), IDPTransposeFlagTranspose);
+    IDPReversedValueWithSizeAndFlag(&t, sizeof(t), IDPTransposeFlagTranspose);
     
     printf("Transposed Big Endian for %d: \n", t);
     IDPPrintBitsWithValueSizeAndType(&t, sizeof(t), IDPProcessorTypeBigEndian);
