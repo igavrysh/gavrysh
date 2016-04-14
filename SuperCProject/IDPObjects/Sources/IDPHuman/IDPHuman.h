@@ -26,16 +26,16 @@ typedef struct IDPHuman IDPHuman;
 struct IDPHuman {
     IDPName *_name;
     
-    int _age;
+    int age;
     
     IDPHumanSex _sex;
     
-    bool _isMarried;
-    IDPPartner _partner;
+    bool isMarried;
+    IDPPartner *_partner;
     
     IDPParents *_parents;
     
-    IDPChildren _children;
+    IDPChildren *_children;
 };
 
 #endif /* defined(__SuperCProject__IDPHuman__) */

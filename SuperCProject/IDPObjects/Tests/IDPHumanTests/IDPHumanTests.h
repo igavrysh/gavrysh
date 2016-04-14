@@ -9,6 +9,5 @@
 #ifndef __SuperCProject__IDPHumanTests__
 #define __SuperCProject__IDPHumanTests__
 
-#include <stdio.h>
 
 #endif /* defined(__SuperCProject__IDPHumanTests__) */
