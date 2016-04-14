@@ -11,32 +11,22 @@
 #include <stdlib.h>
 #include <limits.h>
 
-#include "IDPApplication.h"
 #include "IDPPrintingFunctions.h"
-#include "IDPBranchingAndStates.h"
-#include "IDPTypesAndRanges.h"
-#include "IDPPrintReversed.h"
-#include "IDPBasicMathOperations.h"
-#include "IDPCycles.h"
-
 #include "IDPBranchingAndStatesTests.h"
 #include "IDPTypesAndRangesTests.h"
 #include "IDPStructuresTests.h"
 #include "IDPBitOutputTests.h"
 
 void IDPRunApplication() {
+    performTest(IDPMamaPapaAssignmentTestPerform);
     
-    /*
-    performTest(IDPMamaPapaAssignmentTestsPerform);
+    performTest(IDPPrintBaseTypeVarsTestPerform);
     
-    performTest(IDPPrintBaseTypeVarsTestsPerform);
-    
-    performTest(IDPPrintMaxMinForDecimalVarTestsPerform);
+    performTest(IDPPrintMaxMinForDecimalVarTestPerform);
     
     performTest(IDPStartUpStructureSizeofTest);
     
     performTest(IDPStartUpStructureOffsetofTest);
-    */
     
     performTest(IDPBitOutputTests);
     

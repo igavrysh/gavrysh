@@ -24,7 +24,6 @@ void IDPBitTransposeTests() {
     IDPPrintBitsWithValueSizeAndType(&t, sizeof(t), IDPProcessorTypeBigEndian);
 }
 
-
 void IDPBitOutputTests() {
     long valueMax = LONG_MAX;
     printf("Big Endian for %ld: \t", valueMax);
