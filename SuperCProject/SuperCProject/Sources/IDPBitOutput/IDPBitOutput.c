@@ -20,7 +20,7 @@ static
 void IDPPrintByteWithValueAndType(char *byteAddress, IDPProcessorType procType);
 
 static
-void IDPTransposedByteWithValue(char *byteAddress);
+void IDPReversedByteWithValue(char *byteAddress);
 
 #pragma mark -
 #pragma mark Public Impl
@@ -54,7 +54,7 @@ void IDPPrintBitsWithValueSizeAndType(void *value, size_t size, IDPProcessorType
     printf("}\n");
 }
 
-void IDPTransposedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag) {
+void IDPReversedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag) {
     if (changeFlag != IDPTransposeFlagTranspose) {
         return;
     }
@@ -66,8 +66,8 @@ void IDPTransposedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFla
         valueByte[i] = valueByte[size - 1 - i];
         valueByte[size - 1 - i] = tmp;
         
-        IDPTransposedByteWithValue(&valueByte[i]);
-        IDPTransposedByteWithValue(&valueByte[size - 1 - i]);
+        IDPReversedByteWithValue(&valueByte[i]);
+        IDPReversedByteWithValue(&valueByte[size - 1 - i]);
     }
 }
 
@@ -94,7 +94,7 @@ void IDPPrintByteWithValueAndType(char *byteAddress, IDPProcessorType procType) 
     }
 }
 
-void IDPTransposedByteWithValue(char *byteAddress) {
+void IDPReversedByteWithValue(char *byteAddress) {
     uint8_t var = *byteAddress;
     uint8_t newVar = 0;
     
