@@ -12,19 +12,28 @@
 #include <stdio.h>
 
 typedef enum {
-    IDPProcessorTypeBigEndian       = 1 << 0,
-    IDPProcessorTypeLittleEndian    = 0
-} IDPProcessorType;
+    IDPEndiannessBigEndian,
+    IDPEndiannessLittleEndian
+} IDPEndianness;
 
 extern
-void IDPPrintBitsWithValueSizeAndType(void *value, size_t size, IDPProcessorType procType);
+void IDPPrintBits(void *value, size_t size);
+
+extern
+void IDPPrintBitsWithFlag(void *value, size_t size, IDPEndianness flag);
+
+extern
+IDPEndianness IDPGetEndianess();
+
+extern
+void IDPPrintEndianness();
 
 typedef enum {
-    IDPTransposeFlagTranspose = 1 << 0,
-    IDPTransposeFlagDoNothing = 0 
-} IDPTransposeFlag;
+    IDPReverseFlagReverse,
+    IDPReverseFlagDoNothing
+} IDPReverseFlag;
 
 extern
-void IDPReversedValueWithSizeAndFlag(void *value, size_t size, IDPTransposeFlag changeFlag);
+void IDPReverseBitsWithFlag(void *value, size_t size, IDPReverseFlag changeFlag);
 
 #endif /* defined(__SuperCProject__IDPBitOutput__) */

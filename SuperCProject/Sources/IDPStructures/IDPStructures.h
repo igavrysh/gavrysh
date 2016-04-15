@@ -55,6 +55,7 @@ struct IDPStartUpUnionized {
     char *startUpName;
     //
     float revenueEarned;
+    //
     int suppliersNum;
     //
     double profitEarned;
@@ -63,14 +64,14 @@ struct IDPStartUpUnionized {
     //
     union {
         struct {
-            bool isAngelInvestments:1;
-            bool isVentureFondInverstments:1;
-            bool isGovernmetnInverstments:1;
-            bool isMultipleFounders:1;
-            bool isFounderMajorStakeholder:1;
-            bool sCreditBorrowed:1;
+            bool isAngelInvestments         : 1;
+            bool isVentureFondInverstments  : 1;
+            bool isGovernmetnInverstments   : 1;
+            bool isMultipleFounders         : 1;
+            bool isFounderMajorStakeholder  : 1;
+            bool sCreditBorrowed            : 1;
         } flags;
-        char bitFields;
+        char bitfield;
     };
     short employeesNum;
 };

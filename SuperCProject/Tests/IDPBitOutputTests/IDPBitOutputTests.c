@@ -12,40 +12,49 @@
 #include "IDPBitOutput.h"
 #include "IDPBitOutputTests.h"
 
-void IDPBitTransposeTests() {
+void IDPBitReverseTest() {
     int t = 3453245;
     
-    printf("Big Endian for %d: \n", t);
-    IDPPrintBitsWithValueSizeAndType(&t, sizeof(t), IDPProcessorTypeBigEndian);
+    IDPPrintEndianness();
+    printf(" for %d: \n", t);
+    IDPPrintBits(&t, sizeof(t));
     
-    IDPReversedValueWithSizeAndFlag(&t, sizeof(t), IDPTransposeFlagTranspose);
+    IDPReverseBitsWithFlag(&t, sizeof(t), IDPReverseFlagReverse);
     
-    printf("Transposed Big Endian for %d: \n", t);
-    IDPPrintBitsWithValueSizeAndType(&t, sizeof(t), IDPProcessorTypeBigEndian);
+    printf("Revesed to ");
+    IDPPrintEndianness();
+    printf(": \n");
+    IDPPrintBits(&t, sizeof(t));
 }
 
-void IDPBitOutputTests() {
-    long valueMax = LONG_MAX;
-    printf("Big Endian for %ld: \t", valueMax);
-    IDPPrintBitsWithValueSizeAndType(&valueMax, sizeof(valueMax), IDPProcessorTypeBigEndian);
-    printf("Little Endian for %ld:\t", valueMax);
-    IDPPrintBitsWithValueSizeAndType(&valueMax, sizeof(valueMax), IDPProcessorTypeLittleEndian);
+void IDPBitOutputTest() {
+    uint16_t valueMax = UINT16_MAX;
+    printf("Big Endian for %hu: \n", valueMax);
+    IDPPrintBits(&valueMax, sizeof(valueMax));
+    printf("Little Endian:\n");
+    IDPPrintBitsWithFlag(&valueMax, sizeof(valueMax), IDPEndiannessLittleEndian);
+    
+    puts("---------------------");
+    
+    uint32_t valueOne = 1UL;
+    printf("Big Endian for %u:\n", valueOne);
+    IDPPrintBits(&valueOne, sizeof(valueOne));
+    printf("Little Endian:\n");
+    IDPPrintBitsWithFlag(&valueOne, sizeof(valueOne), IDPEndiannessLittleEndian);
+    
+    puts("---------------------");
     
     long valueMin = LONG_MAX + 1;
-    printf("Big Endian for %ld:\t", valueMin);
-    IDPPrintBitsWithValueSizeAndType(&valueMin, sizeof(valueMin), IDPProcessorTypeBigEndian);
-    printf("Little Endian for %ld:\t", valueMin);
-    IDPPrintBitsWithValueSizeAndType(&valueMin, sizeof(valueMin), IDPProcessorTypeLittleEndian);
+    printf("Big Endian for %ld:\n", valueMin);
+    IDPPrintBits(&valueMin, sizeof(valueMin));
+    printf("Little Endian:\n");
+    IDPPrintBitsWithFlag(&valueMin, sizeof(valueMin), IDPEndiannessLittleEndian);
     
-    long valueOne = 1;
-    printf("Big Endian for %ld:\t", valueOne);
-    IDPPrintBitsWithValueSizeAndType(&valueOne, sizeof(valueOne), IDPProcessorTypeBigEndian);
-    printf("Little Endian for %ld:\t", valueOne);
-    IDPPrintBitsWithValueSizeAndType(&valueOne, sizeof(valueOne), IDPProcessorTypeLittleEndian);
+    puts("---------------------");
     
     char charVar = 'A';
-    printf("Big Endian for %c:\t", charVar);
-    IDPPrintBitsWithValueSizeAndType(&charVar, sizeof(charVar), IDPProcessorTypeBigEndian);
-    printf("Little Endian for %c:\t", charVar);
-    IDPPrintBitsWithValueSizeAndType(&charVar, sizeof(charVar), IDPProcessorTypeLittleEndian);
+    printf("Big Endian for %c:\n", charVar);
+    IDPPrintBits(&charVar, sizeof(charVar));
+    printf("Little Endian:\n");
+    IDPPrintBitsWithFlag(&charVar, sizeof(charVar), IDPEndiannessLittleEndian);
 }

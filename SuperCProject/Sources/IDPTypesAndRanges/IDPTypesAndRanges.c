@@ -25,7 +25,9 @@ void IDPPrintMostCommonTypes() {
     unsigned long uLongVar = 1231231231lu;
     unsigned long long uDLVar = 3223423llu;
     
-    printf("char var = %c, short var = %i, int var = %d\n, long var = %ld, long long var = %lld,\n float var = %f, double var = %f, long double var = %Lf, unsigned char = %uc,\n unsigned short = %ud, unsigned int = %ud, unsigned long var = %lu, unsigned long long var = %llu\n",
+    printf("char var = %c, short var = %i, int var = %d, long var = %ld, long long var = %lld,\n"
+           "float var = %f, double var = %f, long double var = %Lf, unsigned char = %uc,\n"
+           "unsigned short = %ud, unsigned int = %ud, unsigned long var = %lu, unsigned long long var = %llu\n",
            charVar,
            shortVar,
            iVar,

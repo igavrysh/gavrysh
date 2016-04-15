@@ -74,7 +74,6 @@ void IDPPrintDeputyStateWithSalaryAndIncome(float salary, float income) {
 }
 
 IDPPrintState IDPPrintStatePrintWithNumber(int num) {
-    
     IDPPrintState state = IDPPrintStateNone;
     
     if (0 == num % 3) {

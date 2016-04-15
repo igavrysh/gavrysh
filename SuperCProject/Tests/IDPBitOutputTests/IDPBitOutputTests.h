@@ -9,12 +9,10 @@
 #ifndef __SuperCProject__IDPBitOutputTests__
 #define __SuperCProject__IDPBitOutputTests__
 
-#include <stdio.h>
+extern
+void IDPBitOutputTest();
 
 extern
-void IDPBitOutputTests();
-
-extern
-void IDPBitTransposeTests();
+void IDPBitReverseTest();
 
 #endif /* defined(__SuperCProject__IDPBitOutputTests__) */

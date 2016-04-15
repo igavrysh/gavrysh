@@ -18,6 +18,7 @@
 #include "IDPBitOutputTests.h"
 
 void IDPRunApplication() {
+    /*
     performTest(IDPMamaPapaAssignmentTestPerform);
     
     performTest(IDPPrintBaseTypeVarsTestPerform);
@@ -27,9 +28,10 @@ void IDPRunApplication() {
     performTest(IDPStartUpStructureSizeofTest);
     
     performTest(IDPStartUpStructureOffsetofTest);
+    */
+     
+    performTest(IDPBitOutputTest);
     
-    performTest(IDPBitOutputTests);
-    
-    performTest(IDPBitTransposeTests);
+    performTest(IDPBitReverseTest);
 }
 
