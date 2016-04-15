@@ -19,8 +19,8 @@
 #define IDP_HUMAN_MAX_CHILDREN_COUNT 20
 
 typedef enum {
-    IDPHumanSexMale     = 1 << 0,
-    IDPHumanSexFemale   = 0
+    IDPHumanSexMale,
+    IDPHumanSexFemale
 } IDPHumanSex;
 
 typedef struct IDPHuman IDPHuman;
@@ -33,11 +33,11 @@ struct IDPHuman {
     IDPHumanSex _sex;
     
     bool isMarried;
-    IDPPartner *_partner;
+    IDPHuman *_partner;
     
-    IDPParents *_parents;
+    IDPHuman *_parents;
     
-    IDPChildren *_children;
+    IDPHuman *_children;
 };
 
 #endif /* defined(__SuperCProject__IDPHuman__) */
