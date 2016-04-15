@@ -91,6 +91,8 @@
 		85465E151CC0391E00E275F1 /* IDPTypesAndRangesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPTypesAndRangesTests.h; sourceTree = "<group>"; };
 		8550BC551CBB23B400813085 /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		8550BC581CBB23B400813085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		85BE2F2C1CC1599500E18E17 /* IDPObject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPObject.c; sourceTree = "<group>"; };
+		85BE2F2D1CC1599500E18E17 /* IDPObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPObject.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +182,7 @@
 		85465DE71CC0391E00E275F1 /* IDPObjects */ = {
 			isa = PBXGroup;
 			children = (
+				85BE2F2B1CC1599500E18E17 /* IDPObject */,
 				85465DE81CC0391E00E275F1 /* IDPChildren */,
 				85465DEB1CC0391E00E275F1 /* IDPHuman */,
 				85465DEE1CC0391E00E275F1 /* IDPName */,
@@ -362,6 +365,15 @@
 				8550BC581CBB23B400813085 /* main.c */,
 			);
 			path = SuperCProject;
+			sourceTree = "<group>";
+		};
+		85BE2F2B1CC1599500E18E17 /* IDPObject */ = {
+			isa = PBXGroup;
+			children = (
+				85BE2F2C1CC1599500E18E17 /* IDPObject.c */,
+				85BE2F2D1CC1599500E18E17 /* IDPObject.h */,
+			);
+			path = IDPObject;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
