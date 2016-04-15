@@ -24,10 +24,10 @@ extern
 void IDPPrintDeputyStateWithSalaryAndIncome(float salary, float income);
 
 typedef enum {
+    IDPPrintStateNone       = 0,
     IDPPrintStateMama       = 1 << 0,
     IDPPrintStatePapa       = 1 << 1,
-    IDPPrintStateMamaPapa   = 1 << 2,
-    IDPPrintStateNone       = 0
+    IDPPrintStateMamaPapa   = IDPPrintStateMama | IDPPrintStatePapa
 } IDPPrintState;
 
 extern
