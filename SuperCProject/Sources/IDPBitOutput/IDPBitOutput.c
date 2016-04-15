@@ -23,7 +23,7 @@ void IDPPrintByte(uint8_t byte);
 #pragma mark Public Impl
 
 void IDPPrintBits(void *value, size_t size) {
-    IDPPrintBitsWithFlag(value, size, IDPGetEndianess());
+    IDPPrintBitsWithFlag(value, size, IDPGetEndianness());
 }
 
 void IDPPrintBitsWithFlag(void *value, size_t size, IDPEndianness procType) {
@@ -31,8 +31,9 @@ void IDPPrintBitsWithFlag(void *value, size_t size, IDPEndianness procType) {
     
     printf("{");
 
-    for (size_t i = 0; i < size; i++) {
-        procType == IDPEndiannessBigEndian ? IDPPrintByte(valueAddress[size - i - 1]) : IDPPrintByte(valueAddress[i]);
+    for (size_t i = 0, j = 0; i < size; i++, j = size - i - 1) {
+        size_t pos = procType == IDPEndiannessBigEndian ? j : i;
+        IDPPrintByte(valueAddress[pos]);
         
         if (i != size - 1) {
             printf(",");
@@ -42,8 +43,8 @@ void IDPPrintBitsWithFlag(void *value, size_t size, IDPEndianness procType) {
     printf("}\n");
 }
 
-void IDPReverseBitsWithFlag(void *value, size_t size, IDPReverseFlag changeFlag) {
-    if (changeFlag != IDPReverseFlagReverse) {
+void IDPReverseBitsWithFlag(void *value, size_t size, IDPReverseFlag flag) {
+    if (flag != IDPReverseFlagReverse) {
         return;
     }
     
@@ -57,9 +58,9 @@ void IDPReverseBitsWithFlag(void *value, size_t size, IDPReverseFlag changeFlag)
 }
 
 void IDPPrintEndianness() {
-    if (IDPGetEndianess() == IDPEndiannessBigEndian) {
+    if (IDPGetEndianness() == IDPEndiannessBigEndian) {
         printf("Big Endian ");
-    } else if (IDPGetEndianess() == IDPEndiannessLittleEndian) {
+    } else if (IDPGetEndianness() == IDPEndiannessLittleEndian) {
         printf("Little Endian ");
     }
 }
@@ -67,15 +68,15 @@ void IDPPrintEndianness() {
 #pragma mark - 
 #pragma mark Private Impl
 
-IDPEndianness IDPGetEndianess() {
-    uint16_t test = 1UL;
-    return ((uint8_t *)&test)[0] == 1 ? IDPEndiannessBigEndian : IDPEndiannessLittleEndian;
+IDPEndianness IDPGetEndianness() {
+    uint16_t indicator = 1UL;
+    return ((uint8_t *)&indicator)[0] == 1 ? IDPEndiannessBigEndian : IDPEndiannessLittleEndian;
 }
 
 void IDPPrintByte(uint8_t byte) {
-    for (uint8_t i = kIDPBitCount; i > 0; i--) {
-        uint8_t shiftedVar = byte >> (i - 1);
+    for (uint8_t i = 0; i < kIDPBitCount; i++) {
+        uint8_t shiftedVar = byte >> (kIDPBitCount - i - 1);
         
-        printf("%d", shiftedVar & 1);
+        printf("%d", shiftedVar & 1U);
     }
 }

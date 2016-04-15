@@ -20,10 +20,10 @@ extern
 void IDPPrintBits(void *value, size_t size);
 
 extern
-void IDPPrintBitsWithFlag(void *value, size_t size, IDPEndianness flag);
+void IDPPrintBitsWithFlag(void *value, size_t size, IDPEndianness endianness);
 
 extern
-IDPEndianness IDPGetEndianess();
+IDPEndianness IDPGetEndianness();
 
 extern
 void IDPPrintEndianness();
@@ -34,6 +34,6 @@ typedef enum {
 } IDPReverseFlag;
 
 extern
-void IDPReverseBitsWithFlag(void *value, size_t size, IDPReverseFlag changeFlag);
+void IDPReverseBitsWithFlag(void *value, size_t size, IDPReverseFlag flag);
 
 #endif /* defined(__SuperCProject__IDPBitOutput__) */
