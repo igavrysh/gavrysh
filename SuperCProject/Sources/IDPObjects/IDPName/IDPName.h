@@ -14,11 +14,12 @@
 typedef struct IDPName IDPName;
 
 struct IDPName {
-    IDPObject *_super;
+    IDPObject _super;
     
-    
-    
+    char *name;
+    char *nameSize;
 };
+
 
 
 #endif /* defined(__SuperCProject__IDPName__) */
