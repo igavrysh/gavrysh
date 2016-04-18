@@ -8,6 +8,9 @@
 
 #include "IDPHuman.h"
 
+#pragma mark -
+#pragma mark Private Declarations
+
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -18,12 +21,10 @@ void *IDPHumanCreate() {
     return result;
 }
 
-
 void __IDPHumanDeallocate(void *object) {
     __IDPObjectDeallocate(object);
 }
 
-extern
 void IDPHumanSetName(void *object, IDPName *name) {
     if (NULL == object) {
         return;
@@ -32,20 +33,54 @@ void IDPHumanSetName(void *object, IDPName *name) {
     IDPNameDeepCopy(object, name);
 }
 
-extern
-void IDPHumanSetAge(void *object, int age);
+void IDPHumanSetAge(void *object, int age) {
+    if (NULL == object) {
+        return;
+    }
+    
+    ((IDPHuman *)object)->age = age;
+}
 
-extern
-void IDPHumanSetGender(void *object, IDPHumanGenger gender);
+void IDPHumanSetGender(void *object, IDPHumanGenger gender) {
+    if (NULL == object) {
+        return;
+    }
+    
+    ((IDPHuman *)object)->_gender = gender;
+}
 
-extern
-IDPName *IDPHumanGetName(void *object);
+IDPName *IDPHumanGetName(void *object) {
+    if (NULL == object) {
+        return NULL;
+    }
+    
+    return ((IDPHuman *)object)->_name;
+}
 
-extern
-int IDPHumanGetAge(void *object);
+int IDPHumanGetAge(void *object) {
+    if (NULL == object) {
+        return 0;
+    }
+    
+    return ((IDPHuman *)object)->age;
+}
 
-extern
-IDPHumanGenger IDPHumanGetGender(void *object);
+IDPHumanGenger IDPHumanGetGender(void *object) {
+    if (NULL == object) {
+        return 0;
+    }
+    
+    return ((IDPHuman *)object)->_gender;
+}
 
-extern
-bool IDPHumanIsMarried(void *object);
+bool IDPHumanIsMarried(void *object) {
+    if (NULL == object) {
+        return false;
+    }
+    
+    return ((IDPHuman *)object)->isMarried;
+}
+
+#pragma mark -
+#pragma mark Private Implementations
+
