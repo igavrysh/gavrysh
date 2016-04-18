@@ -11,33 +11,58 @@
 
 #include <stdbool.h>
 
+#include "IDPObject.h"
 #include "IDPName.h"
-#include "IDPPartner.h"
-#include "IDPParents.h"
-#include "IDPChildren.h"
-
-#define IDP_HUMAN_MAX_CHILDREN_COUNT 20
 
 typedef enum {
-    IDPHumanSexMale,
-    IDPHumanSexFemale
-} IDPHumanSex;
+    IDPHumanGengerMale,
+    IDPHumanGengerFemale
+} IDPHumanGenger;
 
 typedef struct IDPHuman IDPHuman;
 
 struct IDPHuman {
+    IDPObject _super;
+    
     IDPName *_name;
     
     int age;
     
-    IDPHumanSex _sex;
+    IDPHumanGenger _gender;
     
     bool isMarried;
     IDPHuman *_partner;
     
     IDPHuman *_parents;
     
-    IDPHuman *_children;
+    IDPHuman *_children[20];
 };
+
+extern
+void *IDPHumanCreate();
+
+extern
+void __IDPHumanDeallocate(void *object);
+
+extern
+void IDPHumanSetName(void *object, IDPName *name);
+
+extern
+void IDPHumanSetAge(void *object, int age);
+
+extern
+void IDPHumanSetGender(void *object, IDPHumanGenger gender);
+
+extern
+IDPName *IDPHumanGetName(void *object);
+
+extern
+int IDPHumanGetAge(void *object);
+
+extern
+IDPHumanGenger IDPHumanGetGender(void *object);
+
+extern
+bool IDPHumanIsMarried(void *object);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */

@@ -30,6 +30,8 @@
 		85465E2A1CC0395900E275F1 /* IDPStructuresTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 85465E111CC0391E00E275F1 /* IDPStructuresTests.c */; };
 		85465E2B1CC0395900E275F1 /* IDPTypesAndRangesTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 85465E141CC0391E00E275F1 /* IDPTypesAndRangesTests.c */; };
 		8550BC591CBB23B400813085 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC581CBB23B400813085 /* main.c */; };
+		85BE2F2E1CC15A1400E18E17 /* IDPObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 85BE2F2C1CC1599500E18E17 /* IDPObject.c */; };
+		85EF63861CC27AC000B83957 /* IDPObjectTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 85EF63841CC27AC000B83957 /* IDPObjectTests.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +93,10 @@
 		85465E151CC0391E00E275F1 /* IDPTypesAndRangesTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPTypesAndRangesTests.h; sourceTree = "<group>"; };
 		8550BC551CBB23B400813085 /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		8550BC581CBB23B400813085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		85BE2F2C1CC1599500E18E17 /* IDPObject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPObject.c; sourceTree = "<group>"; };
+		85BE2F2D1CC1599500E18E17 /* IDPObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPObject.h; sourceTree = "<group>"; };
+		85EF63841CC27AC000B83957 /* IDPObjectTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPObjectTests.c; sourceTree = "<group>"; };
+		85EF63851CC27AC000B83957 /* IDPObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPObjectTests.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,7 +113,6 @@
 		85465DD21CC0391E00E275F1 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				85465DD31CC0391E00E275F1 /* IDPApplication */,
 				85465DE71CC0391E00E275F1 /* IDPObjects */,
 				85465DD61CC0391E00E275F1 /* IDPBasicMathOperations */,
 				85465DD91CC0391E00E275F1 /* IDPBitOutput */,
@@ -117,6 +122,7 @@
 				85465DF71CC0391E00E275F1 /* IDPPrintingFunctions */,
 				85465DFA1CC0391E00E275F1 /* IDPStructures */,
 				85465DFD1CC0391E00E275F1 /* IDPTypesAndRanges */,
+				85465DD31CC0391E00E275F1 /* IDPApplication */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -180,9 +186,10 @@
 		85465DE71CC0391E00E275F1 /* IDPObjects */ = {
 			isa = PBXGroup;
 			children = (
+				85BE2F2B1CC1599500E18E17 /* IDPObject */,
+				85465DEE1CC0391E00E275F1 /* IDPName */,
 				85465DE81CC0391E00E275F1 /* IDPChildren */,
 				85465DEB1CC0391E00E275F1 /* IDPHuman */,
-				85465DEE1CC0391E00E275F1 /* IDPName */,
 				85465DF11CC0391E00E275F1 /* IDPParents */,
 				85465DF41CC0391E00E275F1 /* IDPPartner */,
 			);
@@ -264,6 +271,7 @@
 		85465E001CC0391E00E275F1 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
+				85EF63831CC27A8F00B83957 /* IDPObjectTests */,
 				85465E011CC0391E00E275F1 /* IDPBitOutputTests */,
 				85465E041CC0391E00E275F1 /* IDPBranchingAndStatesTests */,
 				85465E071CC0391E00E275F1 /* IDPHumanTests */,
@@ -364,6 +372,24 @@
 			path = SuperCProject;
 			sourceTree = "<group>";
 		};
+		85BE2F2B1CC1599500E18E17 /* IDPObject */ = {
+			isa = PBXGroup;
+			children = (
+				85BE2F2C1CC1599500E18E17 /* IDPObject.c */,
+				85BE2F2D1CC1599500E18E17 /* IDPObject.h */,
+			);
+			path = IDPObject;
+			sourceTree = "<group>";
+		};
+		85EF63831CC27A8F00B83957 /* IDPObjectTests */ = {
+			isa = PBXGroup;
+			children = (
+				85EF63841CC27AC000B83957 /* IDPObjectTests.c */,
+				85EF63851CC27AC000B83957 /* IDPObjectTests.h */,
+			);
+			path = IDPObjectTests;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -420,6 +446,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				85BE2F2E1CC15A1400E18E17 /* IDPObject.c in Sources */,
 				85465E161CC0395900E275F1 /* IDPApplication.c in Sources */,
 				85465E171CC0395900E275F1 /* IDPBasicMathOperations.c in Sources */,
 				85465E181CC0395900E275F1 /* IDPBitOutput.c in Sources */,
@@ -441,6 +468,7 @@
 				85465E281CC0395900E275F1 /* IDPNameTests.c in Sources */,
 				85465E291CC0395900E275F1 /* IDPPrintingFunctionsTests.c in Sources */,
 				85465E2A1CC0395900E275F1 /* IDPStructuresTests.c in Sources */,
+				85EF63861CC27AC000B83957 /* IDPObjectTests.c in Sources */,
 				85465E2B1CC0395900E275F1 /* IDPTypesAndRangesTests.c in Sources */,
 				8550BC591CBB23B400813085 /* main.c in Sources */,
 			);
