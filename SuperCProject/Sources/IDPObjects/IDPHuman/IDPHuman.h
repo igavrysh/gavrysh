@@ -12,29 +12,26 @@
 #include <stdbool.h>
 
 #include "IDPObject.h"
-#include "IDPName.h"
+#include "IDPString.h"
 
 typedef enum {
     IDPHumanGenderMale,
     IDPHumanGenderFemale
-} IDPHumanGendegr;
+} IDPHumanGender;
 
 typedef struct IDPHuman IDPHuman;
 
 struct IDPHuman {
     IDPObject _super;
     
-    IDPName *_name;
+    IDPString *_name;
     
-    int age;
+    int _age;
     
-    IDPHumanGendegr _gender;
-    
-    bool isMarried;
+    IDPHumanGender _gender;
+
     IDPHuman *_partner;
-    
     IDPHuman *_parents;
-    
     IDPHuman *_children[20];
 };
 
@@ -45,22 +42,22 @@ extern
 void __IDPHumanDeallocate(void *object);
 
 extern
-void IDPHumanSetName(void *object, IDPName *name);
+void IDPHumanSetName(void *object, IDPString *name);
 
 extern
 void IDPHumanSetAge(void *object, int age);
 
 extern
-void IDPHumanSetGender(void *object, IDPHumanGendegr gender);
+void IDPHumanSetGender(void *object, IDPHumanGender gender);
 
 extern
-IDPName *IDPHumanGetName(void *object);
+IDPString *IDPHumanGetName(void *object);
 
 extern
-int IDPHumanGetAge(void *object);
+uint8_t IDPHumanGetAge(void *object);
 
 extern
-IDPHumanGendegr IDPHumanGetGender(void *object);
+IDPHumanGender IDPHumanGetGender(void *object);
 
 extern
 bool IDPHumanIsMarried(void *object);

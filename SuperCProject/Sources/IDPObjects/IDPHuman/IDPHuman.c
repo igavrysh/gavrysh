@@ -25,12 +25,8 @@ void __IDPHumanDeallocate(void *object) {
     __IDPObjectDeallocate(object);
 }
 
-void IDPHumanSetName(void *object, IDPName *name) {
-    if (NULL == object) {
-        return;
-    }
+void IDPHumanSet(void *object, void *name) {
     
-    IDPNameDeepCopy(object, name);
 }
 
 void IDPHumanSetAge(void *object, int age) {
@@ -38,10 +34,10 @@ void IDPHumanSetAge(void *object, int age) {
         return;
     }
     
-    ((IDPHuman *)object)->age = age;
+    ((IDPHuman *)object)->_age = age;
 }
 
-void IDPHumanSetGender(void *object, IDPHumanGendegr gender) {
+void IDPHumanSetGender(void *object, IDPHumanGender gender) {
     if (NULL == object) {
         return;
     }
@@ -49,7 +45,7 @@ void IDPHumanSetGender(void *object, IDPHumanGendegr gender) {
     ((IDPHuman *)object)->_gender = gender;
 }
 
-IDPName *IDPHumanGetName(void *object) {
+IDPString *IDPHumanGetName(void *object) {
     if (NULL == object) {
         return NULL;
     }
@@ -57,44 +53,35 @@ IDPName *IDPHumanGetName(void *object) {
     return ((IDPHuman *)object)->_name;
 }
 
-int IDPHumanGetAge(void *object) {
+uint8_t IDPHumanGetAge(void *object) {
     if (NULL == object) {
         return 0;
     }
     
-    return ((IDPHuman *)object)->age;
+    return ((IDPHuman *)object)->_age;
 }
 
-IDPHumanGendegr IDPHumanGetGender(void *object) {
-    if (NULL == object) {
-        return 0;
-    }
-    
+IDPHumanGender IDPHumanGetGender(void *object) {
     return ((IDPHuman *)object)->_gender;
 }
 
 bool IDPHumanIsMarried(void *object) {
-    if (NULL == object) {
-        return false;
-    }
-    
-    return ((IDPHuman *)object)->isMarried;
+    return object ?
+        (((IDPHuman *)object)->_partner ? true : false) : false;
 }
 
 void IDPHumanMarryMan(void *object, void *man) {
-   // if (NULL == object || NULL == man || IDPHumanGenderFemale == ((IDPHuman)man)->gender) {
-    //    return;
-    //}
+    if (NULL == object || NULL == man || IDPHumanGenderFemale == ((IDPHuman *)man)->_gender) {
+        return;
+    }
     
-    if (((IDPHuman *)object)->isMarried) {
+    if (IDPHumanIsMarried(object)) {
         
     }
     
-    if (((IDPHuman *)man)->isMarried) {
+    if (IDPHumanIsMarried(man)) {
         
     }
-    
-    ((IDPHuman*)object)->isMarried = true;
 }
 
 #pragma mark -
