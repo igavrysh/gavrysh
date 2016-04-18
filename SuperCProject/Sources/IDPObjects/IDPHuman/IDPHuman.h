@@ -15,9 +15,9 @@
 #include "IDPName.h"
 
 typedef enum {
-    IDPHumanGengerMale,
-    IDPHumanGengerFemale
-} IDPHumanGenger;
+    IDPHumanGenderMale,
+    IDPHumanGenderFemale
+} IDPHumanGendegr;
 
 typedef struct IDPHuman IDPHuman;
 
@@ -28,7 +28,7 @@ struct IDPHuman {
     
     int age;
     
-    IDPHumanGenger _gender;
+    IDPHumanGendegr _gender;
     
     bool isMarried;
     IDPHuman *_partner;
@@ -51,7 +51,7 @@ extern
 void IDPHumanSetAge(void *object, int age);
 
 extern
-void IDPHumanSetGender(void *object, IDPHumanGenger gender);
+void IDPHumanSetGender(void *object, IDPHumanGendegr gender);
 
 extern
 IDPName *IDPHumanGetName(void *object);
@@ -60,7 +60,7 @@ extern
 int IDPHumanGetAge(void *object);
 
 extern
-IDPHumanGenger IDPHumanGetGender(void *object);
+IDPHumanGendegr IDPHumanGetGender(void *object);
 
 extern
 bool IDPHumanIsMarried(void *object);

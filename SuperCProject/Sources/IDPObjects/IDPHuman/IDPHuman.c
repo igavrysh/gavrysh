@@ -41,7 +41,7 @@ void IDPHumanSetAge(void *object, int age) {
     ((IDPHuman *)object)->age = age;
 }
 
-void IDPHumanSetGender(void *object, IDPHumanGenger gender) {
+void IDPHumanSetGender(void *object, IDPHumanGendegr gender) {
     if (NULL == object) {
         return;
     }
@@ -65,7 +65,7 @@ int IDPHumanGetAge(void *object) {
     return ((IDPHuman *)object)->age;
 }
 
-IDPHumanGenger IDPHumanGetGender(void *object) {
+IDPHumanGendegr IDPHumanGetGender(void *object) {
     if (NULL == object) {
         return 0;
     }
@@ -79,6 +79,22 @@ bool IDPHumanIsMarried(void *object) {
     }
     
     return ((IDPHuman *)object)->isMarried;
+}
+
+void IDPHumanMarryMan(void *object, void *man) {
+   // if (NULL == object || NULL == man || IDPHumanGenderFemale == ((IDPHuman)man)->gender) {
+    //    return;
+    //}
+    
+    if (((IDPHuman *)object)->isMarried) {
+        
+    }
+    
+    if (((IDPHuman *)man)->isMarried) {
+        
+    }
+    
+    ((IDPHuman*)object)->isMarried = true;
 }
 
 #pragma mark -
