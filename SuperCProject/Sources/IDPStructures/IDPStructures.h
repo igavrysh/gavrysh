@@ -69,7 +69,7 @@ struct IDPStartUpUnionized {
             bool isGovernmetnInverstments   : 1;
             bool isMultipleFounders         : 1;
             bool isFounderMajorStakeholder  : 1;
-            bool sCreditBorrowed            : 1;
+            bool isCreditBorrowed            : 1;
         } flags;
         char bitfield;
     };

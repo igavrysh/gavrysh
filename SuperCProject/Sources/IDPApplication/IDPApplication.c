@@ -19,19 +19,24 @@
 
 void IDPRunApplication() {
     /*
-    performTest(IDPMamaPapaAssignmentTestPerform);
+    IDPPerformTest(IDPMamaPapaAssignmentTestPerform);
     
-    performTest(IDPPrintBaseTypeVarsTestPerform);
+    IDPPerformTest(IDPPrintBaseTypeVarsTestPerform);
     
-    performTest(IDPPrintMaxMinForDecimalVarTestPerform);
+    IDPPerformTest(IDPPrintMaxMinForDecimalVarTestPerform);
     
-    performTest(IDPStartUpStructureSizeofTest);
+    IDPPerformTest(IDPStartUpStructureSizeofTest);
     
-    performTest(IDPStartUpStructureOffsetofTest);
+    IDPPerformTest(IDPStartUpStructureOffsetofTest);
     */
-     
-    performTest(IDPBitOutputTest);
+    /*
+    IDPPerformTest(IDPStartUpStructureSizeofTest);
     
-    performTest(IDPBitReverseTest);
+    IDPPerformTest(IDPStartUpStructureOffsetofTest);
+    */ 
+     
+    IDPPerformTest(IDPBitOutputTest);
+    
+    IDPPerformTest(IDPBitReverseTest);
 }
 

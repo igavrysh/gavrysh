@@ -11,7 +11,7 @@
 
 void IDPPrintHelloWorld();
 
-#define performTest(testName) \
+#define IDPPerformTest(testName) \
     printf("--- " #testName " started...\n"); \
     testName(); \
     printf("--- ..." #testName " finished\n");
