@@ -20,6 +20,19 @@ struct IDPName {
     char *nameSize;
 };
 
+extern
+void *IDPNameCreateWithString(char *name);
 
+extern
+void __IDPNameDeallocate(void *object);
+
+extern
+void IDPNameSetName(void *object, char *name);
+
+extern
+void IDPNameDeepCopy(void *object, IDPName *name);
+
+extern
+char *IDPNameGetName(void *object);
 
 #endif /* defined(__SuperCProject__IDPName__) */
