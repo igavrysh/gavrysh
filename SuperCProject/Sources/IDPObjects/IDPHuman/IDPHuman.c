@@ -101,7 +101,6 @@ void IDPHumanDivorceWoman(void *objectMan) {
     man->_partner->_partner = NULL;
     IDPObjectRelease(man->_partner);
     man->_partner = NULL;
-    
 }
 
 void IDPHumanDivorceMan(void *objectWoman) {
@@ -112,7 +111,6 @@ void IDPHumanDivorceMan(void *objectWoman) {
     }
     
     IDPHumanDivorceWoman(woman->_partner);
-    //woman->_partner = NULL;
 }
 
 void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman) {
@@ -136,6 +134,19 @@ void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman) {
 
 void IDPHumanGetMarriedMan(void *objectWoman, void *objectMan) {
     IDPHumanGetMarriedWoman(objectMan, objectWoman);
+}
+
+void IDPHumanGiveBirth(void *object) {
+    IDPHuman *human = (IDPHuman *)object;
+    
+    if (NULL != human || (IDPHumanGenderMale == human->_gender &&  NULL == human->_partner)) {
+        return;
+    }
+    
+    if (IDPHumanGenderMale == human->_gender) {
+        IDPHumanGiveBirth(human->_partner);
+    }
+
 }
 
 #pragma mark -

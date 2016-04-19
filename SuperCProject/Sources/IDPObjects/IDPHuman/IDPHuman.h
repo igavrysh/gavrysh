@@ -31,6 +31,7 @@ struct IDPHuman {
     IDPHumanGender _gender;
 
     IDPHuman *_partner;
+    
     IDPHuman *_parents;
     IDPHuman *_children[20];
 };
@@ -73,5 +74,8 @@ void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman);
 
 extern
 void IDPHumanGetMarriedMan(void *objectWoman, void *objectMan);
+
+extern
+void IDPHumanGiveBirth(void *object);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */
