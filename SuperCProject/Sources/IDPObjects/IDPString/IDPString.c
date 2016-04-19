@@ -33,28 +33,30 @@ void IDPStringSetString(void *object, char *value) {
     
     IDPString *string = object;
     
-    if(name->_string != value) {
-        if (name ->_string) {
-            free(name->_string)
-            name->_sting = NULL;
+    if(string->_string != value) {
+        if (string ->_string) {
+            free(string->_string);
+            string->_string = NULL;
         }
         
         if (value) {
-            strcpy(((IDPName *)object)->_sting, value);
+            string->_string = malloc((strlen(value) + 1) * sizeof(char));
+            strcpy(string->_string, value);
         }
     }
 }
 
 void IDPStringSetIDPString(void *object, void *string) {
-    if (((IDPString *)string) & ((IDString *)string)->_sting) {
-        IDPStringSetString(object, ((IDString *)string)->_sting);
+    if (NULL != object && NULL != ((IDPString *)object)->_string &&
+        NULL != string && NULL != ((IDPString *)string)->_string) {
+        IDPStringSetString(object, ((IDPString *)string)->_string);
     }
 }
 
 char *IDPStringGetString(void *object) {
-    return object ? ((IDPName *)object)->_sting : NULL;
+    return object ? ((IDPString *)object)->_string : NULL;
 }
 
 size_t IDPStringGetLength(void *object) {
-    return object ? strlen(((IDPName *)object)->_sting) : 0;
+    return object ? strlen(((IDPString *)object)->_string) : 0;
 }

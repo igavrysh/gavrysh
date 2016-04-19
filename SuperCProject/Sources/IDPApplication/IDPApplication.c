@@ -16,6 +16,7 @@
 #include "IDPTypesAndRangesTests.h"
 #include "IDPStructuresTests.h"
 #include "IDPBitOutputTests.h"
+#include "IDPStringTests.h"
 
 void IDPRunApplication() {
     /*
@@ -30,8 +31,10 @@ void IDPRunApplication() {
     performTest(IDPStartUpStructureOffsetofTest);
     */
      
-    performTest(IDPBitOutputTest);
+    //performTest(IDPBitOutputTest);
     
-    performTest(IDPBitReverseTest);
+    //performTest(IDPBitReverseTest);
+    
+    performTest(IDPStringTestPerform);
 }
 

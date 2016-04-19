@@ -6,9 +6,11 @@
 //  Copyright (c) 2016 Ievgen Gavrysh. All rights reserved.
 //
 
-#ifndef __SuperCProject__IDPNameTests__
-#define __SuperCProject__IDPNameTests__
+#ifndef __SuperCProject__IDPStringTests__
+#define __SuperCProject__IDPStringTests__
 
+extern
+void IDPStringTestPerform();
 
 
 #endif /* defined(__SuperCProject__IDPNameTests__) */

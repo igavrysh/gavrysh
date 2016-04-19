@@ -60,6 +60,15 @@ extern
 IDPHumanGender IDPHumanGetGender(void *object);
 
 extern
-bool IDPHumanIsMarried(void *object);
+void IDPHumanDivorceWoman(void *objectMan);
+
+extern
+void IDPHumanDivorceMan(void *objectWoman);
+
+extern
+void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman);
+
+extern
+void IDPHumanGetMarriedMan(void *objectWoman, void *objectMan);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */
