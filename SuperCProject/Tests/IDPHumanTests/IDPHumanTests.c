@@ -64,16 +64,17 @@ void IDPHumanCreationTest() {
 void IDPHumanGettersAndSettersTest() {
     
     //  after IDPHuman was created and name assignment, age and gender assignment was done
+    //      check that _name reference count is equal to 1
     //      check getters
     char *pamelaName = "Pamela Anderson";
+    IDPString *pamelaNameExt = IDPStringCreateWithString(pamelaName);
     uint8_t pamelaAge = 48;
     
     IDPHuman *pamela = IDPHumanCreate();
     
-    IDPHumanSetName(pamela, pamelaName);
+    IDPHumanSetName(pamela, pamelaNameExt);
     IDPHumanSetAge(pamela, pamelaAge);
     IDPHumanSetGender(pamela, IDPHumanGenderFemale);
     
-    
-    
+    assert(1 == IDPObjectGetReferenceCount(pamela->_name));    
 }
