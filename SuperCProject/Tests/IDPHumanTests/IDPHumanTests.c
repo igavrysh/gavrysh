@@ -117,12 +117,56 @@ void IDPHumanMarriageTest() {
     IDPHumanGetMarriedWoman(fiance1, bride1);
     assert(2 == IDPObjectGetReferenceCount(bride1));
     assert(1 == IDPObjectGetReferenceCount(fiance1));
+    assert(IDPHumanIsMarried(bride1));
+    assert(IDPHumanIsMarried(fiance1));
     
+    IDPHuman *bride2 = IDPHumanCreate();
+    IDPHumanSetGender(bride2, IDPHumanGenderFemale);
+    IDPHuman *fiance2 = IDPHumanCreate();
+    IDPHumanSetGender(fiance2, IDPHumanGenderMale);
+    IDPHuman *bride3 = IDPHumanCreate();
+    IDPHumanSetGender(bride3, IDPHumanGenderFemale);
+    IDPHuman *fiance3 = IDPHumanCreate();
+    IDPHumanSetGender(fiance3, IDPHumanGenderMale);
+    
+    
+    IDPHumanGetMarriedWoman(fiance1, bride2);
+    assert(1 == IDPObjectGetReferenceCount(bride1));
+    assert(2 == IDPObjectGetReferenceCount(bride2));
+    assert(1 == IDPObjectGetReferenceCount(fiance1));
+    assert(!IDPHumanIsMarried(bride1));
+    assert(IDPHumanIsMarried(fiance1));
+    assert(IDPHumanIsMarried(bride2));
+    
+    
+    IDPHumanGetMarriedMan(bride2, fiance2);
+    assert(1 == IDPObjectGetReferenceCount(bride1));
+    assert(1 == IDPObjectGetReferenceCount(fiance2));
+    assert(2 == IDPObjectGetReferenceCount(bride2));
+    assert(1 == IDPObjectGetReferenceCount(fiance1));
+    assert(!IDPHumanIsMarried(bride1));
+    assert(!IDPHumanIsMarried(fiance1));
+    assert(IDPHumanIsMarried(bride2));
+    assert(IDPHumanIsMarried(fiance2));
+    
+    
+    IDPObjectRelease(fiance3);
+    
+    IDPObjectRelease(fiance2);
+    IDPObjectRelease(bride2);
+    
+
     IDPObjectRelease(bride1);
     IDPObjectRelease(fiance1);
     
+    IDPObjectRelease(bride3);
+    
     assert(0 == IDPObjectGetReferenceCount(bride1));
     assert(0 == IDPObjectGetReferenceCount(fiance1));
+    assert(0 == IDPObjectGetReferenceCount(bride2));
+    assert(0 == IDPObjectGetReferenceCount(fiance2));
+    assert(0 == IDPObjectGetReferenceCount(bride3));
+    assert(0 == IDPObjectGetReferenceCount(fiance3));
 }
 
 void IDPHumanMarriageReversedReleasingTest() {
