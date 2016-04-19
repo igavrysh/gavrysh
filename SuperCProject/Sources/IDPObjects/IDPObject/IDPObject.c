@@ -42,7 +42,7 @@ void IDPObjectRelease(void *object) {
     }
 }
 
-uint64_t IDPObjectGerReferenceCount(void *object) {
+uint64_t IDPObjectGetReferenceCount(void *object) {
     return object ? ((IDPObject *)object)->_referenceCount : 0;
 }
 

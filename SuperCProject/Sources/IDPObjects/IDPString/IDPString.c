@@ -20,6 +20,16 @@ void *IDPStringCreateWithString(char *string) {
     return result;
 }
 
+void *IDPStringCreateWithIDPString(IDPString *string) {
+    if (NULL == string) {
+        return NULL;
+    }
+    
+    IDPString *result = IDPStringCreateWithString(string->_string);
+    
+    return result;
+}
+
 void __IDPStringDeallocate(void *object) {
     IDPStringSetString(object, NULL);
     

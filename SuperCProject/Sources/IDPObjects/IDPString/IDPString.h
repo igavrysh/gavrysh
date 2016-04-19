@@ -25,6 +25,9 @@ extern
 void *IDPStringCreateWithString(char *string);
 
 extern
+void *IDPStringCreateWithIDPString(IDPString *string);
+
+extern
 void __IDPStringDeallocate(void *object);
 
 extern

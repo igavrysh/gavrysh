@@ -27,8 +27,22 @@ void __IDPHumanDeallocate(void *object) {
     __IDPObjectDeallocate(object);
 }
 
-void IDPHumanSet(void *object, void *name) {
+void IDPHumanSetName(void *object, IDPString *name) {
+    if(NULL == object) {
+        return;
+    }
     
+    IDPHuman *human = (IDPHuman *)object;
+    
+    if(human->_name != name) {
+        if(human->_name) {
+            IDPObjectRelease(human->_name);
+            
+            human->_name = NULL;
+            
+            human->_name = IDPStringCreateWithIDPString(name);
+        }
+    }
 }
 
 void IDPHumanSetAge(void *object, int age) {

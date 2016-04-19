@@ -37,7 +37,7 @@ void IDPObjectOneObjectCreationTest() {
     assert(NULL != object);
     
     //  object reference count must be equalt to 1
-    assert(1 == IDPObjectGerReferenceCount(object));
+    assert(1 == IDPObjectGetReferenceCount(object));
     
     //  after object retaining
     IDPObject *retainedObject = IDPObjectRetain(object);
@@ -46,12 +46,12 @@ void IDPObjectOneObjectCreationTest() {
     assert(object == retainedObject);
     
     //      object reference count must be equal to 2
-    assert(2 == IDPObjectGerReferenceCount(object));
+    assert(2 == IDPObjectGetReferenceCount(object));
     
     //  after releasing retained object equalt ot 1
     IDPObjectRelease(object);
     
-    assert(1 == IDPObjectGerReferenceCount(object));
+    assert(1 == IDPObjectGetReferenceCount(object));
     
     IDPObjectRelease(object);
 }

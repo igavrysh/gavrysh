@@ -34,6 +34,6 @@ extern
 void __IDPObjectDeallocate(void *object);
 
 extern
-uint64_t IDPObjectGerReferenceCount(void *object);
+uint64_t IDPObjectGetReferenceCount(void *object);
 
 #endif /* IDPObject_h */

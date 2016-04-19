@@ -17,6 +17,7 @@
 #include "IDPStructuresTests.h"
 #include "IDPBitOutputTests.h"
 #include "IDPStringTests.h"
+#include "IDPHumanTests.h"
 
 void IDPRunApplication() {
     /*
@@ -36,5 +37,7 @@ void IDPRunApplication() {
     //performTest(IDPBitReverseTest);
     
     performTest(IDPStringTestPerform);
+    
+    IDPHumanBehaviorTests();
 }
 
