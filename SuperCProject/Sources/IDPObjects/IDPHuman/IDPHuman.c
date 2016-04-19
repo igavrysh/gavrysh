@@ -25,6 +25,8 @@ void *IDPHumanCreate() {
 
 void __IDPHumanDeallocate(void *object) {
     IDPHuman *human = (IDPHuman *)object;
+    
+    IDPHumanSetName(human, NULL);
 
     if (IDPHumanGenderMale == human->_gender) {
         IDPObjectRelease(human->_partner);
