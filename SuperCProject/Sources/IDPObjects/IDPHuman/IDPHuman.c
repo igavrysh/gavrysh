@@ -35,13 +35,12 @@ void IDPHumanSetName(void *object, IDPString *name) {
     IDPHuman *human = (IDPHuman *)object;
     
     if(human->_name != name) {
-        if(human->_name) {
+        if (human->_name) {
             IDPObjectRelease(human->_name);
-            
             human->_name = NULL;
-            
-            human->_name = IDPStringCreateWithIDPString(name);
         }
+        
+        human->_name = IDPStringCreateWithIDPString(name);
     }
 }
 

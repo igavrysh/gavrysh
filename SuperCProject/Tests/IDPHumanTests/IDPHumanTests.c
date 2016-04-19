@@ -7,6 +7,7 @@
 //
 
 #include <assert.h>
+#include <string.h>
 
 #include "IDPHumanTests.h"
 #include "IDPHuman.h"
@@ -26,6 +27,8 @@ void IDPHumanGettersAndSettersTest();
 
 void IDPHumanBehaviorTests(void) {
     performTest(IDPHumanCreationTest);
+    
+    performTest(IDPHumanGettersAndSettersTest);
 }
 
 #pragma mark -
@@ -68,6 +71,7 @@ void IDPHumanGettersAndSettersTest() {
     //      check getters
     char *pamelaName = "Pamela Anderson";
     IDPString *pamelaNameExt = IDPStringCreateWithString(pamelaName);
+
     uint8_t pamelaAge = 48;
     
     IDPHuman *pamela = IDPHumanCreate();
@@ -76,5 +80,9 @@ void IDPHumanGettersAndSettersTest() {
     IDPHumanSetAge(pamela, pamelaAge);
     IDPHumanSetGender(pamela, IDPHumanGenderFemale);
     
-    assert(1 == IDPObjectGetReferenceCount(pamela->_name));    
+    assert(1 == IDPObjectGetReferenceCount(pamela->_name));
+    assert(0 == strcmp(IDPHumanGetName(pamela)->_string, pamelaName));
+    assert(pamelaAge == IDPHumanGetAge(pamela));
+    assert(IDPHumanGenderFemale == IDPHumanGetGender(pamela));
+    
 }
