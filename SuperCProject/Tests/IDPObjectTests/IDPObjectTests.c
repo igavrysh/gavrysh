@@ -10,7 +10,7 @@
 
 #include "IDPObjectTests.h"
 #include "IDPObject.h"
-//#include
+#include "IDPPrintingFunctions.h"
 
 
 #pragma mark -
@@ -23,7 +23,7 @@ void IDPObjectCreationTest();
 #pragma mark Public Implementation
 
 void IDPObjectBehaviorTests(void) {
-    
+    performTest(IDPObjectOneObjectCreationTest);
 }
 
 #pragma mark -

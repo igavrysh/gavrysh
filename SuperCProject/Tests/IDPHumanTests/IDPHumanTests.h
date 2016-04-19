@@ -9,6 +9,7 @@
 #ifndef __SuperCProject__IDPHumanTests__
 #define __SuperCProject__IDPHumanTests__
 
+extern
 void IDPHumanBehaviorTests(void);
 
 #endif /* defined(__SuperCProject__IDPHumanTests__) */

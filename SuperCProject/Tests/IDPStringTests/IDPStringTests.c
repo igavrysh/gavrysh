@@ -37,8 +37,6 @@ void IDPSimpleStringTest() {
     //      ratained object must be equal to object
     //      object reference count must be equal to 2
     //  after releasing retained equals 1
-    
-    
     char *testString = "Hellow";
     
     IDPString *string = IDPStringCreateWithString(testString);

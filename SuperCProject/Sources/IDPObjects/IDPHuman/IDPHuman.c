@@ -24,6 +24,12 @@ void *IDPHumanCreate() {
 }
 
 void __IDPHumanDeallocate(void *object) {
+    IDPHuman *human = (IDPHuman *)object;
+
+    if (IDPHumanGenderMale == human->_gender) {
+        IDPObjectRelease(human->_partner);
+    }
+    
     __IDPObjectDeallocate(object);
 }
 
@@ -104,6 +110,7 @@ void IDPHumanDivorceMan(void *objectWoman) {
     }
     
     IDPHumanDivorceWoman(woman->_partner);
+    woman->_partner = NULL;
 }
 
 void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman) {

@@ -60,6 +60,9 @@ extern
 IDPHumanGender IDPHumanGetGender(void *object);
 
 extern
+bool IDPHumanIsMarried(void *object);
+
+extern
 void IDPHumanDivorceWoman(void *objectMan);
 
 extern
