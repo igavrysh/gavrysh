@@ -14,11 +14,37 @@
 static
 bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner);
 
+static
+void IDPHumanInitInternalVars(IDPHuman *human);
+
+static
+uint8_t IDPHumanGetIndexOfNextChild(IDPHuman *human);
+
+static
+void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner);
+
+static
+IDPHuman *IDPHumanGetPartner(IDPHuman *human);
+
+static
+void IDPHumanSetChild(IDPHuman *human, IDPHuman *child);
+
+static
+void IDPHumanMapPartner(IDPHuman *human, IDPHuman **male, IDPHuman **female);
+
+static
+void IDPHumanMapMaleAndFemale(IDPHuman *human, IDPHuman *partner, IDPHuman **male, IDPHuman **female);
+
+static
+void IDPHumanDropChildren(IDPHuman *human);
+
 #pragma mark -
 #pragma mark Public Implementations
 
 void *IDPHumanCreate() {
     IDPHuman *result = IDPObjectCreateOfType(IDPHuman);
+    
+    IDPHumanInitInternalVars(result);
     
     return result;
 }
@@ -143,17 +169,33 @@ void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner) {
     IDPHumanSetPartner(human, partner);
 }
 
-void IDPHumanGiveBirth(void *object) {
-    IDPHuman *human = (IDPHuman *)object;
-    
-    if (NULL != human || (IDPHumanGenderMale == human->_gender &&  NULL == human->_partner)) {
+
+void IDPHumanSetChild(IDPHuman *human, IDPHuman *child) {
+    if (human == NULL) {
         return;
     }
     
-    if (IDPHumanGenderMale == human->_gender) {
-        IDPHumanGiveBirth(human->_partner);
-    }
+    IDPHuman *male;
+    IDPHuman *female;
+    
+    IDPHumanMapPartner(human, &male, &female);
 
+    if (NULL == child) {
+        IDPHumanDropChildren(male);
+        IDPHumanDropChildren(female);
+    }
+}
+
+IDPHuman *IDPHumanGiveBirth(IDPHuman *human) {
+    if (NULL != human || (IDPHumanGenderMale == IDPHumanGetGender(human) &&  NULL == IDPHumanGetPartner(human))) {
+        return NULL;
+    }
+    
+    if (IDPHumanGenderMale == IDPHumanGetGender(human)) {
+        return IDPHumanGiveBirth(IDPHumanGetPartner(human));
+    }
+    
+    return NULL;
 }
 
 #pragma mark -
@@ -166,5 +208,49 @@ bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner) {
         &&   IDPHumanGenderMale == partner->_gender)
         ||  (IDPHumanGenderFemale == partner->_gender
         &&   IDPHumanGenderMale == human->_gender)));
+}
+
+void IDPHumanInitInternalVars(IDPHuman *human) {
+    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
+        human->_children[i] = NULL;
+    }
+    
+    human->_age = 0;
+    human->_gender = IDPHumanGenderMale;
+    human->_name = NULL;
+    
+    human->_partner = NULL;
+    human->_father = NULL;
+    human->_partner = NULL;
+}
+
+IDPHuman *IDPHumanGetPartner(IDPHuman *human) {
+    return human->_partner != NULL ? human->_partner : NULL;
+}
+
+void IDPHumanDropChildren(IDPHuman *human) {
+    if (NULL == human) {
+        return;
+    }
+    
+    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++)  {
+        if (human->_children[i] != NULL) {
+            IDPObjectRelease(human->_children[i]);
+            human->_children[i] = NULL;
+        }
+    }
+}
+
+void IDPHumanMapPartner(IDPHuman *human, IDPHuman **male, IDPHuman **female) {
+    IDPHumanMapMaleAndFemale(human, IDPHumanGetPartner(human), male, female);
+}
+
+void IDPHumanMapMaleAndFemale(IDPHuman *human, IDPHuman *partner, IDPHuman **male, IDPHuman **female) {
+    if (human == NULL || partner == NULL) {
+        return;
+    }
+    
+    *male = IDPHumanGenderMale == IDPHumanGetGender(human) ? human : partner;
+    *female = IDPHumanGenderFemale == IDPHumanGetGender(human) ? human : partner;
 }
 
