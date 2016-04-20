@@ -50,7 +50,7 @@ void IDPStringSetString(void *object, char *value) {
         }
         
         if (value) {
-            string->_string = malloc((strlen(value) + 1) * sizeof(char));
+            string->_string = malloc((strlen(value) + 1) * sizeof(string->_string));
             strcpy(string->_string, value);
         }
     }
