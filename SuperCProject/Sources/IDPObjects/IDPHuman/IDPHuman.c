@@ -56,6 +56,8 @@ void __IDPHumanDeallocate(IDPHuman *object) {
 
     IDPHumanSetPartner(human, NULL);
     
+    IDPHumanSetChild(human, NULL);
+    
     __IDPObjectDeallocate(object);
 }
 
@@ -181,8 +183,7 @@ void IDPHumanSetChild(IDPHuman *human, IDPHuman *child) {
     IDPHumanMapPartner(human, &male, &female);
 
     if (NULL == child) {
-        IDPHumanDropChildren(male);
-        IDPHumanDropChildren(female);
+        IDPHumanDropChildren(human);
     }
 }
 
