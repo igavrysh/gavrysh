@@ -114,7 +114,7 @@ void IDPHumanMarriageTest() {
     assert(false == IDPHumanIsMarried(bride1));
     assert(false == IDPHumanIsMarried(bride1));
     
-    IDPHumanGetMarriedWoman(fiance1, bride1);
+    IDPHumanGetMarriedWithPartner(fiance1, bride1);
     assert(2 == IDPObjectGetReferenceCount(bride1));
     assert(1 == IDPObjectGetReferenceCount(fiance1));
     assert(IDPHumanIsMarried(bride1));
@@ -130,7 +130,7 @@ void IDPHumanMarriageTest() {
     IDPHumanSetGender(fiance3, IDPHumanGenderMale);
     
     
-    IDPHumanGetMarriedWoman(fiance1, bride2);
+    IDPHumanGetMarriedWithPartner(fiance1, bride2);
     assert(1 == IDPObjectGetReferenceCount(bride1));
     assert(2 == IDPObjectGetReferenceCount(bride2));
     assert(1 == IDPObjectGetReferenceCount(fiance1));
@@ -139,7 +139,7 @@ void IDPHumanMarriageTest() {
     assert(IDPHumanIsMarried(bride2));
     
     
-    IDPHumanGetMarriedMan(bride2, fiance2);
+    IDPHumanGetMarriedWithPartner(bride2, fiance2);
     assert(1 == IDPObjectGetReferenceCount(bride1));
     assert(1 == IDPObjectGetReferenceCount(fiance2));
     assert(2 == IDPObjectGetReferenceCount(bride2));
@@ -181,7 +181,7 @@ void IDPHumanMarriageReversedReleasingTest() {
     assert(1 == IDPObjectGetReferenceCount(bride1));
     assert(1 == IDPObjectGetReferenceCount(fiance1));
     
-    IDPHumanGetMarriedWoman(fiance1, bride1);
+    IDPHumanGetMarriedWithPartner(fiance1, bride1);
     assert(2 == IDPObjectGetReferenceCount(bride1));
     assert(1 == IDPObjectGetReferenceCount(fiance1));
     

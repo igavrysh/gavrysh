@@ -40,42 +40,39 @@ extern
 void *IDPHumanCreate();
 
 extern
-void __IDPHumanDeallocate(void *object);
+void __IDPHumanDeallocate(IDPHuman *human);
 
 extern
-void IDPHumanSetName(void *object, IDPString *name);
+void IDPHumanSetName(IDPHuman *human, IDPString *name);
 
 extern
-void IDPHumanSetAge(void *object, int age);
+void IDPHumanSetAge(IDPHuman *human, int age);
 
 extern
-void IDPHumanSetGender(void *object, IDPHumanGender gender);
+void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender);
 
 extern
-IDPString *IDPHumanGetName(void *object);
+IDPString *IDPHumanGetName(IDPHuman *human);
 
 extern
-uint8_t IDPHumanGetAge(void *object);
+uint8_t IDPHumanGetAge(IDPHuman *human);
 
 extern
-IDPHumanGender IDPHumanGetGender(void *object);
+IDPHumanGender IDPHumanGetGender(IDPHuman *human);
 
 extern
-bool IDPHumanIsMarried(void *object);
+void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner);
 
 extern
-void IDPHumanDivorceWoman(void *objectMan);
+bool IDPHumanIsMarried(IDPHuman *human);
 
 extern
-void IDPHumanDivorceMan(void *objectWoman);
+void IDPHumanDivorce(IDPHuman *human);
 
 extern
-void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman);
+void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner);
 
 extern
-void IDPHumanGetMarriedMan(void *objectWoman, void *objectMan);
-
-extern
-void IDPHumanGiveBirth(void *object);
+IDPHuman* IDPHumanGiveBirthToChild(IDPHuman *object);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */

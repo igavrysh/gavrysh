@@ -12,7 +12,7 @@
 #pragma mark Private Declarations
 
 static
-bool IDPHumanIsMarriageValidWithManAndWoman(IDPHuman *man,  IDPHuman *woman);
+bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -23,24 +23,20 @@ void *IDPHumanCreate() {
     return result;
 }
 
-void __IDPHumanDeallocate(void *object) {
+void __IDPHumanDeallocate(IDPHuman *object) {
     IDPHuman *human = (IDPHuman *)object;
     
     IDPHumanSetName(human, NULL);
 
-    if (IDPHumanGenderMale == human->_gender) {
-        IDPObjectRelease(human->_partner);
-    }
+    IDPHumanSetPartner(human, NULL);
     
     __IDPObjectDeallocate(object);
 }
 
-void IDPHumanSetName(void *object, IDPString *name) {
-    if(NULL == object) {
+void IDPHumanSetName(IDPHuman *human, IDPString *name) {
+    if(NULL == human) {
         return;
     }
-    
-    IDPHuman *human = (IDPHuman *)object;
     
     if(human->_name != name) {
         if (human->_name) {
@@ -52,90 +48,99 @@ void IDPHumanSetName(void *object, IDPString *name) {
     }
 }
 
-void IDPHumanSetAge(void *object, int age) {
-    if (NULL == object) {
+void IDPHumanSetAge(IDPHuman *human, int age) {
+    if (NULL == human) {
         return;
     }
     
-    ((IDPHuman *)object)->_age = age;
+    human->_age = age;
 }
 
-void IDPHumanSetGender(void *object, IDPHumanGender gender) {
-    if (NULL == object) {
+void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender) {
+    if (NULL == human) {
         return;
     }
     
-    ((IDPHuman *)object)->_gender = gender;
+    human->_gender = gender;
 }
 
-IDPString *IDPHumanGetName(void *object) {
-    if (NULL == object) {
+IDPString *IDPHumanGetName(IDPHuman *human) {
+    if (NULL == human) {
         return NULL;
     }
     
-    return ((IDPHuman *)object)->_name;
+    return human->_name;
 }
 
-uint8_t IDPHumanGetAge(void *object) {
-    if (NULL == object) {
+uint8_t IDPHumanGetAge(IDPHuman *human) {
+    if (NULL == human) {
         return 0;
     }
     
-    return ((IDPHuman *)object)->_age;
+    return human->_age;
 }
 
-IDPHumanGender IDPHumanGetGender(void *object) {
-    return ((IDPHuman *)object)->_gender;
+IDPHumanGender IDPHumanGetGender(IDPHuman *human) {
+    return human->_gender;
 }
 
-bool IDPHumanIsMarried(void *object) {
-    return object ?
-        (((IDPHuman *)object)->_partner ? true : false) : false;
+bool IDPHumanIsMarried(IDPHuman *human) {
+    return (NULL != human && NULL != human->_partner);
 }
 
-void IDPHumanDivorceWoman(void *objectMan) {
-    IDPHuman *man = (IDPHuman *)objectMan;
-    
-    if (NULL == man || !IDPHumanIsMarried(man))  {
+void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
+    if (NULL == human)  {
         return;
     }
     
-    man->_partner->_partner = NULL;
-    IDPObjectRelease(man->_partner);
-    man->_partner = NULL;
-}
-
-void IDPHumanDivorceMan(void *objectWoman) {
-    IDPHuman *woman = (IDPHuman *)objectWoman;
-    
-    if (NULL == woman || !IDPHumanIsMarried(woman)) {
-        return;
-    }
-    
-    IDPHumanDivorceWoman(woman->_partner);
-}
-
-void IDPHumanGetMarriedWoman(void *objectMan, void *objectWoman) {
-    IDPHuman *man = (IDPHuman *)objectMan;
-    IDPHuman *woman = (IDPHuman *)objectWoman;
-    
-    if (!IDPHumanIsMarriageValidWithManAndWoman(man, woman)) {
-        return;
-    }
-    
-    if (man->_partner != woman) {
-        IDPObjectRetain(woman);
+    if (human->_gender == IDPHumanGenderMale) {
+        if (human != partner) {
+            if (partner == NULL || IDPHumanIsMarriageWithPartnerValid(human, partner)) {
+                if (human->_partner != NULL) {
+                    human->_partner->_partner = NULL;
+                    IDPObjectRelease(human->_partner);
+                }
+                
+                human->_partner = IDPObjectRetain(partner);
+                
+                if (partner != NULL) {
+                    partner->_partner = human;
+                }
+            }
+        }
         
-        IDPHumanDivorceWoman(man);
-        IDPHumanDivorceMan(woman);
-        
-        man->_partner = woman;
-        woman->_partner = man;
+    } else if (human ->_gender == IDPHumanGenderFemale) {
+        if (human != partner) {
+            if(partner == NULL || IDPHumanIsMarriageWithPartnerValid(human, partner)) {
+                 if (human->_partner != NULL) {
+                    IDPObjectRelease(human->_partner->_partner);
+                    human->_partner->_partner = NULL;
+                }
+                
+                human->_partner = partner;
+                
+                if(partner == NULL) {
+                    return;
+                }
+                
+                if(partner->_partner != NULL) {
+                    IDPObjectRelease(partner->_partner);
+                }
+            
+                partner->_partner = IDPObjectRetain(human);
+            }
+        }
     }
 }
 
-void IDPHumanGetMarriedMan(void *objectWoman, void *objectMan) {
-    IDPHumanGetMarriedWoman(objectMan, objectWoman);
+void IDPHumanDivorce(IDPHuman *human) {
+    IDPHumanSetPartner(human, NULL);
+}
+
+void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner) {
+    //IDPHumanDivorce(human);
+    //IDPHumanDivorce(partner);
+    IDPHumanSetPartner(human, partner);
 }
 
 void IDPHumanGiveBirth(void *object) {
@@ -154,10 +159,12 @@ void IDPHumanGiveBirth(void *object) {
 #pragma mark -
 #pragma mark Private Implementations
 
-bool IDPHumanIsMarriageValidWithManAndWoman(IDPHuman *man,  IDPHuman *woman) {
-    return (NULL == man ||
-            NULL == woman ||
-            IDPHumanGenderMale == woman->_gender ||
-            IDPHumanGenderFemale == man->_gender) ? false : true;
+bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner) {
+    return (NULL != human
+        &&  NULL != partner
+        && ((IDPHumanGenderFemale == human->_gender
+        &&   IDPHumanGenderMale == partner->_gender)
+        ||  (IDPHumanGenderFemale == partner->_gender
+        &&   IDPHumanGenderMale == human->_gender)));
 }
 
