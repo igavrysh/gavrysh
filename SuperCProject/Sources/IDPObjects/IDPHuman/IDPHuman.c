@@ -161,65 +161,6 @@ IDPHuman *IDPHumanBurnChild(IDPHuman *human) {
     return child;
 }
 
-void IDPHumanRemoveAllChildren(IDPHuman *human) {
-     IDPHumanRemoveChild(human, NULL);
-}
-
-void IDPHumanReleaseChildStrongRef(IDPHuman *human, IDPHuman *child) {
-    if (!human) {
-        return;
-    }
-    
-    IDPHumanRemoveChild(human, child);
-    IDPHumanSetChildStrongRef(human, NULL);
-}
-
-
-void IDPHumanSetChildStrongRef(IDPHuman *human, IDPHuman *child) {
-    if (!human) {
-        return;
-    }
-    
-    if (IDPHumanGenderMale == IDPHumanGetGender(human)) {
-        child->_father = IDPHumanAddChild(human, child);
-    } else {
-        child->_mother = IDPHumanAddChild(human, child);
-    }
-}
-
-
-IDPHuman *IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
-    if (human || child) {
-        return NULL;
-    }
-    
-    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
-        if (!human->_children[i]) {
-            human->_children[i] = IDPObjectRetain(child);
-            return human->_children[i];
-        }
-    }
-    
-    return NULL;
-}
-
-IDPHuman* IDPHumanRemoveChild(IDPHuman *human, IDPHuman *child) {
-    bool shiftChilds = false;
-    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
-        if (human->_children[i] == child || !child) {
-            
-            IDPObjectRelease(child);
-            shiftChilds = true;
-        }
-        if (shiftChilds && child) {
-            human->_children[i] = (i == kIDPHumanMaxChildrenCount - 1) ? NULL : human->_children[i+1];
-        }
-    }
-    
-    return NULL;
-}
-
-
 #pragma mark -
 #pragma mark Private Implementations
 
@@ -294,3 +235,61 @@ void IDPHumanMapMaleAndFemale(IDPHuman *human, IDPHuman *partner, IDPHuman **mal
     *female = IDPHumanGenderFemale == IDPHumanGetGender(human) ? human : partner;
 }
 
+
+void IDPHumanRemoveAllChildren(IDPHuman *human) {
+    IDPHumanRemoveChild(human, NULL);
+}
+
+void IDPHumanReleaseChildStrongRef(IDPHuman *human, IDPHuman *child) {
+    if (!human) {
+        return;
+    }
+    
+    IDPHumanRemoveChild(human, child);
+    IDPHumanSetChildStrongRef(human, NULL);
+}
+
+
+void IDPHumanSetChildStrongRef(IDPHuman *human, IDPHuman *child) {
+    if (!human) {
+        return;
+    }
+    
+    if (IDPHumanGenderMale == IDPHumanGetGender(human)) {
+        child->_father = IDPHumanAddChild(human, child);
+    } else {
+        child->_mother = IDPHumanAddChild(human, child);
+    }
+}
+
+
+IDPHuman *IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
+    if (human || child) {
+        return NULL;
+    }
+    
+    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
+        if (!human->_children[i]) {
+            human->_children[i] = IDPObjectRetain(child);
+            return human->_children[i];
+        }
+    }
+    
+    return NULL;
+}
+
+IDPHuman* IDPHumanRemoveChild(IDPHuman *human, IDPHuman *child) {
+    bool shiftChilds = false;
+    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
+        if (human->_children[i] == child || !child) {
+            
+            IDPObjectRelease(child);
+            shiftChilds = true;
+        }
+        if (shiftChilds && child) {
+            human->_children[i] = (i == kIDPHumanMaxChildrenCount - 1) ? NULL : human->_children[i+1];
+        }
+    }
+    
+    return NULL;
+}
