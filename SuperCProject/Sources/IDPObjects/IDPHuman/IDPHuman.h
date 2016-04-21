@@ -73,6 +73,6 @@ extern
 void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner);
 
 extern
-IDPHuman* IDPHumanGiveBirthToChild(IDPHuman *object);
+IDPHuman *IDPHumanBurnChild(IDPHuman *human);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */
