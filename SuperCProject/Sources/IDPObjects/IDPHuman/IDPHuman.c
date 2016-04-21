@@ -62,7 +62,7 @@ void __IDPHumanDeallocate(IDPHuman *object) {
 }
 
 void IDPHumanSetName(IDPHuman *human, IDPString *name) {
-    if(NULL == human) {
+    if(!human) {
         return;
     }
     
@@ -85,7 +85,7 @@ void IDPHumanSetAge(IDPHuman *human, int age) {
 }
 
 void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender) {
-    if (NULL == human) {
+    if (!human) {
         return;
     }
     
@@ -93,7 +93,7 @@ void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender) {
 }
 
 IDPString *IDPHumanGetName(IDPHuman *human) {
-    if (NULL == human) {
+    if (!human) {
         return NULL;
     }
     
@@ -101,7 +101,7 @@ IDPString *IDPHumanGetName(IDPHuman *human) {
 }
 
 uint8_t IDPHumanGetAge(IDPHuman *human) {
-    if (NULL == human) {
+    if (!human) {
         return 0;
     }
     
@@ -113,51 +113,60 @@ IDPHumanGender IDPHumanGetGender(IDPHuman *human) {
 }
 
 bool IDPHumanIsMarried(IDPHuman *human) {
-    return (NULL != human && NULL != human->_partner);
+    return (human && human->_partner);
+}
+
+void IDPHumanMarryWoman(IDPHuman *human, IDPHuman *partner) {
+    if (human != partner) {
+        // Break up old marriage
+        if (human->_partner) {
+            human->_partner->_partner = NULL;
+            IDPObjectRelease(human->_partner);
+            human->_partner = NULL;
+        }
+        
+        //Set up a new marriage
+        human->_partner = IDPObjectRetain(partner);
+        if (partner) {
+            partner->_partner = human;
+        }
+    }
+}
+
+
+void IDPHumanMarryMan(IDPHuman *human, IDPHuman *partner) {
+    if (human != partner) {
+        // Break up old marriage
+        if (human->_partner) {
+            IDPObjectRelease(human->_partner->_partner);
+            human->_partner->_partner = NULL;
+            human->_partner = NULL;
+        }
+        
+        //Set up a new marriage
+        human->_partner = partner;
+        if(partner) {
+            partner->_partner = IDPObjectRetain(human);
+        }
+    }
 }
 
 void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
-    if (NULL == human)  {
+    if (!human)  {
         return;
     }
     
-    if (human->_gender == IDPHumanGenderMale) {
-        if (human != partner) {
-            if (partner == NULL || IDPHumanIsMarriageWithPartnerValid(human, partner)) {
-                if (human->_partner != NULL) {
-                    human->_partner->_partner = NULL;
-                    IDPObjectRelease(human->_partner);
-                }
-                
-                human->_partner = IDPObjectRetain(partner);
-                
-                if (partner != NULL) {
-                    partner->_partner = human;
-                }
-            }
-        }
-        
-    } else if (human ->_gender == IDPHumanGenderFemale) {
-        if (human != partner) {
-            if(partner == NULL || IDPHumanIsMarriageWithPartnerValid(human, partner)) {
-                 if (human->_partner != NULL) {
-                    IDPObjectRelease(human->_partner->_partner);
-                    human->_partner->_partner = NULL;
-                }
-                
-                human->_partner = partner;
-                
-                if(partner == NULL) {
-                    return;
-                }
-                
-                if(partner->_partner != NULL) {
-                    IDPObjectRelease(partner->_partner);
-                }
-            
-                partner->_partner = IDPObjectRetain(human);
-            }
-        }
+    IDPHuman *male;
+    IDPHuman *female;
+    
+    IDPHumanMapMaleAndFemale(human, partner, &male, &female);
+    
+    IDPHuman *oldfiance = IDPHumanGetPartner(female);
+    IDPHumanMarryWoman(male, female);
+    IDPHumanMarryMan(female, male);
+    if(oldfiance) {
+        IDPObjectRelease(IDPHumanGetPartner(oldfiance));
+        oldfiance->_partner = NULL;
     }
 }
 
@@ -173,7 +182,7 @@ void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner) {
 
 
 void IDPHumanSetChild(IDPHuman *human, IDPHuman *child) {
-    if (human == NULL) {
+    if (!NULL) {
         return;
     }
     
@@ -203,8 +212,8 @@ IDPHuman *IDPHumanGiveBirth(IDPHuman *human) {
 #pragma mark Private Implementations
 
 bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner) {
-    return (NULL != human
-        &&  NULL != partner
+    return (!human
+        &&  !partner
         && ((IDPHumanGenderFemale == human->_gender
         &&   IDPHumanGenderMale == partner->_gender)
         ||  (IDPHumanGenderFemale == partner->_gender
@@ -226,11 +235,11 @@ void IDPHumanInitInternalVars(IDPHuman *human) {
 }
 
 IDPHuman *IDPHumanGetPartner(IDPHuman *human) {
-    return human->_partner != NULL ? human->_partner : NULL;
+    return human ? human->_partner : NULL;
 }
 
 void IDPHumanDropChildren(IDPHuman *human) {
-    if (NULL == human) {
+    if (!human) {
         return;
     }
     
@@ -247,7 +256,7 @@ void IDPHumanMapPartner(IDPHuman *human, IDPHuman **male, IDPHuman **female) {
 }
 
 void IDPHumanMapMaleAndFemale(IDPHuman *human, IDPHuman *partner, IDPHuman **male, IDPHuman **female) {
-    if (human == NULL || partner == NULL) {
+    if (!human || !partner) {
         return;
     }
     
