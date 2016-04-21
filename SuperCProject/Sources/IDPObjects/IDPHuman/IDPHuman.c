@@ -12,13 +12,13 @@
 #pragma mark Private Declarations
 
 static
-bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner);
-
-static
 void IDPHumanInitInternalVars(IDPHuman *human);
 
 static
-uint8_t IDPHumanGetIndexOfNextChild(IDPHuman *human);
+void IDPHumanSetWeakRefToPartner(IDPHuman *human, IDPHuman *partner);
+
+static
+void IDPHumanSetStrongRefToPartner(IDPHuman *human, IDPHuman *partner);
 
 static
 void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner);
@@ -116,67 +116,15 @@ bool IDPHumanIsMarried(IDPHuman *human) {
     return (human && human->_partner);
 }
 
-void IDPHumanMarryWoman(IDPHuman *human, IDPHuman *partner) {
-    if (human != partner) {
-        // Break up old marriage
-        if (human->_partner) {
-            human->_partner->_partner = NULL;
-            IDPObjectRelease(human->_partner);
-            human->_partner = NULL;
-        }
-        
-        //Set up a new marriage
-        human->_partner = IDPObjectRetain(partner);
-        if (partner) {
-            partner->_partner = human;
-        }
-    }
-}
-
-
-void IDPHumanMarryMan(IDPHuman *human, IDPHuman *partner) {
-    if (human != partner) {
-        // Break up old marriage
-        if (human->_partner) {
-            IDPObjectRelease(human->_partner->_partner);
-            human->_partner->_partner = NULL;
-            human->_partner = NULL;
-        }
-        
-        //Set up a new marriage
-        human->_partner = partner;
-        if(partner) {
-            partner->_partner = IDPObjectRetain(human);
-        }
-    }
-}
-
-void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
-    if (!human)  {
-        return;
-    }
-    
-    IDPHuman *male;
-    IDPHuman *female;
-    
-    IDPHumanMapMaleAndFemale(human, partner, &male, &female);
-    
-    IDPHuman *oldfiance = IDPHumanGetPartner(female);
-    IDPHumanMarryWoman(male, female);
-    IDPHumanMarryMan(female, male);
-    if(oldfiance) {
-        IDPObjectRelease(IDPHumanGetPartner(oldfiance));
-        oldfiance->_partner = NULL;
-    }
-}
-
 void IDPHumanDivorce(IDPHuman *human) {
+    IDPHumanSetPartner(human->_partner, NULL);
     IDPHumanSetPartner(human, NULL);
 }
 
 void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner) {
-    //IDPHumanDivorce(human);
-    //IDPHumanDivorce(partner);
+    IDPHumanDivorce(human);
+    IDPHumanDivorce(partner);
+    
     IDPHumanSetPartner(human, partner);
 }
 
@@ -211,15 +159,6 @@ IDPHuman *IDPHumanGiveBirth(IDPHuman *human) {
 #pragma mark -
 #pragma mark Private Implementations
 
-bool IDPHumanIsMarriageWithPartnerValid(IDPHuman *human,  IDPHuman *partner) {
-    return (!human
-        &&  !partner
-        && ((IDPHumanGenderFemale == human->_gender
-        &&   IDPHumanGenderMale == partner->_gender)
-        ||  (IDPHumanGenderFemale == partner->_gender
-        &&   IDPHumanGenderMale == human->_gender)));
-}
-
 void IDPHumanInitInternalVars(IDPHuman *human) {
     for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
         human->_children[i] = NULL;
@@ -232,6 +171,46 @@ void IDPHumanInitInternalVars(IDPHuman *human) {
     human->_partner = NULL;
     human->_father = NULL;
     human->_partner = NULL;
+}
+
+void IDPHumanSetWeakRefToPartner(IDPHuman *human, IDPHuman *partner) {
+    if (!human) {
+        return;
+    }
+    
+    if (human->_partner != partner) {
+        human->_partner = partner;
+    }
+}
+
+void IDPHumanSetStrongRefToPartner(IDPHuman *human, IDPHuman *partner) {
+    if (!human) {
+        return;
+    }
+    
+    if (human->_partner != partner) {
+        if (human->_partner) {
+            IDPObjectRelease(human->_partner);
+            human->_partner = NULL;
+        }
+        
+        human->_partner = IDPObjectRetain(partner);
+    }
+}
+
+void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
+    if (!human)  {
+        return;
+    }
+    
+    if (IDPHumanGenderMale == IDPHumanGetGender(human)) {
+        IDPHumanSetStrongRefToPartner(human, partner);
+        IDPHumanSetWeakRefToPartner(partner, human);
+    }
+    else {
+        IDPHumanSetStrongRefToPartner(partner, human);
+        IDPHumanSetWeakRefToPartner(human, partner);
+    }
 }
 
 IDPHuman *IDPHumanGetPartner(IDPHuman *human) {

@@ -129,7 +129,6 @@ void IDPHumanMarriageTest() {
     IDPHuman *fiance3 = IDPHumanCreate();
     IDPHumanSetGender(fiance3, IDPHumanGenderMale);
     
-    
     IDPHumanGetMarriedWithPartner(fiance1, bride2);
     assert(1 == IDPObjectGetReferenceCount(bride1));
     assert(2 == IDPObjectGetReferenceCount(bride2));
