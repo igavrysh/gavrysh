@@ -116,6 +116,7 @@ bool IDPHumanIsMarried(IDPHuman *human) {
     return (human && human->_partner);
 }
 
+
 void IDPHumanDivorce(IDPHuman *human) {
     IDPHumanSetPartner(human->_partner, NULL);
     IDPHumanSetPartner(human, NULL);
