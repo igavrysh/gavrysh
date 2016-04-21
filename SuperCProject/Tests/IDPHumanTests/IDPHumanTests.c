@@ -28,6 +28,9 @@ void IDPHumanMarriageTest();
 static
 void IDPHumanMarriageReversedReleasingTest();
 
+static
+void IDPHumanBurnChildTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
@@ -39,6 +42,8 @@ void IDPHumanBehaviorTests(void) {
     performTest(IDPHumanMarriageTest);
     
     performTest(IDPHumanMarriageReversedReleasingTest);
+    
+    performTest(IDPHumanBurnChildTest);
 }
 
 #pragma mark -
@@ -190,3 +195,21 @@ void IDPHumanMarriageReversedReleasingTest() {
     assert(0 == IDPObjectGetReferenceCount(bride1));
     assert(0 == IDPObjectGetReferenceCount(fiance1));
 }
+
+void IDPHumanBurnChildTest() {
+    //  after man and woman were created and married
+    //      burn a child
+    //      check that child reference count is equal to 2, mother and futher referes to the newly created child
+    //
+    IDPHuman *man = IDPHumanCreate();
+    IDPHuman *female = IDPHumanCreate();
+    IDPHumanSetGender(man, IDPHumanGenderMale);
+    IDPHumanSetGender(female, IDPHumanGenderFemale);
+
+    IDPHumanGetMarriedWithPartner(man, female);
+    IDPHuman *child = IDPHumanBurnChild(man);
+    assert(2 == IDPObjectGetReferenceCount(child));
+
+}
+
+

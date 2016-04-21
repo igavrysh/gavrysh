@@ -153,7 +153,7 @@ IDPHuman *IDPHumanBurnChild(IDPHuman *human) {
         return IDPHumanBurnChild(IDPHumanGetPartner(human));
     }
     
-    IDPHuman *child = IDPObjectCreateOfType(IDPHuman);
+    IDPHuman *child = IDPHumanCreate();
     IDPHumanSetChildStrongRef(human->_partner, child);
     IDPHumanSetChildStrongRef(human, child);
     IDPObjectRelease(child);
@@ -264,7 +264,7 @@ void IDPHumanSetChildStrongRef(IDPHuman *human, IDPHuman *child) {
 
 
 IDPHuman *IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
-    if (human || child) {
+    if (!human || !child) {
         return NULL;
     }
     
