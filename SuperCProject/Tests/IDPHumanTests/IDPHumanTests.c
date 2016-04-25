@@ -31,6 +31,9 @@ void IDPHumanMarriageReversedReleasingTest();
 static
 void IDPHumanBornChildTest();
 
+static
+void IDPHumanBornChildrenTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
@@ -46,6 +49,8 @@ void IDPHumanBehaviorTests(void) {
     */
     
     performTest(IDPHumanBornChildTest);
+    
+    performTest(IDPHumanBornChildrenTest);
 }
 
 #pragma mark -
@@ -215,12 +220,40 @@ void IDPHumanBornChildTest() {
     IDPObjectRelease(child);
     IDPObjectRelease(child);
     
+    //assert(0 == IDPObjectGetReferenceCount(child));
+    
     assert(0 == IDPHumanGetChildrenCount(male));
     
     assert(0 == IDPHumanGetChildrenCount(female));
-    
-    assert(0 == IDPObjectGetReferenceCount(child));
-    
 }
+
+
+void IDPHumanBornChildrenTest() {
+    IDPHuman *male = IDPHumanCreate();
+    IDPHuman *female = IDPHumanCreate();
+    IDPHumanSetGender(male, IDPHumanGenderMale);
+    IDPHumanSetGender(female, IDPHumanGenderFemale);
+    
+    IDPHumanGetMarriedWithPartner(male, female);
+    
+    IDPHuman *child1 = IDPHumanGetBirthChild(female);
+    assert(2 == IDPObjectGetReferenceCount(child1));
+    
+    IDPHuman *child2 = IDPHumanGetBirthChild(female);
+    assert(2 == IDPObjectGetReferenceCount(child2));
+    
+    IDPHuman *child3 = IDPHumanGetBirthChild(female);
+    assert(2 == IDPObjectGetReferenceCount(child3));
+    
+    IDPObjectRelease(child2);
+    IDPObjectRelease(child2);
+    
+    assert(2 == IDPHumanGetChildrenCount(male));
+    assert(2 == IDPHumanGetChildrenCount(female));
+    
+    assert(2 == IDPObjectGetReferenceCount(child1));
+    assert(2 == IDPObjectGetReferenceCount(child3));
+}
+
 
 

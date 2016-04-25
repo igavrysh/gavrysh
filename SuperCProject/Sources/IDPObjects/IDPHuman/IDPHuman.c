@@ -91,9 +91,9 @@ void __IDPHumanDeallocate(IDPHuman *object) {
     
     IDPHumanRemoveFromParent(human);
     
-    IDPHumanSetName(human, NULL);
-    
     IDPHumanDivorce(human);
+    
+    IDPHumanSetName(human, NULL);
     
     __IDPObjectDeallocate(object);
 }
@@ -295,7 +295,8 @@ IDPHuman *IDPHumanGetBirthChild(IDPHuman *human) {
 }
 
 bool IDPHumanCanGiveBirth(IDPHuman *human) {
-    return IDPHumanGenderFemale == IDPHumanGetGender(human) && IDPHumanGetChildrenCount(human) < kIDPHumanMaxChildrenCount;
+    return IDPHumanGenderFemale == IDPHumanGetGender(human)
+        && IDPHumanGetChildrenCount(human) < kIDPHumanMaxChildrenCount;
 }
 
 void IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
@@ -326,7 +327,8 @@ void IDPHumanRemoveAllChildren(IDPHuman *human) {
     
     size_t childrenCount = IDPHumanGetChildrenCount(human);
     for (size_t index; index < childrenCount; index++) {
-        IDPHumanSetChildForDelete(human, IDPHumanGetChildAtIndex(human, childrenCount - index - 1));
+        IDPHumanSetChildForDelete(human,
+                                  IDPHumanGetChildAtIndex(human, childrenCount - index - 1));
     }
 }
 
@@ -340,7 +342,7 @@ void IDPHumanSetChildForDelete(IDPHuman *human, IDPHuman *child) {
 }
 
 void IDPHumanSetChildIsNull(IDPHuman *human, IDPHuman *child, bool isNull) {
-    if (!human) {
+    if (!human || !child) {
         return;
     }
     
@@ -424,6 +426,7 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
         }
     
         human->_children[index] = human->_children[internalIndex];
+        human->_children[internalIndex] = NULL;
         
         internalIndex++;
     }
