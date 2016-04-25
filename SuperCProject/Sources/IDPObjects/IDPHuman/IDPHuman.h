@@ -36,14 +36,16 @@ struct IDPHuman {
     
     IDPHuman *_father;
     IDPHuman *_mother;
+    
+    size_t _childrenCount;
     IDPHuman *_children[kIDPHumanMaxChildrenCount];
 };
 
 extern
-void *IDPHumanCreate();
+void __IDPHumanDeallocate(IDPHuman *human);
 
 extern
-void __IDPHumanDeallocate(IDPHuman *human);
+void *IDPHumanCreate();
 
 extern
 void IDPHumanSetName(IDPHuman *human, IDPString *name);
@@ -73,6 +75,9 @@ extern
 void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner);
 
 extern
-IDPHuman *IDPHumanBurnChild(IDPHuman *human);
+IDPHuman *IDPHumanGetBirthChild(IDPHuman *human);
+
+extern
+size_t IDPHumanGetChildrenCount(IDPHuman *human);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */
