@@ -9,8 +9,6 @@
 #ifndef __SuperCProject__IDPName__
 #define __SuperCProject__IDPName__
 
-#include <stdio.h>
-
 #include "IDPObject.h"
 
 typedef struct IDPString IDPString;
@@ -22,24 +20,24 @@ struct IDPString {
 };
 
 extern
-void *IDPStringCreateWithString(char *string);
+void __IDPStringDeallocate(IDPString *string);
 
 extern
-void *IDPStringCreateWithIDPString(IDPString *string);
+IDPString *IDPStringCreateWithString(char *string);
 
 extern
-void __IDPStringDeallocate(void *object);
+IDPString *IDPStringCreateWithIDPString(IDPString *string);
 
 extern
-void IDPStringSetString(void *object, char *value);
+void IDPStringSetString(IDPString *string, char *value);
 
 extern
-void IDPStringSetIDPString(void *object, void *string);
+void IDPStringCopy(IDPString *string, IDPString *newValue);
 
 extern
-char *IDPStringGetString(void *object);
+char *IDPStringGetString(IDPString *string);
 
 extern
-size_t IDPStringGetLength(void *object);
+size_t IDPStringGetLength(IDPString *string);
 
 #endif /* defined(__SuperCProject__IDPName__) */

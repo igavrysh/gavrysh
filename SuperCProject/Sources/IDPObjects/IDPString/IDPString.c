@@ -13,14 +13,20 @@
 #pragma mark -
 #pragma mark Public Implementations
 
-void *IDPStringCreateWithString(char *string) {
+void __IDPStringDeallocate(IDPString *string) {
+    IDPStringSetString(string, NULL);
+    
+    __IDPObjectDeallocate(string);
+}
+
+IDPString *IDPStringCreateWithString(char *string) {
     IDPString *result = IDPObjectCreateOfType(IDPString);
     IDPStringSetString(result, string);
     
     return result;
 }
 
-void *IDPStringCreateWithIDPString(IDPString *string) {
+IDPString *IDPStringCreateWithIDPString(IDPString *string) {
     if (NULL == string) {
         return NULL;
     }
@@ -30,18 +36,10 @@ void *IDPStringCreateWithIDPString(IDPString *string) {
     return result;
 }
 
-void __IDPStringDeallocate(void *object) {
-    IDPStringSetString(object, NULL);
-    
-    __IDPObjectDeallocate(object);
-}
-
-void IDPStringSetString(void *object, char *value) {
-    if (NULL == object) {
+void IDPStringSetString(IDPString *string, char *value) {
+    if (!string) {
         return;
     }
-    
-    IDPString *string = object;
     
     if(string->_string != value) {
         if (string ->_string) {
@@ -56,17 +54,16 @@ void IDPStringSetString(void *object, char *value) {
     }
 }
 
-void IDPStringSetIDPString(void *object, void *string) {
-    if (NULL != object && NULL != ((IDPString *)object)->_string &&
-        NULL != string && NULL != ((IDPString *)string)->_string) {
-        IDPStringSetString(object, ((IDPString *)string)->_string);
+void IDPStringSetIDPString(IDPString *string, IDPString *newValue) {
+    if (!string && !newValue) {
+        IDPStringSetString(string, newValue->_string);
     }
 }
 
-char *IDPStringGetString(void *object) {
-    return object ? ((IDPString *)object)->_string : NULL;
+char *IDPStringGetString(IDPString *string) {
+    return string ? string->_string : NULL;
 }
 
-size_t IDPStringGetLength(void *object) {
-    return object ? strlen(((IDPString *)object)->_string) : 0;
+size_t IDPStringGetLength(IDPString *string) {
+    return string ? strlen(string->_string) : 0;
 }

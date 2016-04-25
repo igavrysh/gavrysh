@@ -138,27 +138,19 @@ void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender) {
 }
 
 IDPString *IDPHumanGetName(IDPHuman *human) {
-    if (!human) {
-        return NULL;
-    }
-    
-    return human->_name;
+    return human ? human->_name : NULL;
 }
 
 uint8_t IDPHumanGetAge(IDPHuman *human) {
-    if (!human) {
-        return 0;
-    }
-    
-    return human->_age;
+    return human ? human->_age : 0;
 }
 
 IDPHumanGender IDPHumanGetGender(IDPHuman *human) {
-    return human->_gender;
+    return human ? human->_gender : IDPHumanGenderMale;
 }
 
 bool IDPHumanIsMarried(IDPHuman *human) {
-    return (human && human->_partner);
+    return human && human->_partner;
 }
 
 void IDPHumanDivorce(IDPHuman *human) {
@@ -175,11 +167,7 @@ void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner) {
 }
 
 size_t IDPHumanGetChildrenCount(IDPHuman *human) {
-    if (!human) {
-        return 0;
-    }
-    
-    return human->_childrenCount;
+    return human ? human->_childrenCount : 0;
 }
 
 void IDPHumanSetChildrenCount(IDPHuman *human, size_t count) {
@@ -195,7 +183,7 @@ void IDPHumanIncrementChildrenCount(IDPHuman *human) {
         return;
     }
     
-    human->_childrenCount++;
+    human->_childrenCount += 1;
 }
 
 
@@ -204,9 +192,8 @@ void IDPHumanDecrementChildrenCount(IDPHuman *human) {
         return;
     }
     
-    human->_childrenCount--;
+    human->_childrenCount -= 1;
 }
-
 
 #pragma mark -
 #pragma mark Private Implementations
@@ -416,20 +403,19 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
         return;
     }
     
-    size_t internalIndex = 0;
+    size_t outerIndex = IDPHumanGetChildrenCount(human);
     
     size_t childrenCount = IDPHumanGetChildrenCount(human);
     for (size_t index = 0; index < childrenCount; index++) {
-        while (!IDPHumanGetChildAtIndex(human, internalIndex)
-               && internalIndex < childrenCount) {
-            internalIndex++;
+        if (!IDPHumanGetChildAtIndex(human, index)) {
+            while (!IDPHumanGetChildAtIndex(human, outerIndex)
+                   && outerIndex < kIDPHumanMaxChildrenCount) {
+                outerIndex++;
+            }
+            
+            if (outerIndex < kIDPHumanMaxChildrenCount) {
+                human->_children[index] = human->_children[outerIndex];
+            }
         }
-    
-        if (index != internalIndex) {
-            human->_children[index] = human->_children[internalIndex];
-            human->_children[internalIndex] = NULL;
-        }
-        
-        internalIndex++;
     }
 }

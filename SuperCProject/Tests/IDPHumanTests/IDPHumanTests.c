@@ -38,7 +38,7 @@ void IDPHumanBornChildrenTest();
 #pragma mark Public Implementation
 
 void IDPHumanBehaviorTests(void) {
-    /*
+    
     performTest(IDPHumanCreationTest);
     
     performTest(IDPHumanGettersAndSettersTest);
@@ -46,7 +46,6 @@ void IDPHumanBehaviorTests(void) {
     performTest(IDPHumanMarriageTest);
     
     performTest(IDPHumanMarriageReversedReleasingTest);
-    */
     
     performTest(IDPHumanBornChildTest);
     
