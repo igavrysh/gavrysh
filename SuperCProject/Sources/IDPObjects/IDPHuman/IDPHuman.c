@@ -425,8 +425,10 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
             internalIndex++;
         }
     
-        human->_children[index] = human->_children[internalIndex];
-        human->_children[internalIndex] = NULL;
+        if (index != internalIndex) {
+            human->_children[index] = human->_children[internalIndex];
+            human->_children[internalIndex] = NULL;
+        }
         
         internalIndex++;
     }
