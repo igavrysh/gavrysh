@@ -27,9 +27,7 @@ struct IDPHuman {
     IDPObject _super;
     
     IDPString *_name;
-    
     int _age;
-    
     IDPHumanGender _gender;
 
     IDPHuman *_partner;
@@ -37,8 +35,8 @@ struct IDPHuman {
     IDPHuman *_father;
     IDPHuman *_mother;
     
-    size_t _childrenCount;
     IDPHuman *_children[kIDPHumanMaxChildrenCount];
+    size_t _childrenCount;
 };
 
 extern

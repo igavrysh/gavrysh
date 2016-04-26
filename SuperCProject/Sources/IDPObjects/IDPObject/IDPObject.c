@@ -49,3 +49,19 @@ uint64_t IDPObjectGetReferenceCount(void *object) {
 void __IDPObjectDeallocate(void *object) {
     free(object);
 }
+
+void IDPObjectStrongRefSetter(IDPObject *object, void **field, void *value, void *(*RetainMethod)(void *)) {
+    if (!object) {
+        return;
+    }
+    
+    if (*field != value) {
+        if (*field) {
+            IDPObjectRelease(*field);
+            *field = NULL;
+        }
+        
+        //*field = IDPObjectRetain(value);
+        *field = RetainMethod(value);
+    }
+}
