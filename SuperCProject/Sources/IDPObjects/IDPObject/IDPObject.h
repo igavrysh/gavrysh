@@ -21,7 +21,7 @@ typedef struct {
 extern
 void *__IDPObjectCreate(size_t objectSize, IDPObjectDeallocatorCallback deallocateCallback);
 
-#define IDPObjectCreateOfType(type) \
+#define IDPObjectCreateWithType(type) \
 __IDPObjectCreate(sizeof(type), (IDPObjectDeallocatorCallback)__##type##Deallocate)
 
 extern

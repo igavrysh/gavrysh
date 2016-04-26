@@ -20,7 +20,7 @@ void __IDPStringDeallocate(IDPString *string) {
 }
 
 IDPString *IDPStringCreateWithString(char *string) {
-    IDPString *result = IDPObjectCreateOfType(IDPString);
+    IDPString *result = IDPObjectCreateWithType(IDPString);
     IDPStringSetString(result, string);
     
     return result;

@@ -31,7 +31,7 @@ void IDPObjectBehaviorTests(void) {
 
 void IDPObjectOneObjectCreationTest() {
     // after IDPObject was created
-    IDPObject *object = IDPObjectCreateOfType(IDPObject);
+    IDPObject *object = IDPObjectCreateWithType(IDPObject);
     
     //  object should not be NULL
     assert(NULL != object);

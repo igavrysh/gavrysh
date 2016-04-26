@@ -99,7 +99,7 @@ void __IDPHumanDeallocate(IDPHuman *object) {
 }
 
 void *IDPHumanCreate() {
-    IDPHuman *result = IDPObjectCreateOfType(IDPHuman);
+    IDPHuman *result = IDPObjectCreateWithType(IDPHuman);
     
     IDPHumanInit(result);
     
@@ -121,12 +121,20 @@ void IDPHumanSetName(IDPHuman *human, IDPString *name) {
     }
 }
 
+IDPString *IDPHumanGetName(IDPHuman *human) {
+    return human ? human->_name : NULL;
+}
+
 void IDPHumanSetAge(IDPHuman *human, int age) {
-    if (NULL == human) {
+    if (!human) {
         return;
     }
     
     human->_age = age;
+}
+
+uint8_t IDPHumanGetAge(IDPHuman *human) {
+    return human ? human->_age : 0;
 }
 
 void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender) {
@@ -135,14 +143,6 @@ void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender) {
     }
     
     human->_gender = gender;
-}
-
-IDPString *IDPHumanGetName(IDPHuman *human) {
-    return human ? human->_name : NULL;
-}
-
-uint8_t IDPHumanGetAge(IDPHuman *human) {
-    return human ? human->_age : 0;
 }
 
 IDPHumanGender IDPHumanGetGender(IDPHuman *human) {
@@ -199,22 +199,6 @@ void IDPHumanDecrementChildrenCount(IDPHuman *human) {
 #pragma mark Private Implementations
 
 void IDPHumanInit(IDPHuman *human) {
-    for(uint8_t i = 0; i < kIDPHumanMaxChildrenCount; i++) {
-        human->_children[i] = NULL;
-    }
-    
-    IDPHumanSetChildrenCount(human, 0);
-    
-    IDPHumanSetAge(human, 0);
-    
-    IDPHumanSetGender(human, IDPHumanGenderMale);
-    
-    IDPHumanSetName(human, NULL);
-    
-    IDPHumanDivorce(human);
-    
-    human->_father = NULL;
-    human->_mother = NULL;
 }
 
 #pragma mark -
@@ -225,9 +209,7 @@ void IDPHumanSetWeakPartner(IDPHuman *human, IDPHuman *partner) {
         return;
     }
     
-    if (human->_partner != partner) {
-        human->_partner = partner;
-    }
+    human->_partner = partner;
 }
 
 void IDPHumanSetStrongPartner(IDPHuman *human, IDPHuman *partner) {
@@ -252,8 +234,7 @@ void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
     
     if (IDPHumanGenderMale == IDPHumanGetGender(human)) {
         IDPHumanSetStrongPartner(human, partner);
-    }
-    else {
+    } else {
         IDPHumanSetWeakPartner(human, partner);
     }
 }
@@ -265,13 +246,17 @@ IDPHuman *IDPHumanGetPartner(IDPHuman *human) {
 #pragma mark - 
 #pragma mark Private Implementations - Give Birth functionality
 
-IDPHuman *IDPHumanGetBirthChild(IDPHuman *human) {
+IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human) {
     if (!human) {
         return NULL;
     }
     
-    if (!IDPHumanGetPartner(human) || !IDPHumanCanGiveBirth(human)) {
+    if (!IDPHumanCanGiveBirth(human)) {
         return NULL;
+    }
+    
+    if (IDPHumanGenderMale == IDPHumanGetGender(human)) {
+        return IDPHumanGiveBirthToChild(IDPHumanGetPartner(human));
     }
     
     IDPHuman *child = IDPHumanCreate();
@@ -282,8 +267,9 @@ IDPHuman *IDPHumanGetBirthChild(IDPHuman *human) {
 }
 
 bool IDPHumanCanGiveBirth(IDPHuman *human) {
-    return IDPHumanGenderFemale == IDPHumanGetGender(human)
-        && IDPHumanGetChildrenCount(human) < kIDPHumanMaxChildrenCount;
+    return IDPHumanGetPartner(human)
+        && IDPHumanGetChildrenCount(human) < kIDPHumanMaxChildrenCount
+        && IDPHumanGetChildrenCount(human->_partner) < kIDPHumanMaxChildrenCount;
 }
 
 void IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {

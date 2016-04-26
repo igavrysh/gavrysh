@@ -213,7 +213,7 @@ void IDPHumanBornChildTest() {
     IDPHumanSetGender(female, IDPHumanGenderFemale);
 
     IDPHumanGetMarriedWithPartner(male, female);
-    IDPHuman *child = IDPHumanGetBirthChild(female);
+    IDPHuman *child = IDPHumanGiveBirthToChild(female);
     assert(2 == IDPObjectGetReferenceCount(child));
     
     IDPObjectRelease(child);
@@ -235,13 +235,13 @@ void IDPHumanBornChildrenTest() {
     
     IDPHumanGetMarriedWithPartner(male, female);
     
-    IDPHuman *child1 = IDPHumanGetBirthChild(female);
+    IDPHuman *child1 = IDPHumanGiveBirthToChild(female);
     assert(2 == IDPObjectGetReferenceCount(child1));
     
-    IDPHuman *child2 = IDPHumanGetBirthChild(female);
+    IDPHuman *child2 = IDPHumanGiveBirthToChild(female);
     assert(2 == IDPObjectGetReferenceCount(child2));
     
-    IDPHuman *child3 = IDPHumanGetBirthChild(female);
+    IDPHuman *child3 = IDPHumanGiveBirthToChild(female);
     assert(2 == IDPObjectGetReferenceCount(child3));
     
     IDPObjectRelease(child2);

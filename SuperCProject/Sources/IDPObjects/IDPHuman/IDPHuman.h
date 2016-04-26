@@ -75,7 +75,7 @@ extern
 void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner);
 
 extern
-IDPHuman *IDPHumanGetBirthChild(IDPHuman *human);
+IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human);
 
 extern
 size_t IDPHumanGetChildrenCount(IDPHuman *human);
