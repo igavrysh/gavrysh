@@ -345,9 +345,9 @@ void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
         if (prevChildAtIndex) {
             IDPHumanDecrementChildrenCount(human);
         }
+        
+        IDPHumanReorderChildrenArray(human);
     }
-    
-    IDPHumanReorderChildrenArray(human);
 }
 
 size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child) {
