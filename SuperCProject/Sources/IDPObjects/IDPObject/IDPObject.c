@@ -61,7 +61,10 @@ void IDPObjectStrongRefSetter(IDPObject *object, void **field, void *value, void
             *field = NULL;
         }
         
-        //*field = IDPObjectRetain(value);
-        *field = RetainMethod(value);
+        if (!RetainMethod)  {
+           *field = IDPObjectRetain(value);
+        } else {
+            *field = RetainMethod(value);
+        }
     }
 }

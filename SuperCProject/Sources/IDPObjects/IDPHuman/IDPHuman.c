@@ -199,7 +199,7 @@ void IDPHumanSetWeakPartner(IDPHuman *human, IDPHuman *partner) {
 }
 
 void IDPHumanSetStrongPartner(IDPHuman *human, IDPHuman *partner) {
-    IDPObjectStrongRefSetter((IDPObject *)human, (void **)&human->_partner, partner, &IDPObjectRetain);
+    IDPObjectStrongRefSetter((IDPObject *)human, (void **)&human->_partner, partner, NULL);
 }
 
 void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
@@ -332,7 +332,7 @@ IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index) {
 }
 
 void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
-    IDPObjectStrongRefSetter((IDPObject *)human, (void **)(&(human->_children[index])), child, &IDPObjectRetain);
+    IDPObjectStrongRefSetter((IDPObject *)human, (void **)(&(human->_children[index])), child, NULL);
 }
 
 size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child) {
