@@ -40,7 +40,7 @@ void IDPLinkedListRemoveFirstObject(IDPLinkedList *list) {
 }
 
 IDPObject *IDPLinkedListGetObjectBeforeObject(IDPLinkedList *list, IDPObject *object) {
-    if (NULL != list && false == IDPLinkedListIsEmpty(list)) {
+    if (list && false == IDPLinkedListIsEmpty(list)) {
         // enumerate until object and remember previoud on each iteration
         IDPLinkedListNode *currentNode = IDPLinkedListGetHead(list);
         IDPObject *previousObject = NULL;
@@ -59,11 +59,11 @@ IDPObject *IDPLinkedListGetObjectBeforeObject(IDPLinkedList *list, IDPObject *ob
 }
 
 bool IDPLinkedListIsEmpty(IDPLinkedList *list) {
-    return NULL != list && 0 == list->_count;
+    return list && 0 == list->_count;
 }
 
 void IDPLinkedListAddObject(IDPLinkedList *list, void *object) {
-    if (NULL != list) {
+    if (list) {
         IDPLinkedListNode *node = IDPLinkedListNodeCreateWithObject(object);
         IDPLinkedListNodeSetNextNode(node, IDPLinkedListGetHead(list));
         
@@ -80,7 +80,7 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, void *object) {
     IDPLinkedListNode *node = IDPLinkedListGetHead(list);
     IDPLinkedListNode *previousNode = NULL;
     
-    while (NULL != node) {
+    while (node) {
         IDPObject *currentObject = IDPLinkedListNodeGetObject(node);
         if (object == currentObject) {
             IDPLinkedListNode *nextNode = IDPLinkedListNodeGetNextNode(node);
@@ -98,7 +98,7 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, void *object) {
 }
 
 void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
-    if (NULL != list) {
+    if (list) {
         IDPLinkedListSetHead(list, NULL);
         list->_count = 0;
     }
@@ -106,7 +106,7 @@ void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
 
 bool IDPLinkedListContainsObject(IDPLinkedList *list, void *object) {
     bool result = false;
-    if (NULL != list) {
+    if (list) {
         // enumerate all nodes to find with object
         
     }
@@ -115,14 +115,14 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, void *object) {
 }
 
 uint64_t IDPLinkedListGetCount(IDPLinkedList *list) {
-    return NULL != list ? list->_count : 0;
+    return list ? list->_count : 0;
 }
 
 #pragma mark - 
 #pragma mark Private Implementations
 
 void IDPLinkedListSetHead(IDPLinkedList *list, IDPLinkedListNode *head) {
-    if (NULL != list && list->_head != head) {
+    if (list && list->_head != head) {
         IDPObjectRetain(head);
         IDPObjectRelease(list->_head);
         
@@ -131,6 +131,6 @@ void IDPLinkedListSetHead(IDPLinkedList *list, IDPLinkedListNode *head) {
 }
 
 IDPLinkedListNode *IDPLinkedListGetHead(IDPLinkedList *list) {
-    return NULL != list ? list->_head : NULL;
+    return list ? list->_head : NULL;
 }
 
