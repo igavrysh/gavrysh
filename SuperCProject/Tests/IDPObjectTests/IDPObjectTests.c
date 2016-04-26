@@ -10,7 +10,7 @@
 
 #include "IDPObjectTests.h"
 #include "IDPObject.h"
-//#include
+#include "IDPPrintingFunctions.h"
 
 
 #pragma mark -
@@ -23,7 +23,7 @@ void IDPObjectCreationTest();
 #pragma mark Public Implementation
 
 void IDPObjectBehaviorTests(void) {
-    
+    IDPPerformTest(IDPObjectOneObjectCreationTest);
 }
 
 #pragma mark -
@@ -31,13 +31,13 @@ void IDPObjectBehaviorTests(void) {
 
 void IDPObjectOneObjectCreationTest() {
     // after IDPObject was created
-    IDPObject *object = IDPObjectCreateOfType(IDPObject);
+    IDPObject *object = IDPObjectCreateWithType(IDPObject);
     
     //  object should not be NULL
     assert(NULL != object);
     
     //  object reference count must be equalt to 1
-    assert(1 == IDPObjectGerReferenceCount(object));
+    assert(1 == IDPObjectGetReferenceCount(object));
     
     //  after object retaining
     IDPObject *retainedObject = IDPObjectRetain(object);
@@ -46,12 +46,12 @@ void IDPObjectOneObjectCreationTest() {
     assert(object == retainedObject);
     
     //      object reference count must be equal to 2
-    assert(2 == IDPObjectGerReferenceCount(object));
+    assert(2 == IDPObjectGetReferenceCount(object));
     
     //  after releasing retained object equalt ot 1
     IDPObjectRelease(object);
     
-    assert(1 == IDPObjectGerReferenceCount(object));
+    assert(1 == IDPObjectGetReferenceCount(object));
     
     IDPObjectRelease(object);
 }

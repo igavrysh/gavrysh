@@ -12,57 +12,72 @@
 #include <stdbool.h>
 
 #include "IDPObject.h"
-#include "IDPName.h"
+#include "IDPString.h"
+
+static const uint8_t kIDPHumanMaxChildrenCount = 20;
 
 typedef enum {
-    IDPHumanGengerMale,
-    IDPHumanGengerFemale
-} IDPHumanGenger;
+    IDPHumanGenderMale,
+    IDPHumanGenderFemale
+} IDPHumanGender;
 
 typedef struct IDPHuman IDPHuman;
 
 struct IDPHuman {
     IDPObject _super;
     
-    IDPName *_name;
+    IDPString *_name;
     
-    int age;
+    int _age;
     
-    IDPHumanGenger _gender;
-    
-    bool isMarried;
+    IDPHumanGender _gender;
+
     IDPHuman *_partner;
     
-    IDPHuman *_parents;
+    IDPHuman *_father;
+    IDPHuman *_mother;
     
-    IDPHuman *_children[20];
+    size_t _childrenCount;
+    IDPHuman *_children[kIDPHumanMaxChildrenCount];
 };
+
+extern
+void __IDPHumanDeallocate(IDPHuman *human);
 
 extern
 void *IDPHumanCreate();
 
 extern
-void __IDPHumanDeallocate(void *object);
+void IDPHumanSetName(IDPHuman *human, IDPString *name);
 
 extern
-void IDPHumanSetName(void *object, IDPName *name);
+void IDPHumanSetAge(IDPHuman *human, int age);
 
 extern
-void IDPHumanSetAge(void *object, int age);
+void IDPHumanSetGender(IDPHuman *human, IDPHumanGender gender);
 
 extern
-void IDPHumanSetGender(void *object, IDPHumanGenger gender);
+IDPString *IDPHumanGetName(IDPHuman *human);
 
 extern
-IDPName *IDPHumanGetName(void *object);
+uint8_t IDPHumanGetAge(IDPHuman *human);
 
 extern
-int IDPHumanGetAge(void *object);
+IDPHumanGender IDPHumanGetGender(IDPHuman *human);
 
 extern
-IDPHumanGenger IDPHumanGetGender(void *object);
+bool IDPHumanIsMarried(IDPHuman *human);
 
 extern
-bool IDPHumanIsMarried(void *object);
+void IDPHumanDivorce(IDPHuman *human);
+
+extern
+void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner);
+
+extern
+IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human);
+
+extern
+size_t IDPHumanGetChildrenCount(IDPHuman *human);
 
 #endif /* defined(__SuperCProject__IDPHuman__) */

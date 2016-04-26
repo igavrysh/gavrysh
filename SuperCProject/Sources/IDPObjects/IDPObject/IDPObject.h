@@ -21,7 +21,7 @@ typedef struct {
 extern
 void *__IDPObjectCreate(size_t objectSize, IDPObjectDeallocatorCallback deallocateCallback);
 
-#define IDPObjectCreateOfType(type) \
+#define IDPObjectCreateWithType(type) \
 __IDPObjectCreate(sizeof(type), (IDPObjectDeallocatorCallback)__##type##Deallocate)
 
 extern
@@ -34,6 +34,6 @@ extern
 void __IDPObjectDeallocate(void *object);
 
 extern
-uint64_t IDPObjectGerReferenceCount(void *object);
+uint64_t IDPObjectGetReferenceCount(void *object);
 
 #endif /* IDPObject_h */

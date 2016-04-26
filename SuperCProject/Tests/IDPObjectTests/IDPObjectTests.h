@@ -9,6 +9,10 @@
 #ifndef IDPObjectTests_h
 #define IDPObjectTests_h
 
-#include <stdio.h>
+extern
+void IDPObjectBehaviorTests(void);
+
+extern
+void IDPObjectOneObjectCreationTest();
 
 #endif /* IDPObjectTests_h */
