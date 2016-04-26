@@ -305,7 +305,6 @@ void IDPHumanRemoveAllChildren(IDPHuman *human) {
     }
 }
 
-
 void IDPHumanSetChildForAdd(IDPHuman *human, IDPHuman *child) {
     IDPHumanSetChildIsNull(human, child, false);
 }
@@ -326,11 +325,9 @@ void IDPHumanSetChildIsNull(IDPHuman *human, IDPHuman *child, bool isNull) {
     }
     
     if (!isNull) {
-        IDPObjectRetain(child);
         IDPHumanInsertChildIntoArray(human, child);
     } else {
         IDPHumanRemoveChildFromArray(human, child);
-        IDPObjectRelease(child);
     }
 }
 
@@ -362,14 +359,20 @@ void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
         return;
     }
     
-    IDPHuman *currentChild = IDPHumanGetChildAtIndex(human, index);
-    if (!currentChild && child) {
-        IDPHumanIncrementChildrenCount(human);
-    } else if (currentChild && !child) {
-        IDPHumanDecrementChildrenCount(human);
+    IDPHuman *prevChildAtIndex = IDPHumanGetChildAtIndex(human, index);
+    
+    if (child) {
+        human->_children[index] = IDPObjectRetain(child);
+        if (!prevChildAtIndex) {
+            IDPHumanIncrementChildrenCount(human);
+        }
+    } else {
+        human->_children[index] = NULL;
+        if (prevChildAtIndex) {
+            IDPHumanDecrementChildrenCount(human);
+        }
     }
     
-    human->_children[index] = child;
     IDPHumanReorderChildrenArray(human);
 }
 
