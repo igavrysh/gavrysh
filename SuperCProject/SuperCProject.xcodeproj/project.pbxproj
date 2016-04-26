@@ -88,6 +88,10 @@
 		8550BC581CBB23B400813085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		85BE2F2C1CC1599500E18E17 /* IDPObject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPObject.c; sourceTree = "<group>"; };
 		85BE2F2D1CC1599500E18E17 /* IDPObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPObject.h; sourceTree = "<group>"; };
+		85DA09B71CCF558700BB92B6 /* IDPLinkedList.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPLinkedList.c; sourceTree = "<group>"; };
+		85DA09B81CCF558700BB92B6 /* IDPLinkedList.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPLinkedList.h; sourceTree = "<group>"; };
+		85DA09BA1CCF558700BB92B6 /* IDPLinkedListNode.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPLinkedListNode.c; sourceTree = "<group>"; };
+		85DA09BB1CCF558700BB92B6 /* IDPLinkedListNode.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPLinkedListNode.h; sourceTree = "<group>"; };
 		85EF63841CC27AC000B83957 /* IDPObjectTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPObjectTests.c; sourceTree = "<group>"; };
 		85EF63851CC27AC000B83957 /* IDPObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPObjectTests.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -209,6 +213,7 @@
 				85BE2F2B1CC1599500E18E17 /* IDPObject */,
 				3EE89B291CC54F25006EA650 /* IDPString */,
 				85465DEB1CC0391E00E275F1 /* IDPHuman */,
+				85DA09B61CCF558700BB92B6 /* IDPLinkedList */,
 			);
 			path = IDPObjects;
 			sourceTree = "<group>";
@@ -352,6 +357,25 @@
 				85BE2F2D1CC1599500E18E17 /* IDPObject.h */,
 			);
 			path = IDPObject;
+			sourceTree = "<group>";
+		};
+		85DA09B61CCF558700BB92B6 /* IDPLinkedList */ = {
+			isa = PBXGroup;
+			children = (
+				85DA09B91CCF558700BB92B6 /* IDPLinkedListNode */,
+				85DA09B71CCF558700BB92B6 /* IDPLinkedList.c */,
+				85DA09B81CCF558700BB92B6 /* IDPLinkedList.h */,
+			);
+			path = IDPLinkedList;
+			sourceTree = "<group>";
+		};
+		85DA09B91CCF558700BB92B6 /* IDPLinkedListNode */ = {
+			isa = PBXGroup;
+			children = (
+				85DA09BA1CCF558700BB92B6 /* IDPLinkedListNode.c */,
+				85DA09BB1CCF558700BB92B6 /* IDPLinkedListNode.h */,
+			);
+			path = IDPLinkedListNode;
 			sourceTree = "<group>";
 		};
 		85EF63831CC27A8F00B83957 /* IDPObjectTests */ = {
