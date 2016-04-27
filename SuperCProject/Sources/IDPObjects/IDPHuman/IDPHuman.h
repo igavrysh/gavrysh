@@ -78,4 +78,10 @@ IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human);
 extern
 size_t IDPHumanGetChildrenCount(IDPHuman *human);
 
+extern
+size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child);
+
+extern
+IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index);
+
 #endif /* defined(__SuperCProject__IDPHuman__) */

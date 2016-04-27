@@ -61,12 +61,6 @@ static
 void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index);
 
 static
-IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index);
-
-static
-size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child);
-
-static
 void IDPHumanReorderChildrenArray(IDPHuman *human);
 
 static
@@ -285,7 +279,6 @@ void IDPHumanRemoveChildFromParent(IDPHuman *human, IDPHuman *child) {
     }
     
     IDPHumanSetChildWithNewValue(human, child, NULL);
-    
     IDPHumanSetParentWithNewValue(child, human, NULL);
     
     if (kIDPHumanIndexNotFound == IDPHumanGetChildIndex(human, child)) {
