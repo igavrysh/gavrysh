@@ -11,7 +11,6 @@
 #include "IDPArrayTests.h"
 #include "IDPArray.h"
 
-
 #pragma mark -
 #pragma mark Private Declarations
 
@@ -21,8 +20,6 @@ void IDPArrayOneObjectBehaviourTest(void);
 static
 void IDPArrayMultipleObjectBehaviourTest(void);
 
-static
-void IDPArrayBehabiourTest(void);
 
 #pragma mark -
 #pragma mark Public

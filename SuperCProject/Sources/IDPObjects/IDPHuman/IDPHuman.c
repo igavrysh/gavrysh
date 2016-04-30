@@ -98,7 +98,22 @@ void *IDPHumanCreate() {
 }
 
 void IDPHumanSetName(IDPHuman *human, IDPString *name) {
-    IDPObjectStrongRefSetter((IDPObject *)human, (void **)&human->_name, name, &IDPStringCopy);
+    //IDPObjectSetStrong((IDPObject *)human, (void **)&human->_name, name, &IDPStringCopy);
+    
+    
+    if(!human) {
+        return;
+    }
+    
+    if(human->_name != name) {
+        if (human->_name) {
+            IDPObjectRelease(human->_name);
+            human->_name = NULL;
+        }
+        
+        human->_name = IDPStringCopy(name);
+    }
+    
 }
 
 IDPString *IDPHumanGetName(IDPHuman *human) {
@@ -179,6 +194,7 @@ void IDPHumanDecrementChildrenCount(IDPHuman *human) {
 #pragma mark Private Implementations
 
 void IDPHumanInit(IDPHuman *human) {
+    human->_name = IDPStringCreateWithString("");
 }
 
 #pragma mark -
@@ -193,7 +209,22 @@ void IDPHumanSetWeakPartner(IDPHuman *human, IDPHuman *partner) {
 }
 
 void IDPHumanSetStrongPartner(IDPHuman *human, IDPHuman *partner) {
-    IDPObjectStrongRefSetter((IDPObject *)human, (void **)&human->_partner, partner, NULL);
+    IDPObjectSetStrong((IDPObject *)human, (void **)&human->_partner, partner, NULL);
+    
+    /*
+    if (!human) {
+        return;
+    }
+    
+    if (human->_partner != partner) {
+        if (human->_partner) {
+            IDPObjectRelease(human->_partner);
+            human->_partner = NULL;
+        }
+        
+        human->_partner = IDPObjectRetain(partner);
+    }
+    */
 }
 
 void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
@@ -278,10 +309,14 @@ void IDPHumanRemoveChildFromParent(IDPHuman *human, IDPHuman *child) {
         return;
     }
     
+    size_t childIndexBeforeRemoval = IDPHumanGetChildIndex(human, child);
+    
     IDPHumanSetChildWithNewValue(human, child, NULL);
     IDPHumanSetParentWithNewValue(child, human, NULL);
     
-    if (kIDPHumanIndexNotFound == IDPHumanGetChildIndex(human, child)) {
+    if (kIDPHumanIndexNotFound != childIndexBeforeRemoval
+        && kIDPHumanIndexNotFound == IDPHumanGetChildIndex(human, child))
+    {
         IDPHumanDecrementChildrenCount(human);
         
         IDPHumanReorderChildrenArray(human);
@@ -325,11 +360,26 @@ IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index) {
 }
 
 void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
-    IDPObjectStrongRefSetter((IDPObject *)human, (void **)(&(human->_children[index])), child, NULL);
+    IDPObjectSetStrong((IDPObject *)human, (void **)(&(human->_children[index])), child, NULL);
+    /*
+    if (!human) {
+        return;
+    }
+    
+    if (human != child) {
+        if (human->_children[index]) {
+            IDPHuman *tmp = human->_children[index];
+            human->_children[index] = NULL;
+            IDPObjectRelease(tmp);
+        }
+        
+        human->_children[index] = IDPObjectRetain(child);
+    }
+     */
 }
 
 size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child) {
-    for(size_t index = 0; index < kIDPHumanMaxChildrenCount; index++) {
+    for(size_t index = 0; index < IDPHumanGetChildrenCount(human); index++) {
         IDPHuman *currentChild = IDPHumanGetChildAtIndex(human, index);
         if (child == currentChild) {
             return index;
@@ -344,19 +394,26 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
         return;
     }
     
-    size_t outerIndex = IDPHumanGetChildrenCount(human);
-    
     size_t childrenCount = IDPHumanGetChildrenCount(human);
     for (size_t index = 0; index < childrenCount; index++) {
         if (!IDPHumanGetChildAtIndex(human, index)) {
-            while (!IDPHumanGetChildAtIndex(human, outerIndex)
-                   && outerIndex < kIDPHumanMaxChildrenCount) {
+            if (IDPHumanGetChildAtIndex(human, childrenCount)) {
+                human->_children[index] = human->_children[childrenCount];
+                return;
+            }
+          
+            /*
+             outerIndex = index + 1;
+            while (outerIndex > kIDPHumanMaxChildrenCount
+                && !IDPHumanGetChildAtIndex(human, outerIndex))
+            {
                 outerIndex++;
             }
             
             if (outerIndex < kIDPHumanMaxChildrenCount) {
-                human->_children[index] = human->_children[outerIndex];
-            }
+                
+                outerIndex++;
+            }*/
         }
     }
 }

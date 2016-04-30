@@ -50,15 +50,16 @@ void __IDPObjectDeallocate(void *object) {
     free(object);
 }
 
-void IDPObjectStrongRefSetter(IDPObject *object, void **field, void *value, void *(*RetainMethod)(void *)) {
+void IDPObjectSetStrong(IDPObject *object, void **field, void *value, void *(*RetainMethod)(void *)) {
     if (!object) {
         return;
     }
     
     if (*field != value) {
         if (*field) {
-            IDPObjectRelease(*field);
+            void *tmp = *field;
             *field = NULL;
+            IDPObjectRelease(tmp);
         }
         
         if (!RetainMethod)  {

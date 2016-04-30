@@ -37,6 +37,6 @@ extern
 uint64_t IDPObjectGetReferenceCount(void *object);
 
 extern
-void IDPObjectStrongRefSetter(IDPObject *object, void **field, void *value, void *(*RetainMethod)(void *));
+void IDPObjectSetStrong(IDPObject *object, void **field, void *value, void *(*RetainMethod)(void *));
 
 #endif /* IDPObject_h */

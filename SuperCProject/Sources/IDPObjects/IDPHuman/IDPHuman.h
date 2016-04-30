@@ -14,7 +14,7 @@
 #include "IDPObject.h"
 #include "IDPString.h"
 
-static const uint8_t kIDPHumanMaxChildrenCount = 20;
+static const uint8_t kIDPHumanMaxChildrenCount = 5;
 
 typedef enum {
     IDPHumanGenderMale,

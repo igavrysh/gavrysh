@@ -19,6 +19,7 @@
 #include "IDPStringTests.h"
 #include "IDPHumanTests.h"
 #include "IDPObjectTests.h"
+#include "IDPArrayTests.h"
 
 void IDPRunApplication() {
     /*
@@ -32,6 +33,7 @@ void IDPRunApplication() {
     
     IDPPerformTest(IDPStartUpStructureOffsetofTest);
     */
+    
     /*
     IDPPerformTest(IDPStartUpStructureSizeofTest);
     
@@ -42,10 +44,13 @@ void IDPRunApplication() {
     
     //IDPPerformTest(IDPBitReverseTest);
     
-    IDPObjectBehaviorTests();
+    //IDPObjectBehaviorTests();
     
-    IDPStringTestPerform();
+    //IDPStringTestPerform();
     
     IDPHumanBehaviorTests();
+    
+    //IDPArrayTestPerform();
+    
 }
 

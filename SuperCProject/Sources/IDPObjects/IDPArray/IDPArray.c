@@ -146,6 +146,10 @@ void IDPArrayRemoveAllObjects(IDPArray *array) {
     IDPArraySetCount(array, 0);
 }
 
+void IDPArrayReorderArray(IDPArray *array) {
+    
+}
+
 #pragma mark -
 #pragma mark Private Implementations
 
