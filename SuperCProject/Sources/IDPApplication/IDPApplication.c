@@ -44,9 +44,9 @@ void IDPRunApplication() {
     
     //IDPPerformTest(IDPBitReverseTest);
     
-    //IDPObjectBehaviorTests();
+    IDPObjectBehaviorTests();
     
-    //IDPStringTestPerform();
+    IDPStringTestPerform();
     
     IDPHumanBehaviorTests();
     

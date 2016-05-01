@@ -42,7 +42,7 @@ void IDPStringSetString(IDPString *string, char *value) {
     }
     
     if(string->_string != value) {
-        if (string ->_string) {
+        if (string->_string) {
             free(string->_string);
             string->_string = NULL;
         }

@@ -257,7 +257,7 @@ void IDPHumanBornChildrenArrayOverflowTest() {
     
     for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount + 1; index++) {
         IDPHuman *child = IDPHumanGiveBirthToChild(female);
-        char *num;
+        char num[10];
         sprintf(num, "%llu", index);
         IDPString *str = IDPStringCreateWithString(num);
         IDPHumanSetName(child, str);
@@ -269,8 +269,4 @@ void IDPHumanBornChildrenArrayOverflowTest() {
     IDPObjectRelease(male);
     IDPObjectRelease(female);
 }
-
-
-
-
 
