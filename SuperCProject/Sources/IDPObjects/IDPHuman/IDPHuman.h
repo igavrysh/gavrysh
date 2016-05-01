@@ -13,8 +13,9 @@
 
 #include "IDPObject.h"
 #include "IDPString.h"
+#include "IDPArray.h"
 
-static const uint8_t kIDPHumanMaxChildrenCount = 5;
+static const uint8_t kIDPHumanMaxChildrenCount = 100;
 
 typedef enum {
     IDPHumanGenderMale,
@@ -35,8 +36,7 @@ struct IDPHuman {
     IDPHuman *_father;
     IDPHuman *_mother;
     
-    IDPHuman *_children[kIDPHumanMaxChildrenCount];
-    size_t _childrenCount;
+    IDPArray *_children;
 };
 
 extern
@@ -64,6 +64,9 @@ extern
 IDPHumanGender IDPHumanGetGender(IDPHuman *human);
 
 extern
+IDPArray *IDPHumanGetChildrenArray(IDPHuman *human);
+
+extern
 bool IDPHumanIsMarried(IDPHuman *human);
 
 extern
@@ -76,10 +79,10 @@ extern
 IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human);
 
 extern
-size_t IDPHumanGetChildrenCount(IDPHuman *human);
+uint64_t IDPHumanGetChildrenCount(IDPHuman *human);
 
 extern
-size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child);
+uint64_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child);
 
 extern
 IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index);

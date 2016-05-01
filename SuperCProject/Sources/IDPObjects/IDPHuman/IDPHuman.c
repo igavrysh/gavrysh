@@ -63,15 +63,6 @@ void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index);
 static
 void IDPHumanReorderChildrenArray(IDPHuman *human);
 
-static
-void IDPHumanSetChildrenCount(IDPHuman *human, size_t count);
-
-static
-void IDPHumanIncrementChildrenCount(IDPHuman *human);
-
-static
-void IDPHumanDecrementChildrenCount(IDPHuman *human);
-
 #pragma mark -
 #pragma mark Public Implementations
 
@@ -129,6 +120,10 @@ IDPHumanGender IDPHumanGetGender(IDPHuman *human) {
     return human ? human->_gender : IDPHumanGenderMale;
 }
 
+IDPArray *IDPHumanGetChildrenArray(IDPHuman *human) {
+    return human ? human->_children : NULL;
+}
+
 bool IDPHumanIsMarried(IDPHuman *human) {
     return human && human->_partner;
 }
@@ -146,34 +141,10 @@ void IDPHumanGetMarriedWithPartner(IDPHuman *human, IDPHuman *partner) {
     IDPHumanSetPartner(partner, human);
 }
 
-size_t IDPHumanGetChildrenCount(IDPHuman *human) {
-    return human ? human->_childrenCount : 0;
+uint64_t IDPHumanGetChildrenCount(IDPHuman *human) {
+    return human ? IDPArrayGetCount(IDPHumanGetChildrenArray(human)) : 0;
 }
 
-void IDPHumanSetChildrenCount(IDPHuman *human, size_t count) {
-    if (!human) {
-        return;
-    }
-    
-    human->_childrenCount = count;
-}
-
-void IDPHumanIncrementChildrenCount(IDPHuman *human) {
-    if (!human) {
-        return;
-    }
-    
-    IDPHumanSetChildrenCount(human, IDPHumanGetChildrenCount(human) + 1);
-}
-
-
-void IDPHumanDecrementChildrenCount(IDPHuman *human) {
-    if (!human) {
-        return;
-    }
-    
-    IDPHumanSetChildrenCount(human, IDPHumanGetChildrenCount(human) - 1);
-}
 
 #pragma mark -
 #pragma mark Private Implementations
@@ -261,8 +232,6 @@ void IDPHumanAddChildToParent(IDPHuman *human, IDPHuman *child) {
     
     IDPHumanSetChildWithNewValue(human, NULL, child);
     IDPHumanSetParentWithNewValue(child, human, human);
-    
-    IDPHumanIncrementChildrenCount(human);
 }
 
 void IDPHumanRemoveChild(IDPHuman *human) {
@@ -278,19 +247,9 @@ void IDPHumanRemoveChildFromParent(IDPHuman *human, IDPHuman *child) {
     if (!human || !child) {
         return;
     }
-    
-    size_t childIndexBeforeRemoval = IDPHumanGetChildIndex(human, child);
-    
+
     IDPHumanSetChildWithNewValue(human, child, NULL);
     IDPHumanSetParentWithNewValue(child, human, NULL);
-    
-    if (kIDPHumanIndexNotFound != childIndexBeforeRemoval
-        && kIDPHumanIndexNotFound == IDPHumanGetChildIndex(human, child))
-    {
-        IDPHumanDecrementChildrenCount(human);
-        
-        IDPHumanReorderChildrenArray(human);
-    }
 }
 
 void IDPHumanRemoveAllChildren(IDPHuman *human) {
@@ -298,18 +257,28 @@ void IDPHumanRemoveAllChildren(IDPHuman *human) {
         return;
     }
     
-    size_t childrenCount = IDPHumanGetChildrenCount(human);
-    for (size_t index = 0; index < childrenCount; index++) {
+    uint64_t childrenCount = IDPHumanGetChildrenCount(human);
+    for (uint64_t index = 0; index < childrenCount; index++) {
         IDPHumanRemoveChild(IDPHumanGetChildAtIndex(human, childrenCount - index - 1));
     }
 }
 
 void IDPHumanSetChildWithNewValue(IDPHuman *human, IDPHuman *child, IDPHuman *newChild) {
+    if (!human) {
+        return;
+    }
+
+    if (!IDPHumanGetChildrenArray(human)) {
+        human->_children = IDPObjectCreateWithType(IDPArray);
+    }
+    
     if (!child) {
-        IDPHumanSetChildAtIndex(human, newChild, IDPHumanGetChildrenCount(human));
+        IDPArrayAddObject(IDPHumanGetChildrenArray(human), newChild);
     } else {
-        size_t index = IDPHumanGetChildIndex(human, child);
-        IDPHumanSetChildAtIndex(human, NULL, index);
+        uint64_t index = IDPArrayGetIndexOfObject(IDPHumanGetChildrenArray(human), child);
+        if (kIDPNotFound != index) {
+            IDPArrayRemoveObjectAtIndex(IDPHumanGetChildrenArray(human), index);
+        }
     }
 }
 
@@ -326,36 +295,23 @@ IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index) {
         return NULL;
     }
     
-    return human->_children[index];
+    return IDPArrayGetObjectAtIndex(IDPHumanGetChildrenArray(human), index);
 }
 
-void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
-    IDPObjectSetStrong((IDPObject *)human, (void **)(&(human->_children[index])), child, NULL);
-}
-
-size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child) {
-    for(size_t index = 0; index < IDPHumanGetChildrenCount(human); index++) {
-        IDPHuman *currentChild = IDPHumanGetChildAtIndex(human, index);
-        if (child == currentChild) {
-            return index;
-        }
+uint64_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child) {
+    if (!human) {
+        return 0;
     }
     
-    return kIDPHumanIndexNotFound;
+    uint64_t result = IDPArrayGetIndexOfObject(IDPHumanGetChildrenArray(human), child);
+    
+    if (result == kIDPNotFound) {
+        return kIDPHumanIndexNotFound;
+    }
+    
+    return result;
 }
 
 void IDPHumanReorderChildrenArray(IDPHuman *human) {
-    if (!human) {
-        return;
-    }
-    
-    size_t childrenCount = IDPHumanGetChildrenCount(human);
-    for (size_t index = 0; index < childrenCount; index++) {
-        if (!IDPHumanGetChildAtIndex(human, index)) {
-            if (IDPHumanGetChildAtIndex(human, childrenCount)) {
-                human->_children[index] = human->_children[childrenCount];
-                return;
-            }
-        }
-    }
+    return;
 }

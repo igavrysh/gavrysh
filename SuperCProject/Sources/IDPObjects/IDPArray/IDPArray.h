@@ -53,7 +53,5 @@ void IDPArrayRemoveObjectAtIndex(IDPArray *array, uint64_t index);
 extern
 void IDPArrayRemoveAllObjects(IDPArray *array);
 
-extern
-void IDPArrayReorderArray(IDPArray * array);
 
 #endif /* IDPArray_h */

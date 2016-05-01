@@ -50,7 +50,6 @@ void IDPRunApplication() {
     
     IDPHumanBehaviorTests();
     
-    //IDPArrayTestPerform();
-    
+    IDPArrayTestPerform();
 }
 

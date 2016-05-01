@@ -37,6 +37,9 @@ void IDPHumanBornChildrenTest();
 static
 void IDPHumanBornChildrenArrayOverflowTest();
 
+static
+void IDPHumanBornChildrenArraySeqTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
@@ -54,6 +57,8 @@ void IDPHumanBehaviorTests(void) {
     IDPPerformTest(IDPHumanBornChildrenTest);
     
     IDPPerformTest(IDPHumanBornChildrenArrayOverflowTest);
+    
+    IDPPerformTest(IDPHumanBornChildrenArraySeqTest);
 }
 
 #pragma mark -
@@ -270,3 +275,32 @@ void IDPHumanBornChildrenArrayOverflowTest() {
     IDPObjectRelease(female);
 }
 
+void IDPHumanBornChildrenArraySeqTest() {
+    IDPHuman *male = IDPHumanCreate();
+    IDPHuman *female = IDPHumanCreate();
+    IDPHumanSetGender(male, IDPHumanGenderMale);
+    IDPHumanSetGender(female, IDPHumanGenderFemale);
+    
+    IDPHumanGetMarriedWithPartner(male, female);
+    
+    IDPHuman *childrenTest[kIDPHumanMaxChildrenCount];
+    
+    for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount; index++) {
+        IDPHuman *child = IDPHumanGiveBirthToChild(female);
+        char num[10];
+        sprintf(num, "%llu", index);
+        IDPString *str = IDPStringCreateWithString(num);
+        IDPHumanSetName(child, str);
+        IDPObjectRelease(str);
+        childrenTest[index] = child;
+    }
+    
+    assert(kIDPHumanMaxChildrenCount == IDPHumanGetChildrenCount(male));
+    
+    for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount; index++) {
+        assert(childrenTest[index] == IDPHumanGetChildAtIndex(male, index));
+    }
+    
+    IDPObjectRelease(male);
+    IDPObjectRelease(female);
+}

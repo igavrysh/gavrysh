@@ -41,7 +41,6 @@ void IDPArraySetCount(IDPArray *array, uint64_t count);
 static
 void IDPArraySetObjectAtIndex(IDPArray *array, void *object, uint64_t index);
 
-
 #pragma mark -
 #pragma mark Public Methods
 
@@ -90,7 +89,7 @@ uint64_t IDPArrayGetIndexOfObject(IDPArray *array, void *object) {
         return 0;
     }
     
-    if (NULL == object) {
+    if (!object) {
         return kIDPNotFound;
     }
     
@@ -146,10 +145,6 @@ void IDPArrayRemoveAllObjects(IDPArray *array) {
     IDPArraySetCount(array, 0);
 }
 
-void IDPArrayReorderArray(IDPArray *array) {
-    
-}
-
 #pragma mark -
 #pragma mark Private Implementations
 
@@ -201,11 +196,16 @@ uint64_t IDPArrayPrefferedCapacity(IDPArray *array) {
     
     uint64_t count = IDPArrayGetCount(array);
     uint64_t capacity = IDPArrayGetCapacity(array);
-    if (count == capacity) {
-        return capacity;
+    
+    if (count < capacity / 4) {
+        return capacity / 2;
     }
-        
-    return count < capacity ? count : capacity + 2 * (count - capacity);
+    
+    if (count > capacity) {
+        return count * 2;
+    }
+    
+    return capacity;
 }
 
 void IDPArraySetCount(IDPArray *array, uint64_t count) {
@@ -236,3 +236,5 @@ void IDPArraySetObjectAtIndex(IDPArray *array, void *object, uint64_t index) {
     }
 }
 
+#pragma mark -
+#pragma mark Prive implementations
