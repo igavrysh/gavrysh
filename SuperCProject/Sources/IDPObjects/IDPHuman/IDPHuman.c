@@ -351,11 +351,11 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
     
     size_t childrenCount = IDPHumanGetChildrenCount(human);
     for (size_t index = 0; index < childrenCount; index++) {
-        if (!IDPHumanGetChildAtIndex(human, index)) {
-            if (IDPHumanGetChildAtIndex(human, childrenCount)) {
-                human->_children[index] = human->_children[childrenCount];
-                return;
-            }
+        if (!IDPHumanGetChildAtIndex(human, index)
+            && IDPHumanGetChildAtIndex(human, childrenCount))
+        {
+            human->_children[index] = human->_children[childrenCount];
+            return;
         }
     }
 }
