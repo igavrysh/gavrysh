@@ -60,6 +60,5 @@ void IDPSimpleStringTest() {
     assert(0 == strcmp(IDPStringGetString(string), testString2));
 
     IDPObjectRelease(string);
-    assert(0 == IDPObjectGetReferenceCount(string));
 }
 

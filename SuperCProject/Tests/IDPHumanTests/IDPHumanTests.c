@@ -34,11 +34,13 @@ void IDPHumanBornChildTest();
 static
 void IDPHumanBornChildrenTest();
 
+static
+void IDPHumanBornChildrenArrayOverflowTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
 void IDPHumanBehaviorTests(void) {
-    
     IDPPerformTest(IDPHumanCreationTest);
     
     IDPPerformTest(IDPHumanGettersAndSettersTest);
@@ -50,6 +52,8 @@ void IDPHumanBehaviorTests(void) {
     IDPPerformTest(IDPHumanBornChildTest);
     
     IDPPerformTest(IDPHumanBornChildrenTest);
+    
+    IDPPerformTest(IDPHumanBornChildrenArrayOverflowTest);
 }
 
 #pragma mark -
@@ -80,7 +84,7 @@ void IDPHumanCreationTest() {
     
     assert(1 == IDPObjectGetReferenceCount(human));
     
-    IDPObjectRelease(human);
+    IDPObjectRelease(retainedHuman);
 }
 
 void IDPHumanGettersAndSettersTest() {
@@ -104,7 +108,10 @@ void IDPHumanGettersAndSettersTest() {
     assert(IDPHumanGenderFemale == IDPHumanGetGender(pamela));
     
     IDPHumanSetName(pamela, NULL);
-    assert(0 == IDPObjectGetReferenceCount(pamela->_name));
+    assert(NULL == pamela->_name);
+    
+    IDPObjectRelease(pamelaNameExt);
+    IDPObjectRelease(pamela);
 }
 
 void IDPHumanMarriageTest() {
@@ -148,7 +155,6 @@ void IDPHumanMarriageTest() {
     assert(IDPHumanIsMarried(fiance1));
     assert(IDPHumanIsMarried(bride2));
     
-    
     IDPHumanGetMarriedWithPartner(bride2, fiance2);
     assert(1 == IDPObjectGetReferenceCount(bride1));
     assert(1 == IDPObjectGetReferenceCount(fiance2));
@@ -158,25 +164,15 @@ void IDPHumanMarriageTest() {
     assert(!IDPHumanIsMarried(fiance1));
     assert(IDPHumanIsMarried(bride2));
     assert(IDPHumanIsMarried(fiance2));
-    
-    
-    IDPObjectRelease(fiance3);
+
+    IDPObjectRelease(fiance1);
+    IDPObjectRelease(bride1);
     
     IDPObjectRelease(fiance2);
     IDPObjectRelease(bride2);
     
-
-    IDPObjectRelease(bride1);
-    IDPObjectRelease(fiance1);
-    
+    IDPObjectRelease(fiance3);
     IDPObjectRelease(bride3);
-    
-    assert(0 == IDPObjectGetReferenceCount(bride1));
-    assert(0 == IDPObjectGetReferenceCount(fiance1));
-    assert(0 == IDPObjectGetReferenceCount(bride2));
-    assert(0 == IDPObjectGetReferenceCount(fiance2));
-    assert(0 == IDPObjectGetReferenceCount(bride3));
-    assert(0 == IDPObjectGetReferenceCount(fiance3));
 }
 
 void IDPHumanMarriageReversedReleasingTest() {
@@ -197,9 +193,6 @@ void IDPHumanMarriageReversedReleasingTest() {
     
     IDPObjectRelease(fiance1);
     IDPObjectRelease(bride1);
-    
-    assert(0 == IDPObjectGetReferenceCount(bride1));
-    assert(0 == IDPObjectGetReferenceCount(fiance1));
 }
 
 void IDPHumanBornChildTest() {
@@ -219,13 +212,9 @@ void IDPHumanBornChildTest() {
     IDPObjectRelease(child);
     IDPObjectRelease(child);
     
-    //assert(0 == IDPObjectGetReferenceCount(child));
-    
-    assert(0 == IDPHumanGetChildrenCount(male));
-    
-    assert(0 == IDPHumanGetChildrenCount(female));
+    IDPObjectRelease(male);
+    IDPObjectRelease(female);
 }
-
 
 void IDPHumanBornChildrenTest() {
     IDPHuman *male = IDPHumanCreate();
@@ -245,6 +234,7 @@ void IDPHumanBornChildrenTest() {
     assert(2 == IDPObjectGetReferenceCount(child3));
     
     IDPObjectRelease(child2);
+    assert(1 == IDPObjectGetReferenceCount(child2));
     IDPObjectRelease(child2);
     
     assert(2 == IDPHumanGetChildrenCount(male));
@@ -252,7 +242,31 @@ void IDPHumanBornChildrenTest() {
     
     assert(2 == IDPObjectGetReferenceCount(child1));
     assert(2 == IDPObjectGetReferenceCount(child3));
+    
+    IDPObjectRelease(male);
+    IDPObjectRelease(female);
 }
 
-
+void IDPHumanBornChildrenArrayOverflowTest() {
+    IDPHuman *male = IDPHumanCreate();
+    IDPHuman *female = IDPHumanCreate();
+    IDPHumanSetGender(male, IDPHumanGenderMale);
+    IDPHumanSetGender(female, IDPHumanGenderFemale);
+    
+    IDPHumanGetMarriedWithPartner(male, female);
+    
+    for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount + 1; index++) {
+        IDPHuman *child = IDPHumanGiveBirthToChild(female);
+        char num[10];
+        sprintf(num, "%llu", index);
+        IDPString *str = IDPStringCreateWithString(num);
+        IDPHumanSetName(child, str);
+        IDPObjectRelease(str);
+    }
+    
+    assert(kIDPHumanMaxChildrenCount == IDPHumanGetChildrenCount(male));
+    
+    IDPObjectRelease(male);
+    IDPObjectRelease(female);
+}
 

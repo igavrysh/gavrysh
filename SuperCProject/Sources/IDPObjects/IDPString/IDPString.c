@@ -26,7 +26,7 @@ IDPString *IDPStringCreateWithString(char *string) {
     return result;
 }
 
-IDPString *IDPStringCreateWithIDPString(IDPString *string) {
+IDPString *IDPStringCopy(IDPString *string) {
     if (NULL == string) {
         return NULL;
     }
@@ -42,7 +42,7 @@ void IDPStringSetString(IDPString *string, char *value) {
     }
     
     if(string->_string != value) {
-        if (string ->_string) {
+        if (string->_string) {
             free(string->_string);
             string->_string = NULL;
         }
@@ -54,7 +54,7 @@ void IDPStringSetString(IDPString *string, char *value) {
     }
 }
 
-void IDPStringSetIDPString(IDPString *string, IDPString *newValue) {
+void IDPStringSetWithIDPString(IDPString *string, IDPString *newValue) {
     if (!string && !newValue) {
         IDPStringSetString(string, newValue->_string);
     }

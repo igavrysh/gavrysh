@@ -26,13 +26,13 @@ extern
 IDPString *IDPStringCreateWithString(char *string);
 
 extern
-IDPString *IDPStringCreateWithIDPString(IDPString *string);
+IDPString *IDPStringCopy(IDPString *string);
 
 extern
 void IDPStringSetString(IDPString *string, char *value);
 
 extern
-void IDPStringCopy(IDPString *string, IDPString *newValue);
+void IDPStringSetWithIDPString(IDPString *string, IDPString *newValue);
 
 extern
 char *IDPStringGetString(IDPString *string);
