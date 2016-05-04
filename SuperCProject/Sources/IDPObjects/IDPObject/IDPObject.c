@@ -31,15 +31,20 @@ void *IDPObjectRetain(void *object) {
     return object;
 }
 
-void IDPObjectRelease(void *object) {
-    if (NULL != object) {
-        uint64_t count = ((IDPObject *)object)->_referenceCount - 1;
-        ((IDPObject *)object)->_referenceCount = count;
-        
-        if (0 == count) {
-            ((IDPObject *)object)->_deallocator(object);
-        }
+void IDPObjectRelease(void *arg) {
+    if (!arg) {
+        return;
     }
+    
+    IDPObject *object = (IDPObject *)arg;
+    
+    uint64_t count = object->_referenceCount - 1;
+    object->_referenceCount = count;
+    
+    if (0 == count) {
+        object->_deallocator(object);
+    }
+    
 }
 
 uint64_t IDPObjectGetReferenceCount(void *object) {
@@ -50,7 +55,7 @@ void __IDPObjectDeallocate(void *object) {
     free(object);
 }
 
-void IDPObjectSetStrong(IDPObject *object, void **field, void *value, void *(*RetainMethod)(void *)) {
+void IDPObjectSetFieldValueWithMethod(void *object, void **field, void *value, IDPOwnershipMethod retainMethod) {
     if (!object) {
         return;
     }
@@ -62,10 +67,11 @@ void IDPObjectSetStrong(IDPObject *object, void **field, void *value, void *(*Re
             IDPObjectRelease(tmp);
         }
         
-        if (!RetainMethod)  {
-           *field = IDPObjectRetain(value);
-        } else {
-            *field = RetainMethod(value);
-        }
+        *field = retainMethod(value);
     }
 }
+
+void IDPObjectSetStrong(void *object, void **field, void *value) {
+    IDPObjectSetFieldValueWithMethod(object, field, value, &IDPObjectRetain);
+}
+
