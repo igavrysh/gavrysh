@@ -28,7 +28,7 @@ IDPLinkedListNode *IDPLinkedListNodeCreateWithObject(IDPObject *object) {
 }
 
 IDPLinkedListNode *IDPLinkedListNodeGetNextNode(IDPLinkedListNode *node) {
-    return NULL != node ? node->_nextNode : NULL;
+    return node ? node->_nextNode : NULL;
 }
 
 void IDPLinkedListNodeSetNextNode(IDPLinkedListNode *node, IDPLinkedListNode *nextNode) {
@@ -41,7 +41,7 @@ void IDPLinkedListNodeSetNextNode(IDPLinkedListNode *node, IDPLinkedListNode *ne
 }
 
 IDPObject *IDPLinkedListNodeGetObject(IDPLinkedListNode *node) {
-    return NULL != node ? node->_object : NULL;
+    return node ? node->_object : NULL;
 }
 
 void IDPLinkedListNodeSetObject(IDPLinkedListNode *node, void *object) {

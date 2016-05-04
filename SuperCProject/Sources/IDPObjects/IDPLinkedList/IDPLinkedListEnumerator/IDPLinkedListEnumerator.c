@@ -68,11 +68,11 @@ void *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumerator) 
             IDPLinkedListNode *node = IDPLinkedListEnumeratorGetNode(enumerator);
             IDPLinkedList *list = IDPLinkedListEnumeratorGetList(enumerator);
             // find next node or get list head while first enumeration
-            node = (NULL != node) ? IDPLinkedListNodeGetNextNode(node) : IDPLinkedListGetHead(list);
+            node = node ? IDPLinkedListNodeGetNextNode(node) : IDPLinkedListGetHead(list);
             // set current node
             IDPLinkedListEnumeratorSetNode(enumerator, node);
             
-            if (NULL == node) {
+            if (!node) {
                 IDPLinkedListEnumeratorSetValid(enumerator, false);
             }
             
@@ -88,7 +88,7 @@ void IDPLinkedListEnumeratorSetValid(IDPLinkedListEnumerator *enumerator, bool v
 }
 
 bool IDPLinkedListEnumeratorIsValid(IDPLinkedListEnumerator *enumerator) {
-    return NULL != enumerator && enumerator->_valid;
+    return enumerator && enumerator->_valid;
 }
 
 #pragma mark -
@@ -99,7 +99,7 @@ void IDPLinkedListEnumeratorSetList(IDPLinkedListEnumerator *enumerator, IDPLink
 }
 
 IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerator) {
-    return NULL != enumerator ? enumerator->_list : NULL;
+    return enumerator ? enumerator->_list : NULL;
 }
 
 void IDPLinkedListEnumeratorSetNode(IDPLinkedListEnumerator *enumerator, IDPLinkedListNode *node) {
@@ -107,7 +107,7 @@ void IDPLinkedListEnumeratorSetNode(IDPLinkedListEnumerator *enumerator, IDPLink
 }
 
 IDPLinkedListNode *IDPLinkedListEnumeratorGetNode(IDPLinkedListEnumerator *enumarator) {
-    return NULL != enumarator ? enumarator->_node : NULL;
+    return enumarator ? enumarator->_node : NULL;
 }
 
 void IDPLinkedListEnumeratorSetMutationsCount(IDPLinkedListEnumerator *enumerator, uint64_t mutationsCount) {
@@ -115,7 +115,7 @@ void IDPLinkedListEnumeratorSetMutationsCount(IDPLinkedListEnumerator *enumerato
 }
 
 uint64_t IDPLinkedListEnumeratorGetMutationsCount(IDPLinkedListEnumerator *enumarator) {
-    return NULL != enumarator ? enumarator->_mutationsCount : 0;
+    return enumarator ? enumarator->_mutationsCount : 0;
 }
 
 bool IDPLinkedListEnumeratorMutationsValidate(IDPLinkedListEnumerator *enumerator) {

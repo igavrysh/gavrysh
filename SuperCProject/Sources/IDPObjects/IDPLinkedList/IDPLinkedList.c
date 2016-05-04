@@ -74,7 +74,7 @@ IDPObject *IDPLinkedListGetObjectBeforeObject(IDPLinkedList *list, IDPObject *ob
 }
 
 bool IDPLinkedListIsEmpty(IDPLinkedList *list) {
-    return NULL != list && 0 == list->_count;
+    return list && 0 == list->_count;
 }
 
 void IDPLinkedListAddObject(IDPLinkedList *list, void *object) {
@@ -94,7 +94,7 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, void *object) {
     IDPLinkedListNode *node = IDPLinkedListGetHead(list);
     IDPLinkedListNode *previousNode = NULL;
     
-    while (NULL != node) {
+    while (node) {
         IDPObject *currentObject = IDPLinkedListNodeGetObject(node);
         IDPLinkedListNode *nextNode = IDPLinkedListNodeGetNextNode(node);
         
@@ -114,7 +114,7 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, void *object) {
 }
 
 void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
-    if (NULL != list) {
+    if (list) {
         IDPLinkedListSetCount(list, 0);
         
         //IDPLinkedListSetHead(list, NULL);
@@ -124,7 +124,7 @@ void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
 
 bool IDPLinkedListContainsObject(IDPLinkedList *list, void *object) {
     bool result = false;
-    if (NULL != list) {
+    if (list) {
         // enumerate all nodes to find with object
         IDPLinkedListNode *node = IDPLinkedListGetHead(list);
         while (NULL != node) {
@@ -135,6 +135,8 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, void *object) {
             context.object = object;
             
             result = NULL != IDPLinkedListGetNodeWithContext(list, IDPLinkedListNodeContainsObject, &context);
+            
+            node = IDPLinkedListNodeGetNextNode(node);
         }
     }
     
@@ -142,14 +144,14 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, void *object) {
 }
 
 uint64_t IDPLinkedListGetCount(IDPLinkedList *list) {
-    return NULL != list ? list->_count : 0;
+    return list ? list->_count : 0;
 }
 
 #pragma mark - 
 #pragma mark Private Implementations
 
 void IDPLinkedListSetCount(IDPLinkedList *list, uint64_t count) {
-    if (NULL != list) {
+    if (list) {
         if (0 == count) {
             IDPLinkedListSetHead(list, NULL);
         }
@@ -160,7 +162,7 @@ void IDPLinkedListSetCount(IDPLinkedList *list, uint64_t count) {
 }
 
 void IDPLinkedListSetHead(IDPLinkedList *list, IDPLinkedListNode *head) {
-    if (NULL != list && list->_head != head) {
+    if (list && list->_head != head) {
         IDPObjectRetain(head);
         IDPObjectRelease(list->_head);
         
@@ -169,7 +171,7 @@ void IDPLinkedListSetHead(IDPLinkedList *list, IDPLinkedListNode *head) {
 }
 
 IDPLinkedListNode *IDPLinkedListGetHead(IDPLinkedList *list) {
-    return NULL != list ? list->_head : NULL;
+    return list ? list->_head : NULL;
 }
 
 void IDPLinkedListSetMutationsCount(IDPLinkedList *list, uint64_t count) {
@@ -177,7 +179,7 @@ void IDPLinkedListSetMutationsCount(IDPLinkedList *list, uint64_t count) {
 }
 
 uint64_t IDPLinkedListGetMutationsCount(IDPLinkedList *list) {
-    return NULL != list ? list->_mutationsCount : 0;
+    return list ? list->_mutationsCount : 0;
 }
 
 void IDPLinkedListMutate(IDPLinkedList *list) {
@@ -215,5 +217,5 @@ IDPLinkedListNode *IDPLinkedListGetNodeWithContext(IDPLinkedList *list,
 
 extern
 bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, IDPLinkedListNodeContext context) {
-    return NULL != node && context.object == IDPLinkedListNodeGetObject(node);
+    return node && context.object == IDPLinkedListNodeGetObject(node);
 }
