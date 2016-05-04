@@ -75,9 +75,7 @@ void IDPHumanDecrementChildrenCount(IDPHuman *human);
 #pragma mark -
 #pragma mark Public Implementations
 
-void __IDPHumanDeallocate(IDPHuman *object) {
-    IDPHuman *human = (IDPHuman *)object;
-    
+void __IDPHumanDeallocate(IDPHuman *human) {
     IDPHumanRemoveAllChildren(human);
     
     IDPHumanRemoveChild(human);
@@ -86,7 +84,7 @@ void __IDPHumanDeallocate(IDPHuman *object) {
     
     IDPHumanSetName(human, NULL);
     
-    __IDPObjectDeallocate(object);
+    __IDPObjectDeallocate(human);
 }
 
 void *IDPHumanCreate() {
@@ -98,7 +96,7 @@ void *IDPHumanCreate() {
 }
 
 void IDPHumanSetName(IDPHuman *human, IDPString *name) {
-    IDPObjectSetStrong((IDPObject *)human, (void **)&human->_name, name, &IDPStringCopy);
+    IDPObjectSetFieldValueWithMethod((IDPObject *)human, (void **)&human->_name, name, &IDPStringCopy);
 }
 
 IDPString *IDPHumanGetName(IDPHuman *human) {
@@ -194,7 +192,7 @@ void IDPHumanSetWeakPartner(IDPHuman *human, IDPHuman *partner) {
 }
 
 void IDPHumanSetStrongPartner(IDPHuman *human, IDPHuman *partner) {
-    IDPObjectSetStrong((IDPObject *)human, (void **)&human->_partner, partner, NULL);
+    IDPObjectSetStrong((IDPObject *)human, (void **)&human->_partner, partner);
 }
 
 void IDPHumanSetPartner(IDPHuman *human, IDPHuman *partner) {
@@ -237,9 +235,12 @@ IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human) {
 }
 
 bool IDPHumanCanGiveBirth(IDPHuman *human) {
+    uint64_t humanChildrenCount = IDPHumanGetChildrenCount(human);
+    uint64_t partnerChildrenCount = IDPHumanGetChildrenCount(IDPHumanGetPartner(human));
+    
     return IDPHumanGetPartner(human)
-        && IDPHumanGetChildrenCount(human) < kIDPHumanMaxChildrenCount
-        && IDPHumanGetChildrenCount(IDPHumanGetPartner(human)) < kIDPHumanMaxChildrenCount;
+        && humanChildrenCount < kIDPHumanMaxChildrenCount
+        && partnerChildrenCount < kIDPHumanMaxChildrenCount;
 }
 
 void IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
@@ -330,7 +331,7 @@ IDPHuman *IDPHumanGetChildAtIndex(IDPHuman *human, size_t index) {
 }
 
 void IDPHumanSetChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
-    IDPObjectSetStrong((IDPObject *)human, (void **)(&(human->_children[index])), child, NULL);
+    IDPObjectSetStrong((IDPObject *)human, (void **)(&(human->_children[index])), child);
 }
 
 size_t IDPHumanGetChildIndex(IDPHuman *human, IDPHuman *child) {
