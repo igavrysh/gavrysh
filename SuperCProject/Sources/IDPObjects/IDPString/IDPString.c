@@ -27,7 +27,7 @@ IDPString *IDPStringCreateWithString(char *string) {
 }
 
 IDPString *IDPStringCopy(IDPString *string) {
-    if (NULL == string) {
+    if (!string) {
         return NULL;
     }
     

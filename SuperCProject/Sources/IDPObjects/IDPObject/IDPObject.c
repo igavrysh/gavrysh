@@ -54,23 +54,3 @@ void __IDPObjectDeallocate(void *object) {
     free(object);
 }
 
-void IDPObjectSetFieldValueWithMethod(void *object, void **field, void *value, IDPOwnershipMethod retainMethod) {
-    if (!object) {
-        return;
-    }
-    
-    if (*field != value) {
-        if (*field) {
-            void *tmp = *field;
-            *field = NULL;
-            IDPObjectRelease(tmp);
-        }
-        
-        *field = retainMethod(value);
-    }
-}
-
-void IDPObjectSetStrong(void *object, void **field, void *value) {
-    IDPObjectSetFieldValueWithMethod(object, field, value, &IDPObjectRetain);
-}
-
