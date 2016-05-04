@@ -20,6 +20,7 @@
 #include "IDPHumanTests.h"
 #include "IDPObjectTests.h"
 #include "IDPArrayTests.h"
+#include "IDPLinkedListTests.h"
 
 void IDPRunApplication() {
     /*
@@ -50,7 +51,8 @@ void IDPRunApplication() {
     
     IDPHumanBehaviorTests();
     
-    //IDPArrayTestPerform();
+    IDPArrayTestPerform();
     
+    IDPLinkedListBehaviourTest();
 }
 
