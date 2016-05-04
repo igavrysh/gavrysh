@@ -260,7 +260,9 @@ void IDPHumanBornChildrenArrayOverflowTest() {
     
     IDPHumanGetMarriedWithPartner(male, female);
     
-    for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount + 1; index++) {
+    size_t testArraySize = 1000;
+    
+    for (uint64_t index = 0; index < testArraySize; index++) {
         IDPHuman *child = IDPHumanGiveBirthToChild(female);
         char num[10];
         sprintf(num, "%llu", index);
@@ -269,7 +271,7 @@ void IDPHumanBornChildrenArrayOverflowTest() {
         IDPObjectRelease(str);
     }
     
-    assert(kIDPHumanMaxChildrenCount == IDPHumanGetChildrenCount(male));
+    assert(testArraySize == IDPHumanGetChildrenCount(male));
     
     IDPObjectRelease(male);
     IDPObjectRelease(female);
@@ -283,9 +285,10 @@ void IDPHumanBornChildrenArraySeqTest() {
     
     IDPHumanGetMarriedWithPartner(male, female);
     
-    IDPHuman *childrenTest[kIDPHumanMaxChildrenCount];
+    size_t testArraySize = 100;
+    IDPHuman *childrenTest[testArraySize];
     
-    for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount; index++) {
+    for (uint64_t index = 0; index < testArraySize; index++) {
         IDPHuman *child = IDPHumanGiveBirthToChild(female);
         char num[10];
         sprintf(num, "%llu", index);
@@ -295,9 +298,9 @@ void IDPHumanBornChildrenArraySeqTest() {
         childrenTest[index] = child;
     }
     
-    assert(kIDPHumanMaxChildrenCount == IDPHumanGetChildrenCount(male));
+    assert(testArraySize == IDPHumanGetChildrenCount(male));
     
-    for (uint64_t index = 0; index < kIDPHumanMaxChildrenCount; index++) {
+    for (uint64_t index = 0; index < testArraySize; index++) {
         assert(childrenTest[index] == IDPHumanGetChildAtIndex(male, index));
     }
     

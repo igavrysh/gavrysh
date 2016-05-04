@@ -9,13 +9,14 @@
 #ifndef __SuperCProject__IDPHuman__
 #define __SuperCProject__IDPHuman__
 
+#include <limits.h>
 #include <stdbool.h>
 
 #include "IDPObject.h"
 #include "IDPString.h"
 #include "IDPArray.h"
 
-static const uint8_t kIDPHumanMaxChildrenCount = 100;
+static const size_t kIDPHumanMaxChildrenCount = SIZE_T_MAX - 1;
 
 typedef enum {
     IDPHumanGenderMale,
