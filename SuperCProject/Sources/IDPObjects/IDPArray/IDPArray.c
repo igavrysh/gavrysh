@@ -83,9 +83,9 @@ void IDPArrayRemoveObjectAtIndex(IDPArray *array, uint64_t index) {
     
     uint64_t size = IDPArrayGetSize(array);
     
-    memmove(array->_data[index],
-            array->_data[index + 1],
-            sizeof(array->_data) * (size - index - 1));
+    memmove(array->_data + index,
+            array->_data + index + 1,
+            sizeof(array->_data[0]) * (size - index - 1));
     
     IDPArraySetSize(array, size - 1);
 }
@@ -152,9 +152,17 @@ void IDPArraySetCapacity(IDPArray *array, uint64_t capacity) {
     } else {
         uint64_t size = IDPArrayGetSize(array);
         
-        array->_data = realloc(array->_data, capacity * sizeof(array->_data));
+        array->_data = realloc(array->_data, capacity * sizeof(array->_data[0]));
         
-        memset(array->_data, 0, (capacity - size) * sizeof(array->_data));
+        if (size == 0) {
+             memset(array->_data, 0, capacity * sizeof(array->_data[0]));
+        }
+        
+        if (size > 0 && capacity > size - 1) {
+            uint64_t deltaSize = capacity - size + 1;
+            
+            memset(array->_data + size - 1, 0, deltaSize * sizeof(array->_data[0]));
+        }
     }
     
     array->_capacity = capacity;
