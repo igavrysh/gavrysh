@@ -9,7 +9,6 @@
 #ifndef IDPArrayTests_h
 #define IDPArrayTests_h
 
-
 extern
 void IDPArrayTestPerform(void);
 

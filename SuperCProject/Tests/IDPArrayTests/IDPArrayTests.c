@@ -25,11 +25,16 @@ void IDPArrayMultipleObjectBehaviourTest(void);
 #pragma mark Public
 
 void IDPArrayTestPerform(void) {
-    IDPPerformTest(IDPArrayOneObjectBehaviourTest);
-    IDPPerformTest(IDPArrayMultipleObjectBehaviourTest);
+    for (uint64_t index = 0; index < 100000; index++) {
+        IDPPerformTest(IDPArrayOneObjectBehaviourTest);
+    }
+    
+    for (uint64_t index = 0; index < 100000; index++) {
+        IDPPerformTest(IDPArrayMultipleObjectBehaviourTest);
+    }
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Private Implementations
 
 

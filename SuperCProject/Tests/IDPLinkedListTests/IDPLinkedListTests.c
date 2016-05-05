@@ -27,7 +27,9 @@ void IDPLinkedListOneObjectTest(void);
 #pragma mark Public Implementations
 
 void IDPLinkedListBehaviourTest(void) {
-    IDPPerformTest(IDPLinkedListEnumeratorBehaviourTest);
+    for (uint64_t index = 0; index < 10000; index++) {
+        IDPPerformTest(IDPLinkedListEnumeratorBehaviourTest);
+    }
     
     IDPPerformTest(IDPLinkedListOneObjectTest);
 }
