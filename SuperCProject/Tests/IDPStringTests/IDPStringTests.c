@@ -15,16 +15,22 @@
 
 #pragma mark -
 #pragma mark Private Declarations
+
+static
 void IDPSimpleStringTest();
 
 #pragma mark -
 #pragma mark Public Implementations
+
 void IDPStringTestPerform() {
-    IDPPerformTest(IDPSimpleStringTest);
+    //for (uint64_t index = 0; index < 100000; index++) {
+        IDPPerformTest(IDPSimpleStringTest);
+    //}
 }
 
 #pragma mark -
 #pragma mark Private Implementations
+
 void IDPSimpleStringTest() {
     //  after IDPString was created
     //      object should not be NULL

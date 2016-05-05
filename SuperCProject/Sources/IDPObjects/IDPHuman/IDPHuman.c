@@ -71,10 +71,7 @@ static
 void IDPHumanSetChildrenCount(IDPHuman *human, size_t count);
 
 static
-void IDPHumanIncrementChildrenCount(IDPHuman *human);
-
-static
-void IDPHumanDecrementChildrenCount(IDPHuman *human);
+void IDPHumanChildrenCountAddValue(IDPHuman *human, size_t value);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -160,21 +157,12 @@ void IDPHumanSetChildrenCount(IDPHuman *human, size_t count) {
     human->_childrenCount = count;
 }
 
-void IDPHumanIncrementChildrenCount(IDPHuman *human) {
+void IDPHumanChildrenCountAddValue(IDPHuman *human, size_t value) {
     if (!human) {
         return;
     }
     
-    IDPHumanSetChildrenCount(human, IDPHumanGetChildrenCount(human) + 1);
-}
-
-
-void IDPHumanDecrementChildrenCount(IDPHuman *human) {
-    if (!human) {
-        return;
-    }
-    
-    IDPHumanSetChildrenCount(human, IDPHumanGetChildrenCount(human) - 1);
+    IDPHumanSetChildrenCount(human, IDPHumanGetChildrenCount(human) + value);
 }
 
 #pragma mark -
@@ -238,12 +226,11 @@ IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human) {
 }
 
 bool IDPHumanCanGiveBirth(IDPHuman *human) {
-    uint64_t humanChildrenCount = IDPHumanGetChildrenCount(human);
-    uint64_t partnerChildrenCount = IDPHumanGetChildrenCount(IDPHumanGetPartner(human));
+    uint64_t maxChildrenCount = kIDPHumanMaxChildrenCount;
     
     return IDPHumanGetPartner(human)
-        && humanChildrenCount < kIDPHumanMaxChildrenCount
-        && partnerChildrenCount < kIDPHumanMaxChildrenCount;
+        && IDPHumanGetChildrenCount(human) < maxChildrenCount
+        && IDPHumanGetChildrenCount(IDPHumanGetPartner(human)) < maxChildrenCount;
 }
 
 void IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
@@ -267,7 +254,7 @@ void IDPHumanAddChildToParent(IDPHuman *human, IDPHuman *child) {
     IDPHumanAddChildAtIndex(human, child, childIndex);
     IDPHumanSetParentWithNewValue(child, human, human);
     
-    IDPHumanIncrementChildrenCount(human);
+    IDPHumanChildrenCountAddValue(human, 1);
 }
 
 void IDPHumanRemoveChild(IDPHuman *human) {
@@ -292,7 +279,7 @@ void IDPHumanRemoveChildFromParent(IDPHuman *human, IDPHuman *child) {
     if (kIDPHumanIndexNotFound != childIndex
         && kIDPHumanIndexNotFound == IDPHumanGetChildIndex(human, child))
     {
-        IDPHumanDecrementChildrenCount(human);
+        IDPHumanChildrenCountAddValue(human, -1);
         
         IDPHumanReorderChildrenArray(human);
     }

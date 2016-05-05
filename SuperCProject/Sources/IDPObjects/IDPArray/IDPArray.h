@@ -13,16 +13,16 @@
 
 #include "IDPObject.h"
 
-typedef struct IDPArray IDPArray;
-
 static const uint64_t kIDPNotFonund = UINT64_MAX;
+
+typedef struct IDPArray IDPArray;
 
 struct IDPArray {
     IDPObject _super;
     
     void **_data;
     
-    uint64_t _size;
+    uint64_t _count;
     uint64_t _capacity;
 };
 
@@ -54,10 +54,10 @@ extern
 uint64_t IDPArrayGetIndexOfObject(IDPArray *array, IDPObject *object);
 
 extern
-uint64_t IDPArrayGetSize(IDPArray *array);
+uint64_t IDPArrayGetCount(IDPArray *array);
 
 extern
-void IDPArraySetSize(IDPArray *array, uint64_t size);
+void IDPArraySetCount(IDPArray *array, uint64_t count);
 
 
 #endif /* IDPArray_h */

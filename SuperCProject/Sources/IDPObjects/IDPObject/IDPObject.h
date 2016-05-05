@@ -13,8 +13,11 @@
 
 typedef void (*IDPObjectDeallocatorCallback)(void *);
 
+typedef void *(*IDPOwnershipMethod)(void *);
+
 typedef struct {
     uint64_t _referenceCount;
+    
     IDPObjectDeallocatorCallback _deallocator;
 } IDPObject;
 
@@ -35,5 +38,8 @@ void __IDPObjectDeallocate(void *object);
 
 extern
 uint64_t IDPObjectGetReferenceCount(void *object);
+
+extern
+void __IDPObjectSetFieldValueWithMethod(void *object, void **field, void *value, IDPOwnershipMethod retainMethod);
 
 #endif /* IDPObject_h */

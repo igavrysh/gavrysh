@@ -28,9 +28,14 @@ void IDPArrayMultipleObjectsContainerTest();
 #pragma mark Public Implementation
 
 void IDPArrayBehaviorTests(void) {
-    IDPPerformTest(IDPArrayOneObjectContainerTest);
     
-    IDPPerformTest(IDPArrayMultipleObjectsContainerTest);
+    //for (uint64_t index = 0; index < 100000; index++) {
+        IDPPerformTest(IDPArrayOneObjectContainerTest);
+    //}
+    
+    for (uint64_t index = 0; index < 100000; index++) {
+        IDPPerformTest(IDPArrayMultipleObjectsContainerTest);
+    }
 }
 
 #pragma mark -
@@ -52,7 +57,7 @@ void IDPArrayOneObjectContainerTest() {
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
-    assert(0 == IDPArrayGetSize(array));
+    assert(0 == IDPArrayGetCount(array));
     
     IDPObject *object = IDPObjectCreateWithType(IDPObject);
     
@@ -64,7 +69,7 @@ void IDPArrayOneObjectContainerTest() {
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
-    assert(1 == IDPArrayGetSize(array));
+    assert(1 == IDPArrayGetCount(array));
     
     assert(0 == IDPArrayGetIndexOfObject(array, object));
     
@@ -93,7 +98,7 @@ void IDPArrayMultipleObjectsContainerTest() {
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
-    assert(0 == IDPArrayGetSize(array));
+    assert(0 == IDPArrayGetCount(array));
     
     IDPObject *object = IDPObjectCreateWithType(IDPObject);
     
@@ -101,13 +106,14 @@ void IDPArrayMultipleObjectsContainerTest() {
     
     for (uint64_t index = 0; index < 10; index++) {
         IDPArrayAddObject(array, object);
+        assert(2 + index == IDPObjectGetReferenceCount(object));
     }
     
     assert(11 == IDPObjectGetReferenceCount(object));
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
-    assert(10 == IDPArrayGetSize(array));
+    assert(10 == IDPArrayGetCount(array));
     
     assert(0 == IDPArrayGetIndexOfObject(array, object));
     

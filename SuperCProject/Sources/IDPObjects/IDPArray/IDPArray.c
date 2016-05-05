@@ -53,9 +53,9 @@ void IDPArrayAddObject(IDPArray *array, IDPObject *object) {
         return;
     }
     
-    uint64_t size = IDPArrayGetSize(array);
-    IDPArraySetSize(array, size + 1);
-    IDPArraySetObjectAtIndex(array, object, size);
+    uint64_t count = IDPArrayGetCount(array);
+    IDPArraySetCount(array, count + 1);
+    IDPArraySetObjectAtIndex(array, object, count);
 }
 
 void IDPArrayRemoveObject(IDPArray *array, IDPObject *object) {
@@ -67,31 +67,31 @@ void IDPArrayRemoveObject(IDPArray *array, IDPObject *object) {
 }
 
 void IDPArrayRemoveAllObjects(IDPArray *array) {
-    uint64_t size = IDPArrayGetSize(array);
+    uint64_t count = IDPArrayGetCount(array);
     
-    for (uint64_t index = 0; index < size; index++) {
-        IDPArrayRemoveObjectAtIndex(array, index);
+    for (uint64_t index = 0; index < count; index++) {
+        IDPArrayRemoveObjectAtIndex(array, count - index - 1);
     }
 }
 
 void IDPArrayRemoveObjectAtIndex(IDPArray *array, uint64_t index) {
-    if (!array || index >= IDPArrayGetSize(array)) {
+    if (!array || index >= IDPArrayGetCount(array)) {
         return;
     }
     
     IDPArraySetObjectAtIndex(array, NULL, index);
     
-    uint64_t size = IDPArrayGetSize(array);
+    uint64_t count = IDPArrayGetCount(array);
     
     memmove(array->_data + index,
             array->_data + index + 1,
-            sizeof(array->_data[0]) * (size - index - 1));
+            sizeof(array->_data[0]) * (count - index - 1));
     
-    IDPArraySetSize(array, size - 1);
+    IDPArraySetCount(array, count - 1);
 }
 
 IDPObject *IDPArrayGetObjectAtIndex(IDPArray *array, uint64_t index) {
-    if (!array || index >= IDPArrayGetSize(array)) {
+    if (!array || index >= IDPArrayGetCount(array)) {
         return NULL;
     }
     
@@ -99,7 +99,7 @@ IDPObject *IDPArrayGetObjectAtIndex(IDPArray *array, uint64_t index) {
 }
 
 void IDPArraySetObjectAtIndex(IDPArray *array, IDPObject *object, uint64_t index) {
-    if (!array || index >= IDPArrayGetSize(array)) {
+    if (!array || index >= IDPArrayGetCount(array)) {
         return;
     }
     
@@ -111,8 +111,8 @@ uint64_t IDPArrayGetIndexOfObject(IDPArray *array, IDPObject *object) {
         return 0;
     }
     
-    uint64_t size = IDPArrayGetSize(array);
-    for (uint64_t index = 0; index < size; index++) {
+    uint64_t count = IDPArrayGetCount(array);
+    for (uint64_t index = 0; index < count; index++) {
         if (object == IDPArrayGetObjectAtIndex(array, index)) {
             return index;
         }
@@ -121,16 +121,16 @@ uint64_t IDPArrayGetIndexOfObject(IDPArray *array, IDPObject *object) {
     return kIDPNotFonund;
 }
 
-uint64_t IDPArrayGetSize(IDPArray *array) {
-    return  array ? array->_size : 0;
+uint64_t IDPArrayGetCount(IDPArray *array) {
+    return  array ? array->_count : 0;
 }
 
-void IDPArraySetSize(IDPArray *array, uint64_t size) {
+void IDPArraySetCount(IDPArray *array, uint64_t count) {
     if (!array) {
         return;
     }
     
-    array->_size = size;
+    array->_count = count;
     IDPArrayResizeIfNeeded(array);
 }
 
@@ -146,22 +146,19 @@ void IDPArraySetCapacity(IDPArray *array, uint64_t capacity) {
         return;
     }
     
-    if (capacity == 0 && array->_data) {
+    uint64_t count = IDPArrayGetCount(array);
+    uint64_t unit_size = sizeof(array->_data[0]);
+    
+    if (count == 0 && array->_data) {
         free(array->_data);
         array->_data = NULL;
     } else {
-        uint64_t size = IDPArrayGetSize(array);
+        array->_data = realloc(array->_data, capacity * unit_size);
         
-        array->_data = realloc(array->_data, capacity * sizeof(array->_data[0]));
-        
-        if (size == 0) {
-             memset(array->_data, 0, capacity * sizeof(array->_data[0]));
-        }
-        
-        if (size > 0 && capacity > size - 1) {
-            uint64_t deltaSize = capacity - size + 1;
+        if (capacity > count) {
+            uint64_t deltaCount = capacity - count;
             
-            memset(array->_data + size - 1, 0, deltaSize * sizeof(array->_data[0]));
+            memset(array->_data + count, 0, deltaCount * unit_size);
         }
     }
     
@@ -183,15 +180,15 @@ uint64_t IDPArrayGetPrefferedCapacity(IDPArray *array) {
         return 0;
     }
     
-    uint64_t size = IDPArrayGetSize(array);
+    uint64_t count = IDPArrayGetCount(array);
     uint64_t capacity = IDPArrayGetCapacity(array);
     
-    if (size < capacity / 4) {
+    if (count < capacity / 4) {
         return capacity / 2;
     }
     
-    if (size > capacity) {
-        return size * 2;
+    if (count > capacity) {
+        return count * 2;
     }
     
     return capacity;

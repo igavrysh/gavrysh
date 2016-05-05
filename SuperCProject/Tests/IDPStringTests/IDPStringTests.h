@@ -12,5 +12,4 @@
 extern
 void IDPStringTestPerform();
 
-
 #endif /* defined(__SuperCProject__IDPNameTests__) */
