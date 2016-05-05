@@ -41,9 +41,9 @@ void __IDPArrayDeallocate(IDPArray *array) {
     __IDPObjectDeallocate(array);
 }
 
-IDPArray *IDPArrayCreateWithSize(uint64_t size) {
+IDPArray *IDPArrayCreateWithCapacity(uint64_t capacity) {
     IDPArray *array = IDPObjectCreateWithType(IDPArray);
-    IDPArraySetSize(array, size);
+    IDPArraySetCapacity(array, capacity);
     
     return array;
 }
@@ -54,7 +54,7 @@ void IDPArrayAddObject(IDPArray *array, IDPObject *object) {
     }
     
     uint64_t size = IDPArrayGetSize(array);
-    IDPArraySetSize(array, size);
+    IDPArraySetSize(array, size + 1);
     IDPArraySetObjectAtIndex(array, object, size);
 }
 
@@ -152,8 +152,9 @@ void IDPArraySetCapacity(IDPArray *array, uint64_t capacity) {
     } else {
         uint64_t size = IDPArrayGetSize(array);
         
-        realloc(array, capacity * sizeof(array->_data));
-        memset(array->_data[size], 0, (capacity - size) * sizeof(array->_data));
+        array->_data = realloc(array->_data, capacity * sizeof(array->_data));
+        
+        memset(array->_data, 0, (capacity - size) * sizeof(array->_data));
     }
     
     array->_capacity = capacity;

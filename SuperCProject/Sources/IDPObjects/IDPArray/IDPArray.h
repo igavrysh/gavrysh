@@ -30,7 +30,7 @@ extern
 void __IDPArrayDeallocate(IDPArray *array);
 
 extern
-IDPArray *IDPArrayCreateWithSize(uint64_t size);
+IDPArray *IDPArrayCreateWithCapacity(uint64_t capacity);
 
 extern
 void IDPArrayAddObject(IDPArray *array, IDPObject *object);
