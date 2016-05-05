@@ -28,6 +28,7 @@
 		85465E2B1CC0395900E275F1 /* IDPTypesAndRangesTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 85465E141CC0391E00E275F1 /* IDPTypesAndRangesTests.c */; };
 		8550BC591CBB23B400813085 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 8550BC581CBB23B400813085 /* main.c */; };
 		858CEAF21CDAB4B400F7C461 /* IDPObjectMacros.h in Sources */ = {isa = PBXBuildFile; fileRef = 858CEAF11CDAB01900F7C461 /* IDPObjectMacros.h */; };
+		858CEAF71CDABE9700F7C461 /* IDPArray.c in Sources */ = {isa = PBXBuildFile; fileRef = 858CEAF51CDABE9700F7C461 /* IDPArray.c */; };
 		85BE2F2E1CC15A1400E18E17 /* IDPObject.c in Sources */ = {isa = PBXBuildFile; fileRef = 85BE2F2C1CC1599500E18E17 /* IDPObject.c */; };
 		85EF63861CC27AC000B83957 /* IDPObjectTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 85EF63841CC27AC000B83957 /* IDPObjectTests.c */; };
 /* End PBXBuildFile section */
@@ -88,6 +89,8 @@
 		8550BC551CBB23B400813085 /* SuperCProject */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = SuperCProject; sourceTree = BUILT_PRODUCTS_DIR; };
 		8550BC581CBB23B400813085 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
 		858CEAF11CDAB01900F7C461 /* IDPObjectMacros.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPObjectMacros.h; sourceTree = "<group>"; };
+		858CEAF51CDABE9700F7C461 /* IDPArray.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPArray.c; sourceTree = "<group>"; };
+		858CEAF61CDABE9700F7C461 /* IDPArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPArray.h; sourceTree = "<group>"; };
 		85BE2F2C1CC1599500E18E17 /* IDPObject.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPObject.c; sourceTree = "<group>"; };
 		85BE2F2D1CC1599500E18E17 /* IDPObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPObject.h; sourceTree = "<group>"; };
 		85EF63841CC27AC000B83957 /* IDPObjectTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPObjectTests.c; sourceTree = "<group>"; };
@@ -210,6 +213,7 @@
 			children = (
 				85BE2F2B1CC1599500E18E17 /* IDPObject */,
 				3EE89B291CC54F25006EA650 /* IDPString */,
+				858CEAF41CDABE8300F7C461 /* IDPArray */,
 				85465DEB1CC0391E00E275F1 /* IDPHuman */,
 			);
 			path = IDPObjects;
@@ -256,6 +260,7 @@
 			children = (
 				85EF63831CC27A8F00B83957 /* IDPObjectTests */,
 				852AE9A51CC5836100CCB42A /* IDPStringTests */,
+				858CEAF81CDABF1700F7C461 /* IDPArrayTests */,
 				85465E071CC0391E00E275F1 /* IDPHumanTests */,
 				852AE9A21CC5833900CCB42A /* IDPStructuresTests */,
 				85465E011CC0391E00E275F1 /* IDPBitOutputTests */,
@@ -345,6 +350,22 @@
 				8550BC581CBB23B400813085 /* main.c */,
 			);
 			path = SuperCProject;
+			sourceTree = "<group>";
+		};
+		858CEAF41CDABE8300F7C461 /* IDPArray */ = {
+			isa = PBXGroup;
+			children = (
+				858CEAF51CDABE9700F7C461 /* IDPArray.c */,
+				858CEAF61CDABE9700F7C461 /* IDPArray.h */,
+			);
+			path = IDPArray;
+			sourceTree = "<group>";
+		};
+		858CEAF81CDABF1700F7C461 /* IDPArrayTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IDPArrayTests;
 			sourceTree = "<group>";
 		};
 		85BE2F2B1CC1599500E18E17 /* IDPObject */ = {
@@ -437,6 +458,7 @@
 				85465E1E1CC0395900E275F1 /* IDPHuman.c in Sources */,
 				85465E221CC0395900E275F1 /* IDPPrintingFunctions.c in Sources */,
 				85465E231CC0395900E275F1 /* IDPStructures.c in Sources */,
+				858CEAF71CDABE9700F7C461 /* IDPArray.c in Sources */,
 				85465E241CC0395900E275F1 /* IDPTypesAndRanges.c in Sources */,
 				85465E251CC0395900E275F1 /* IDPBitOutputTests.c in Sources */,
 				85465E261CC0395900E275F1 /* IDPBranchingAndStatesTests.c in Sources */,
