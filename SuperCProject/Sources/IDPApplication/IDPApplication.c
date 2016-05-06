@@ -18,7 +18,9 @@
 #include "IDPBitOutputTests.h"
 #include "IDPStringTests.h"
 #include "IDPArrayTests.h"
+#include "IDPLinkedListTests.h"
 #include "IDPHumanTests.h"
+
 
 void IDPRunApplication() {
     /*
@@ -50,6 +52,8 @@ void IDPRunApplication() {
     IDPHumanBehaviorTests();
     
     IDPArrayBehaviorTests();
+    
+    IDPLinkedListBehaviorTests();
     
 }
 

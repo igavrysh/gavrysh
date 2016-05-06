@@ -33,9 +33,9 @@ void IDPArrayBehaviorTests(void) {
         IDPPerformTest(IDPArrayOneObjectContainerTest);
     //}
     
-    for (uint64_t index = 0; index < 100000; index++) {
+    //for (uint64_t index = 0; index < 100000; index++) {
         IDPPerformTest(IDPArrayMultipleObjectsContainerTest);
-    }
+    //}
 }
 
 #pragma mark -

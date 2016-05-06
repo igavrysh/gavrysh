@@ -10,6 +10,6 @@
 #define IDPLinkedListTests_h
 
 extern
-void IDPLinkedListTestPerform();
+void IDPLinkedListBehaviorTests(void);
 
 #endif /* IDPLinkedListTests_h */

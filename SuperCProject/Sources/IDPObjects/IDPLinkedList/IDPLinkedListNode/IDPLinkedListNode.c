@@ -18,6 +18,8 @@
 #pragma mark Public Implementations
 
 void __IDPLinkedListNodeDeallocate(IDPLinkedListNode *node) {
+    IDPLinkedListNodeSetNext(node, NULL);
+    IDPLinkedListNodeSetData(node, NULL);
     
     __IDPObjectDeallocate(node);
 }
@@ -61,3 +63,4 @@ bool IDPLinkedListNodeHasNext(IDPLinkedListNode *node) {
 
 #pragma mark -
 #pragma mark Private Implementations
+
