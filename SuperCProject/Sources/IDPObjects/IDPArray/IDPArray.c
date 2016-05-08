@@ -186,7 +186,6 @@ uint64_t IDPArrayGetPrefferedCapacityWithNewCount(IDPArray *array, uint64_t newC
         return 0;
     }
     
-    //uint64_t count = IDPArrayGetCount(array);
     uint64_t capacity = IDPArrayGetCapacity(array);
     
     if (newCount <= capacity / 4) {

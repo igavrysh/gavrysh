@@ -10,7 +10,7 @@
 #define IDPArrayTests_h
 
 extern
-void IDPArrayTestPerform();
+void IDPArrayBehaviorTests();
 
 
 #endif /* IDPArrayTests_h */

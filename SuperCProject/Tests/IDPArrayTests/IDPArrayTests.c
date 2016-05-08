@@ -8,6 +8,9 @@
 
 #include <assert.h>
 #include <string.h>
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
 
 #include "IDPArrayTests.h"
 #include "IDPArray.h"
@@ -26,11 +29,13 @@ void IDPArrayMultipleObjectsContainerTest();
 static
 void IDPArrayMultipleObjectsAddAndRemoveTest();
 
+static
+void IDPArrayMultipleObjectsAddAndRemoveRandomTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
 void IDPArrayBehaviorTests(void) {
-    
     for (uint64_t index = 0; index < 1000; index++) {
         IDPPerformTest(IDPArrayOneObjectContainerTest);
     }
@@ -41,6 +46,10 @@ void IDPArrayBehaviorTests(void) {
     
     for (uint64_t index = 0; index < 1000; index++) {
         IDPPerformTest(IDPArrayMultipleObjectsAddAndRemoveTest);
+    }
+    
+    for (uint64_t index = 0; index < 1000; index++) {
+        IDPPerformTest(IDPArrayMultipleObjectsAddAndRemoveRandomTest);
     }
 }
 
@@ -164,6 +173,59 @@ void IDPArrayMultipleObjectsAddAndRemoveTest() {
     for (uint64_t index = 0; index < count; index++) {
         IDPArrayRemoveObjectAtIndex(array, count - index - 1);
     }
+    
+    assert(0 == IDPArrayGetCount(array));
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
+    
+    IDPObjectRelease(array);
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
+    
+    IDPObjectRelease(object);
+}
+
+void IDPArrayMultipleObjectsAddAndRemoveRandomTest() {
+    const uint64_t count = 10;
+    
+    IDPArray *array = IDPArrayCreateWithCapacity(1);
+    
+    assert(1 == IDPObjectGetReferenceCount(array));
+    
+    assert(0 == IDPArrayGetCount(array));
+    
+    IDPObject *object = IDPObjectCreateWithType(IDPObject);
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
+    
+    for (uint64_t index = 0; index < count; index++) {
+        IDPArrayAddObject(array, object);
+        assert(2 + index == IDPObjectGetReferenceCount(object));
+    }
+    
+    assert(count + 1 == IDPObjectGetReferenceCount(object));
+    
+    assert(1 == IDPObjectGetReferenceCount(array));
+    
+    assert(count == IDPArrayGetCount(array));
+    
+    assert(0 == IDPArrayGetIndexOfObject(array, object));
+    
+    assert(object == IDPArrayGetObjectAtIndex(array, 5));
+    
+    srand(time(NULL));
+    
+    uint64_t randomIndex = 0;
+    
+    for (uint64_t index = 0; index < count; index++) {
+        randomIndex = rand() % IDPArrayGetCount(array);
+        
+        IDPArrayRemoveObjectAtIndex(array, randomIndex);
+    }
+    
+    assert(0 == IDPArrayGetCount(array));
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
     
     IDPObjectRelease(array);
     
