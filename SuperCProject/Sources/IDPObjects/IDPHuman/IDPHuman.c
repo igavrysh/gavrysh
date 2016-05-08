@@ -32,10 +32,22 @@ static
 IDPHuman *IDPHumanGetPartner(IDPHuman *human);
 
 static
-void IDPHumanAddChild(IDPHuman *human, IDPHuman *child);
+IDPHuman *IDPHumanGetFather(IDPHuman *human);
 
 static
-void IDPHumanRemoveChild(IDPHuman *human);
+void IDPHumanSetFather(IDPHuman *human, IDPHuman *father);
+
+static
+IDPHuman *IDPHumanGetMother(IDPHuman *human);
+
+static
+void IDPHumanSetMother(IDPHuman *human, IDPHuman *mother);
+
+static
+void IDPHumanAddChildToParents(IDPHuman *human, IDPHuman *child);
+
+static
+void IDPHumanRemoveChildFromParents(IDPHuman *human);
 
 static
 void IDPHumanAddChildToParent(IDPHuman *human, IDPHuman *child);
@@ -56,7 +68,7 @@ static
 bool IDPHumanCanGiveBirth(IDPHuman *human);
 
 static
-void IDPHumanAddChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index);
+void IDPHumanAppendChildrenWithChild(IDPHuman *human, IDPHuman *child);
 
 static
 void IDPHumanRemoveChildAtIndex(IDPHuman *human, size_t index);
@@ -79,7 +91,7 @@ void IDPHumanChildrenCountAddValue(IDPHuman *human, size_t value);
 void __IDPHumanDeallocate(IDPHuman *human) {
     IDPHumanRemoveAllChildren(human);
     
-    IDPHumanRemoveChild(human);
+    IDPHumanRemoveChildFromParents(human);
     
     IDPHumanDivorce(human);
     
@@ -205,6 +217,30 @@ IDPHuman *IDPHumanGetPartner(IDPHuman *human) {
 #pragma mark - 
 #pragma mark Private Implementations - Give Birth functionality
 
+IDPHuman *IDPHumanGetFather(IDPHuman *human) {
+    return human ? human->_father : NULL;
+}
+
+void IDPHumanSetFather(IDPHuman *human, IDPHuman *father) {
+    if (!human) {
+        return;
+    }
+    
+    human->_father = father;
+}
+
+IDPHuman *IDPHumanGetMother(IDPHuman *human) {
+    return human ? human->_mother : NULL;
+}
+
+void IDPHumanSetMother(IDPHuman *human, IDPHuman *mother) {
+    if (!human) {
+        return;
+    }
+    
+    human->_mother = mother;
+}
+
 IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human) {
     if (!human) {
         return NULL;
@@ -219,7 +255,7 @@ IDPHuman *IDPHumanGiveBirthToChild(IDPHuman *human) {
     }
     
     IDPHuman *child = IDPHumanCreate();
-    IDPHumanAddChild(human, child);
+    IDPHumanAddChildToParents(human, child);
     IDPObjectRelease(child);
     
     return child;
@@ -233,7 +269,7 @@ bool IDPHumanCanGiveBirth(IDPHuman *human) {
         && IDPHumanGetChildrenCount(IDPHumanGetPartner(human)) < maxChildrenCount;
 }
 
-void IDPHumanAddChild(IDPHuman *human, IDPHuman *child) {
+void IDPHumanAddChildToParents(IDPHuman *human, IDPHuman *child) {
     if (!human || !child) {
         return;
     }
@@ -249,21 +285,20 @@ void IDPHumanAddChildToParent(IDPHuman *human, IDPHuman *child) {
         return;
     }
     
-    size_t childIndex = IDPHumanGetChildrenCount(human);
+    IDPHumanAppendChildrenWithChild(human, child);
     
-    IDPHumanAddChildAtIndex(human, child, childIndex);
     IDPHumanSetParentWithNewValue(child, human, human);
     
     IDPHumanChildrenCountAddValue(human, 1);
 }
 
-void IDPHumanRemoveChild(IDPHuman *human) {
+void IDPHumanRemoveChildFromParents(IDPHuman *human) {
     if (!human) {
         return;
     }
     
-    IDPHumanRemoveChildFromParent(human->_father, human);
-    IDPHumanRemoveChildFromParent(human->_mother, human);
+    IDPHumanRemoveChildFromParent(IDPHumanGetFather(human), human);
+    IDPHumanRemoveChildFromParent(IDPHumanGetMother(human), human);
 }
 
 void IDPHumanRemoveChildFromParent(IDPHuman *human, IDPHuman *child) {
@@ -298,13 +333,13 @@ void IDPHumanRemoveAllChildren(IDPHuman *human) {
 
 void IDPHumanSetParentWithNewValue(IDPHuman *human, IDPHuman *parent, IDPHuman *newParent) {
     if (IDPHumanGenderMale == IDPHumanGetGender(parent)) {
-        human->_father = newParent;
+        IDPHumanSetFather(human, newParent);
     } else if (IDPHumanGenderFemale == IDPHumanGetGender(parent)){
-        human->_mother = newParent;
+        IDPHumanSetMother(human, newParent);
     }
 }
 
-void IDPHumanAddChildAtIndex(IDPHuman *human, IDPHuman *child, size_t index) {
+void IDPHumanAppendChildrenWithChild(IDPHuman *human, IDPHuman *child) {
     IDPHumanSetChildAtIndex(human, child, IDPHumanGetChildrenCount(human));
 }
 
@@ -345,7 +380,9 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
     uint64_t index = IDPHumanGetChildIndex(human, NULL);
     
     if (index != kIDPHumanIndexNotFound
-        && !IDPHumanGetChildAtIndex(human, index) && IDPHumanGetChildAtIndex(human, childrenCount)) {
+        && !IDPHumanGetChildAtIndex(human, index)
+        && IDPHumanGetChildAtIndex(human, childrenCount))
+    {
         human->_children[index] = human->_children[childrenCount];
     }
 }
