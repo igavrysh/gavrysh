@@ -10,7 +10,7 @@
 #define IDPObjectMacros_h
 
 #define IDPObjectSetFieldValueWithMethod(object, field, value, retainMethod) \
-    __IDPObjectSetFieldValueWithMethod((IDPObject *)object, (void **)&object->field, value, retainMethod)
+    __IDPObjectSetFieldValueWithMethod((IDPObject *)object, (void **)&object->field, value, (void *(*)(void *))retainMethod)
 
 
 #define IDPObjectSetStrong(object, field, value) \
