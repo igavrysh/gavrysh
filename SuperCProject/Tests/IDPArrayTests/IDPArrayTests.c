@@ -14,7 +14,6 @@
 
 #include "IDPPrintingFunctions.h"
 
-
 #pragma mark -
 #pragma mark Private Declaration
 
@@ -24,17 +23,24 @@ void IDPArrayOneObjectContainerTest();
 static
 void IDPArrayMultipleObjectsContainerTest();
 
+static
+void IDPArrayMultipleObjectsAddAndRemoveTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
 void IDPArrayBehaviorTests(void) {
     
-    //for (uint64_t index = 0; index < 100000; index++) {
+    for (uint64_t index = 0; index < 1000; index++) {
         IDPPerformTest(IDPArrayOneObjectContainerTest);
-    //}
+    }
     
-    for (uint64_t index = 0; index < 100000; index++) {
+    for (uint64_t index = 0; index < 1000; index++) {
         IDPPerformTest(IDPArrayMultipleObjectsContainerTest);
+    }
+    
+    for (uint64_t index = 0; index < 1000; index++) {
+        IDPPerformTest(IDPArrayMultipleObjectsAddAndRemoveTest);
     }
 }
 
@@ -53,7 +59,7 @@ void IDPArrayOneObjectContainerTest() {
     //  after array release
     //      added object reference count should be equal to 1
     
-    IDPArray *array = IDPArrayCreateWithCapacity(4);
+    IDPArray *array = IDPArrayCreateWithCapacity(10);
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
@@ -93,8 +99,9 @@ void IDPArrayMultipleObjectsContainerTest() {
     //      index of just added object should be equal to 0
     //  after array release
     //      added object reference count should be equal to 1
+    const uint64_t count = 10;
     
-    IDPArray *array = IDPArrayCreateWithCapacity(4);
+    IDPArray *array = IDPArrayCreateWithCapacity(1);
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
@@ -104,20 +111,59 @@ void IDPArrayMultipleObjectsContainerTest() {
     
     assert(1 == IDPObjectGetReferenceCount(object));
     
-    for (uint64_t index = 0; index < 10; index++) {
+    for (uint64_t index = 0; index < count; index++) {
         IDPArrayAddObject(array, object);
         assert(2 + index == IDPObjectGetReferenceCount(object));
     }
     
-    assert(11 == IDPObjectGetReferenceCount(object));
+    assert(count + 1 == IDPObjectGetReferenceCount(object));
     
     assert(1 == IDPObjectGetReferenceCount(array));
     
-    assert(10 == IDPArrayGetCount(array));
+    assert(count == IDPArrayGetCount(array));
     
     assert(0 == IDPArrayGetIndexOfObject(array, object));
     
     assert(object == IDPArrayGetObjectAtIndex(array, 5));
+    
+    IDPObjectRelease(array);
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
+    
+    IDPObjectRelease(object);
+}
+
+void IDPArrayMultipleObjectsAddAndRemoveTest() {
+    const uint64_t count = 10;
+    
+    IDPArray *array = IDPArrayCreateWithCapacity(1);
+    
+    assert(1 == IDPObjectGetReferenceCount(array));
+    
+    assert(0 == IDPArrayGetCount(array));
+    
+    IDPObject *object = IDPObjectCreateWithType(IDPObject);
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
+    
+    for (uint64_t index = 0; index < count; index++) {
+        IDPArrayAddObject(array, object);
+        assert(2 + index == IDPObjectGetReferenceCount(object));
+    }
+    
+    assert(count + 1 == IDPObjectGetReferenceCount(object));
+    
+    assert(1 == IDPObjectGetReferenceCount(array));
+    
+    assert(count == IDPArrayGetCount(array));
+    
+    assert(0 == IDPArrayGetIndexOfObject(array, object));
+    
+    assert(object == IDPArrayGetObjectAtIndex(array, 5));
+    
+    for (uint64_t index = 0; index < count; index++) {
+        IDPArrayRemoveObjectAtIndex(array, count - index - 1);
+    }
     
     IDPObjectRelease(array);
     
