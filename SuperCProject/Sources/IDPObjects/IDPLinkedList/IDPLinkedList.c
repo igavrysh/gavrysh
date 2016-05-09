@@ -77,9 +77,10 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object) {
             }
             
             IDPLinkedListAddValueToCount(list, -1);
+        } else {
+            prevNode = node;
         }
         
-        prevNode = node;
         node = nextNode;
     }
 }

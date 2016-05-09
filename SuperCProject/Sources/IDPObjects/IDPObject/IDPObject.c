@@ -60,11 +60,12 @@ void __IDPObjectSetFieldValueWithMethod(void *object, void **field, void *value,
     }
     
     if (*field != value) {
+        void *tmp = retainMethod(value);
         if (*field) {
             IDPObjectRelease(*field);
         }
         
-        *field = retainMethod(value);
+        *field = tmp;
     }
 }
 
