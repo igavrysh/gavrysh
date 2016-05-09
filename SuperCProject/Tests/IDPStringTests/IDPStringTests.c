@@ -8,6 +8,7 @@
 
 #include <assert.h>
 #include <string.h>
+#include <stdio.h>
 
 #include "IDPString.h"
 #include "IDPStringTests.h"

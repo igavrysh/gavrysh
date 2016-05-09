@@ -24,13 +24,13 @@ static
 void IDPArraySetCapacity(IDPArray *array, uint64_t capacity);
 
 static
-void IDPArrayResizeIfNeeded(IDPArray *array);
+void IDPArrayResizeIfNeededWithNewCount(IDPArray *array, uint64_t newCount);
 
 static
-bool IDPArrayShouldResize(IDPArray *array);
+bool IDPArrayShouldResizeWithNewCount(IDPArray *array, uint64_t newCount);
 
 static
-uint64_t IDPArrayGetPrefferedCapacity(IDPArray *array);
+uint64_t IDPArrayGetPrefferedCapacityWithNewCount(IDPArray *array, uint64_t newCount);
 
 #pragma mark - 
 #pragma mark Public Implementations
@@ -54,6 +54,7 @@ void IDPArrayAddObject(IDPArray *array, IDPObject *object) {
     }
     
     uint64_t count = IDPArrayGetCount(array);
+    
     IDPArraySetCount(array, count + 1);
     IDPArraySetObjectAtIndex(array, object, count);
 }
@@ -72,6 +73,8 @@ void IDPArrayRemoveAllObjects(IDPArray *array) {
     for (uint64_t index = 0; index < count; index++) {
         IDPArrayRemoveObjectAtIndex(array, count - index - 1);
     }
+    
+    IDPArraySetCapacity(array, 0);
 }
 
 void IDPArrayRemoveObjectAtIndex(IDPArray *array, uint64_t index) {
@@ -83,9 +86,11 @@ void IDPArrayRemoveObjectAtIndex(IDPArray *array, uint64_t index) {
     
     uint64_t count = IDPArrayGetCount(array);
     
+    uint64_t numOfElemToMove = count - index - 1;
+    
     memmove(array->_data + index,
             array->_data + index + 1,
-            sizeof(array->_data[0]) * (count - index - 1));
+            sizeof(*array->_data) * numOfElemToMove);
     
     IDPArraySetCount(array, count - 1);
 }
@@ -130,8 +135,8 @@ void IDPArraySetCount(IDPArray *array, uint64_t count) {
         return;
     }
     
+    IDPArrayResizeIfNeededWithNewCount(array, count);
     array->_count = count;
-    IDPArrayResizeIfNeeded(array);
 }
 
 #pragma mark -
@@ -147,48 +152,48 @@ void IDPArraySetCapacity(IDPArray *array, uint64_t capacity) {
     }
     
     uint64_t count = IDPArrayGetCount(array);
-    uint64_t unit_size = sizeof(array->_data[0]);
+    uint64_t currentCapacity = array->_capacity;
+    uint64_t unitSize = sizeof(*array->_data);
     
-    if (count == 0 && array->_data) {
+    if (capacity == 0 && array->_data) {
         free(array->_data);
         array->_data = NULL;
     } else {
-        array->_data = realloc(array->_data, capacity * unit_size);
+        array->_data = realloc(array->_data, capacity * unitSize);
         
-        if (capacity > count) {
-            uint64_t deltaCount = capacity - count;
+        if (capacity > currentCapacity) {
+            uint64_t deltaCount = capacity - currentCapacity;
             
-            memset(array->_data + count, 0, deltaCount * unit_size);
+            memset(array->_data + currentCapacity, 0, deltaCount * unitSize);
         }
     }
     
     array->_capacity = capacity;
 }
 
-void IDPArrayResizeIfNeeded(IDPArray *array) {
-    if (IDPArrayShouldResize(array)) {
-        IDPArraySetCapacity(array, IDPArrayGetPrefferedCapacity(array));
+void IDPArrayResizeIfNeededWithNewCount(IDPArray *array, uint64_t newCount) {
+    if (IDPArrayShouldResizeWithNewCount(array, newCount)) {
+        IDPArraySetCapacity(array, IDPArrayGetPrefferedCapacityWithNewCount(array, newCount));
     }
 }
 
-bool IDPArrayShouldResize(IDPArray *array) {
-    return IDPArrayGetCapacity(array) != IDPArrayGetPrefferedCapacity(array);
+bool IDPArrayShouldResizeWithNewCount(IDPArray *array, uint64_t newCount) {
+    return IDPArrayGetCapacity(array) != IDPArrayGetPrefferedCapacityWithNewCount(array, newCount);
 }
 
-uint64_t IDPArrayGetPrefferedCapacity(IDPArray *array) {
+uint64_t IDPArrayGetPrefferedCapacityWithNewCount(IDPArray *array, uint64_t newCount) {
     if (!array) {
         return 0;
     }
     
-    uint64_t count = IDPArrayGetCount(array);
     uint64_t capacity = IDPArrayGetCapacity(array);
     
-    if (count < capacity / 4) {
+    if (newCount <= capacity / 4) {
         return capacity / 2;
     }
     
-    if (count > capacity) {
-        return count * 2;
+    if (newCount > capacity) {
+        return newCount * 2;
     }
     
     return capacity;
