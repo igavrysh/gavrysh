@@ -19,7 +19,7 @@ struct IDPLinkedListNode {
     IDPObject _super;
     
     IDPLinkedListNode *_nextNode;
-    void *_data;
+    IDPObject *_data;
 };
 
 extern
@@ -29,10 +29,13 @@ extern
 IDPLinkedListNode *IDPLinkedListNodeCreate();
 
 extern
-void *IDPLinkedListNodeGetData(IDPLinkedListNode *node);
+IDPLinkedListNode *IDPLinkedListNodeCreateWithData(IDPObject *data);
 
 extern
-void IDPLinkedListNodeSetData(IDPLinkedListNode *node, void *data);
+IDPObject *IDPLinkedListNodeGetData(IDPLinkedListNode *node);
+
+extern
+void IDPLinkedListNodeSetData(IDPLinkedListNode *node, IDPObject *object);
 
 extern
 IDPLinkedListNode *IDPLinkedListNodeGetNext(IDPLinkedListNode *node);

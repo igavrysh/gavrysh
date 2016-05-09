@@ -9,6 +9,8 @@
 #ifndef IDPLinkedList_h
 #define IDPLinkedList_h
 
+#include <stdbool.h>
+
 #include "IDPObject.h"
 #include "IDPLinkedListNode.h"
 
@@ -21,6 +23,28 @@ struct IDPLinkedList {
     uint64_t _count;
 };
 
+extern
+void __IDPLinkedListDeallocate(IDPLinkedList *list);
 
+extern
+void IDPLinkedListAddObject(IDPLinkedList *list, IDPObject *object);
+
+extern
+IDPObject *IDPLinkedListGetFirstObject(IDPLinkedList *list);
+
+extern
+void IDPLinkedListRemoveFirstObject(IDPLinkedList *list);
+
+extern
+void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object);
+
+extern
+void IDPLinkedListRemoveAllObjects(IDPLinkedList *list);
+
+extern
+bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object);
+
+extern
+uint64_t IDPLinkedListGetCount(IDPLinkedList *list);
 
 #endif /* IDPLinkedList_h */

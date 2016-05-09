@@ -28,17 +28,25 @@ IDPLinkedListNode *IDPLinkedListNodeCreate() {
     return IDPObjectCreateWithType(IDPLinkedListNode);
 }
 
-void *IDPLinkedListNodeGetData(IDPLinkedListNode *node) {
+IDPLinkedListNode *IDPLinkedListNodeCreateWithData(IDPObject *data) {
+    IDPLinkedListNode *node = IDPLinkedListNodeCreate();
+    
+    IDPLinkedListNodeSetData(node, data);
+    
+    return node;
+}
+
+IDPObject *IDPLinkedListNodeGetData(IDPLinkedListNode *node) {
     return node ? node->_data : NULL;
 }
 
 extern
-void IDPLinkedListNodeSetData(IDPLinkedListNode *node, void *data) {
+void IDPLinkedListNodeSetData(IDPLinkedListNode *node, IDPObject *object) {
     if (!node) {
         return;
     }
     
-    IDPObjectSetStrong(node, _data, data);
+    IDPObjectSetStrong(node, _data, object);
 }
 
 extern
