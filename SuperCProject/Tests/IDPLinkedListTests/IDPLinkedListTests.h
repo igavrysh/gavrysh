@@ -12,4 +12,7 @@
 extern
 void IDPLinkedListBehaviorTests(void);
 
+extern
+void IDPLinkedListEnumeratorBehaviorTests(void);
+
 #endif /* IDPLinkedListTests_h */

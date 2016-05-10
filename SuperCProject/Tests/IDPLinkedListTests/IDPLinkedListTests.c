@@ -12,6 +12,7 @@
 #include "IDPLinkedListNode.h"
 #include "IDPLinkedList.h"
 #include "IDPLinkedListTests.h"
+#include "IDPLinkedListEnumerator.h"
 
 #include "IDPPrintingFunctions.h"
 
@@ -36,6 +37,9 @@ void IDPLinkedListRemoveObjectsTest();
 static
 void IDPLinkedListAddRemoveObjectPerformanceTest();
 
+static
+void IDPLinkedListEnumeratorTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
@@ -54,6 +58,10 @@ void IDPLinkedListBehaviorTests(void) {
     for (uint64_t index = 0; index < count; index++) {
         IDPPerformTest(IDPLinkedListAddRemoveObjectPerformanceTest);
     }
+}
+
+void IDPLinkedListEnumeratorBehaviorTests(void) {
+    IDPPerformTest(IDPLinkedListEnumeratorTest);
 }
 
 #pragma mark -
@@ -288,6 +296,32 @@ void IDPLinkedListAddRemoveObjectPerformanceTest() {
         
         assert(count - index - 1 == IDPLinkedListGetCount(list));
     }
+    
+    IDPObjectRelease(list);
+}
+
+void IDPLinkedListEnumeratorTest() {
+    const uint64_t count = 2;
+    
+    IDPLinkedList *list = IDPObjectCreateWithType(IDPLinkedList);
+    for (uint64_t index = 0; index < count; index++) {
+        IDPObject *object = IDPObjectCreateWithType(IDPObject);
+        
+        IDPLinkedListAddObject(list, object);
+        
+        IDPObjectRelease(object);
+    }
+    
+    IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
+    uint64_t iterations = 0;
+    while (true == IDPLinkedListEnumeratorIsValid(enumerator)) {
+        IDPLinkedListEnumeratorGetNextObject(enumerator);
+        iterations++;
+    }
+    
+    assert(iterations == IDPLinkedListGetCount(list));
+    
+    IDPObjectRelease(enumerator);
     
     IDPObjectRelease(list);
 }

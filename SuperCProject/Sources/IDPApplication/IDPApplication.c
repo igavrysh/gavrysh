@@ -55,5 +55,7 @@ void IDPRunApplication() {
     
     IDPLinkedListBehaviorTests();
     
+    IDPLinkedListEnumeratorBehaviorTests();
+    
 }
 

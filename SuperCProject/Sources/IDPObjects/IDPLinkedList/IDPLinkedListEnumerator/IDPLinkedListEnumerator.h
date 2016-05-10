@@ -26,7 +26,7 @@ struct IDPLinkedListEnumerator {
 };
 
 extern
-void __IDPLinkedListEnumeratorDeallocate(IDPLinkedList *list);
+void __IDPLinkedListEnumeratorDeallocate(IDPLinkedListEnumerator *enumerator);
 
 extern
 IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *list);

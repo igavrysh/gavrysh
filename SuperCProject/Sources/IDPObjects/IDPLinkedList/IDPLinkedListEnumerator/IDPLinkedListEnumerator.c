@@ -7,6 +7,7 @@
 //
 
 #include "IDPLinkedListEnumerator.h"
+#include "IDPObjectMacros.h"
 #include "IDPLinkedListPrivate.h"
 #include "IDPLinkedListNode.h"
 
@@ -37,8 +38,12 @@ IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerato
 #pragma mark -
 #pragma mark Public Implementations
 
-void __IDPLinkedListEnumeratorDeallocate(IDPLinkedList *list) {
-    IDPObjectRelease(list);
+void __IDPLinkedListEnumeratorDeallocate(IDPLinkedListEnumerator *enumerator) {
+    IDPLinkedListEnumeratorSetList(enumerator, NULL);
+    
+    IDPLinkedListEnumeratorSetNode(enumerator, NULL);
+    
+    IDPObjectRelease(enumerator);
 }
 
 IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *list) {
@@ -49,38 +54,28 @@ IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *li
     IDPLinkedListEnumeratorSetMutationsCount(enumerator,
                                              IDPLinkedListGetMutationsCount(list));
     
+    IDPLinkedListEnumeratorSetValid(enumerator, true);
+    
     return enumerator;
 }
 
 IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumerator) {
-    if (!enumerator) {
+    if (!enumerator || !IDPLinkedListEnumeratorIsValid(enumerator)) {
         return NULL;
     }
     
-    if (!enumerator->_node) {
+    IDPLinkedListNode *node = IDPLinkedListEnumeratorGetNode(enumerator);
     
-        IDPLinkedListEnumeratorSetNode(enumerator,
-                                       IDPLinkedListGetHead(IDPLinkedListEnumeratorGetList(enumerator)));
-    } else {
-        IDPLinkedListEnumeratorSetNode(enumerator, IDPLinkedListNodeGetNext(enumerator->_node));
+    node = !node ? IDPLinkedListGetHead(IDPLinkedListEnumeratorGetList(enumerator)) :
+        IDPLinkedListNodeGetNext(node);
+    
+    if (!node) {
+        IDPLinkedListEnumeratorSetValid(enumerator, false);
     }
+    
+    IDPLinkedListEnumeratorSetNode(enumerator, node);
     
     return IDPLinkedListNodeGetData(IDPLinkedListEnumeratorGetNode(enumerator));
-}
-
-bool IDPLinkedListEnumeratorIsValid(IDPLinkedListEnumerator *enumerator) {
-    if (!enumerator || !IDPLinkedListEnumeratorGetList(enumerator)) {
-        IDPLinkedListEnumeratorSetValid(enumerator, false);
-    }
-    
-    if (!IDPLinkedListEnumeratorGetList(enumerator)
-        || IDPLinkedListGetMutationsCount(IDPLinkedListEnumeratorGetList(enumerator))
-        != IDPLinkedListEnumeratorGetMutationsCount(enumerator))
-    {
-        IDPLinkedListEnumeratorSetValid(enumerator, false);
-    }
-    
-    return enumerator->_isValid;
 }
 
 #pragma mark -
@@ -106,12 +101,12 @@ void IDPLinkedListEnumeratorSetValid(IDPLinkedListEnumerator *enumerator, bool i
     enumerator->_isValid = isValid;
 }
 
+bool IDPLinkedListEnumeratorIsValid(IDPLinkedListEnumerator *enumerator) {
+    return enumerator ? enumerator->_isValid : false;
+}
+
 void IDPLinkedListEnumeratorSetList(IDPLinkedListEnumerator *enumerator, IDPLinkedList *list) {
-    if (!enumerator) {
-        return;
-    }
-    
-    enumerator->_list = list;
+    IDPObjectSetStrong(enumerator, _list, list);
 }
 
 IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerator) {
@@ -119,13 +114,20 @@ IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerato
 }
 
 void IDPLinkedListEnumeratorSetNode(IDPLinkedListEnumerator *enumerator, IDPLinkedListNode *node) {
-    if (!enumerator) {
-        return;
-    }
-    
-    enumerator->_node = node;
+    IDPObjectSetStrong(enumerator, _node, node);
 }
 
 IDPLinkedListNode *IDPLinkedListEnumeratorGetNode(IDPLinkedListEnumerator *enumerator) {
     return enumerator ? enumerator->_node : NULL;
+}
+
+bool IDPLinkedListEnumeratorValidate(IDPLinkedListEnumerator *enumerator) {
+    IDPLinkedList *list = IDPLinkedListEnumeratorGetList(enumerator);
+    if (enumerator && list && IDPLinkedListEnumeratorIsValid(enumerator)
+        && IDPLinkedListGetMutationsCount(list) == IDPLinkedListEnumeratorGetMutationsCount(enumerator))
+    {
+        return true;
+    }
+    
+    return false;
 }
