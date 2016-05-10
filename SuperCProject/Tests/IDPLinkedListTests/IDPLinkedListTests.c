@@ -251,9 +251,10 @@ void IDPLinkedListRemoveObjectsTest() {
     assert(3 == IDPLinkedListGetCount(list));
     
     IDPLinkedListRemoveObject(list, object3);
+    assert(2 == IDPLinkedListGetCount(list));
     IDPLinkedListRemoveObject(list, object1);
+    assert(1 == IDPLinkedListGetCount(list));
     IDPLinkedListRemoveObject(list, object2);
-    
     assert(0 == IDPLinkedListGetCount(list));
     
     assert(1 == IDPObjectGetReferenceCount(object1));

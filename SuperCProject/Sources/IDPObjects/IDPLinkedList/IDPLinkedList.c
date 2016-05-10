@@ -74,9 +74,8 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object) {
                 IDPLinkedListRemoveFirstObject(list);
             } else {
                 IDPLinkedListNodeSetNext(prevNode, nextNode);
+                IDPLinkedListAddValueToCount(list, -1);
             }
-            
-            IDPLinkedListAddValueToCount(list, -1);
         } else {
             prevNode = node;
         }
@@ -86,6 +85,8 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object) {
 }
 
 void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
+    IDPLinkedListSetHead(list, NULL);
+    
     IDPLinkedListSetCount(list, 0);
 }
 
@@ -118,10 +119,6 @@ IDPLinkedListNode *IDPLinkedListGetHead(IDPLinkedList *list) {
 }
 
 void IDPLinkedListSetHead(IDPLinkedList *list, IDPLinkedListNode *node) {
-    if (!list) {
-        return;
-    }
-    
     IDPObjectSetStrong(list, _head, node);
 }
 
@@ -136,10 +133,6 @@ void IDPLinkedListAddValueToCount(IDPLinkedList *list, int64_t deltaCount) {
 void IDPLinkedListSetCount(IDPLinkedList *list, uint64_t count) {
     if (!list) {
         return;
-    }
-    
-    if (0 == count) {
-        IDPLinkedListSetHead(list, NULL);
     }
     
     list->_count = count;

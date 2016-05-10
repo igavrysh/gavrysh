@@ -9,11 +9,6 @@
 #include "IDPLinkedListNode.h"
 #include "IDPObjectMacros.h"
 
-
-#pragma mark -
-#pragma mark Private Declarations
-
-
 #pragma mark -
 #pragma mark Public Implementations
 
@@ -42,10 +37,6 @@ IDPObject *IDPLinkedListNodeGetData(IDPLinkedListNode *node) {
 
 extern
 void IDPLinkedListNodeSetData(IDPLinkedListNode *node, IDPObject *object) {
-    if (!node) {
-        return;
-    }
-    
     IDPObjectSetStrong(node, _data, object);
 }
 
@@ -56,10 +47,6 @@ IDPLinkedListNode *IDPLinkedListNodeGetNext(IDPLinkedListNode *node) {
 
 extern
 void IDPLinkedListNodeSetNext(IDPLinkedListNode *node, IDPLinkedListNode *nextNode) {
-    if (!node) {
-        return;
-    }
-    
     IDPObjectSetStrong(node, _nextNode, nextNode);
 }
 
@@ -67,8 +54,3 @@ extern
 bool IDPLinkedListNodeHasNext(IDPLinkedListNode *node) {
     return node ? node->_nextNode : false;
 }
-
-
-#pragma mark -
-#pragma mark Private Implementations
-
