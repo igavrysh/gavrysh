@@ -32,6 +32,12 @@ bool IDPArrayShouldResizeWithNewCount(IDPArray *array, uint64_t newCount);
 static
 uint64_t IDPArrayGetPrefferedCapacityWithNewCount(IDPArray *array, uint64_t newCount);
 
+static
+void IDPArrayDataShift(IDPArray *array,
+                       uint64_t destinationIndex,
+                       uint64_t sourceIndex,
+                       uint64_t shiftCount);
+
 #pragma mark - 
 #pragma mark Public Implementations
 
@@ -86,11 +92,9 @@ void IDPArrayRemoveObjectAtIndex(IDPArray *array, uint64_t index) {
     
     uint64_t count = IDPArrayGetCount(array);
     
-    uint64_t numOfElemToMove = count - index - 1;
+    uint64_t shiftCount = count - index - 1;
     
-    memmove(array->_data + index,
-            array->_data + index + 1,
-            sizeof(*array->_data) * numOfElemToMove);
+    IDPArrayDataShift(array, index, index + 1, shiftCount);
     
     IDPArraySetCount(array, count - 1);
 }
@@ -197,5 +201,15 @@ uint64_t IDPArrayGetPrefferedCapacityWithNewCount(IDPArray *array, uint64_t newC
     }
     
     return capacity;
+}
+
+void IDPArrayDataShift(IDPArray *array,
+                       uint64_t destinationIndex,
+                       uint64_t sourceIndex,
+                       uint64_t shiftCount)
+{
+    memmove(array->_data + destinationIndex,
+            array->_data + sourceIndex,
+            sizeof(*array->_data) * shiftCount);
 }
 
