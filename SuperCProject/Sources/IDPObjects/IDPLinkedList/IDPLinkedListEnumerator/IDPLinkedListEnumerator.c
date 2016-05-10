@@ -7,8 +7,8 @@
 //
 
 #include "IDPLinkedListEnumerator.h"
-
 #include "IDPLinkedListPrivate.h"
+#include "IDPLinkedListNode.h"
 
 #pragma mark -
 #pragma mark Private Declarations
@@ -26,8 +26,13 @@ static
 void IDPLinkedListEnumeratorSetList(IDPLinkedListEnumerator *enumerator, IDPLinkedList *list);
 
 static
-IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerator);
+void IDPLinkedListEnumeratorSetNode(IDPLinkedListEnumerator *enumerator, IDPLinkedListNode *node);
 
+static
+IDPLinkedListNode *IDPLinkedListEnumeratorGetNode(IDPLinkedListEnumerator *enumerator);
+
+static
+IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerator);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -47,19 +52,20 @@ IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *li
     return enumerator;
 }
 
-IDPLinkedListNode *IDPLinkedListEnumeratorGetNext(IDPLinkedListEnumerator *enumerator) {
+IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumerator) {
     if (!enumerator) {
         return NULL;
     }
     
-    
     if (!enumerator->_node) {
-        enumerator->_node = IDPLinkedListGetHead(IDPLinkedListEnumeratorGetList(enumerator));
+    
+        IDPLinkedListEnumeratorSetNode(enumerator,
+                                       IDPLinkedListGetHead(IDPLinkedListEnumeratorGetList(enumerator)));
     } else {
-        enumerator->_node = IDPLinkedListNodeGetNext(enumerator->_node);
+        IDPLinkedListEnumeratorSetNode(enumerator, IDPLinkedListNodeGetNext(enumerator->_node));
     }
     
-    return enumerator->_node;
+    return IDPLinkedListNodeGetData(IDPLinkedListEnumeratorGetNode(enumerator));
 }
 
 bool IDPLinkedListEnumeratorIsValid(IDPLinkedListEnumerator *enumerator) {
@@ -79,7 +85,6 @@ bool IDPLinkedListEnumeratorIsValid(IDPLinkedListEnumerator *enumerator) {
 
 #pragma mark -
 #pragma mark Private Implementations
-
 
 void IDPLinkedListEnumeratorSetMutationsCount(IDPLinkedListEnumerator *enumerator, uint64_t mutationsCount) {
     if (!enumerator) {
@@ -101,7 +106,6 @@ void IDPLinkedListEnumeratorSetValid(IDPLinkedListEnumerator *enumerator, bool i
     enumerator->_isValid = isValid;
 }
 
-
 void IDPLinkedListEnumeratorSetList(IDPLinkedListEnumerator *enumerator, IDPLinkedList *list) {
     if (!enumerator) {
         return;
@@ -114,4 +118,14 @@ IDPLinkedList *IDPLinkedListEnumeratorGetList(IDPLinkedListEnumerator *enumerato
     return enumerator ? enumerator->_list : false;
 }
 
+void IDPLinkedListEnumeratorSetNode(IDPLinkedListEnumerator *enumerator, IDPLinkedListNode *node) {
+    if (!enumerator) {
+        return;
+    }
+    
+    enumerator->_node = node;
+}
 
+IDPLinkedListNode *IDPLinkedListEnumeratorGetNode(IDPLinkedListEnumerator *enumerator) {
+    return enumerator ? enumerator->_node : NULL;
+}

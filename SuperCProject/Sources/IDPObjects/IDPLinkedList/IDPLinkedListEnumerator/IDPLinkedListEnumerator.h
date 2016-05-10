@@ -32,7 +32,7 @@ extern
 IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *list);
 
 extern
-IDPLinkedListNode *IDPLinkedListEnumeratorGetNext(IDPLinkedListEnumerator *enumerator);
+IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumerator);
 
 extern
 bool IDPLinkedListEnumeratorIsValid(IDPLinkedListEnumerator *enumerator);
