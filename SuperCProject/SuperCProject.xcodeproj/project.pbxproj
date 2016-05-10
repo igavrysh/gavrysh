@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E4BFFEF1CE2492B006B4C1D /* IDPLinkedListEnumerator.c in Sources */ = {isa = PBXBuildFile; fileRef = 3E4BFFED1CE2492B006B4C1D /* IDPLinkedListEnumerator.c */; };
 		852AE9A81CC5E8C100CCB42A /* IDPString.c in Sources */ = {isa = PBXBuildFile; fileRef = 3EE89B2A1CC54F25006EA650 /* IDPString.c */; };
 		852AE9A91CC5E8C900CCB42A /* IDPStringTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 852AE9A61CC5836100CCB42A /* IDPStringTests.c */; };
 		85465E161CC0395900E275F1 /* IDPApplication.c in Sources */ = {isa = PBXBuildFile; fileRef = 85465DD41CC0391E00E275F1 /* IDPApplication.c */; };
@@ -50,6 +51,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E4BFFED1CE2492B006B4C1D /* IDPLinkedListEnumerator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPLinkedListEnumerator.c; sourceTree = "<group>"; };
+		3E4BFFEE1CE2492B006B4C1D /* IDPLinkedListEnumerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPLinkedListEnumerator.h; sourceTree = "<group>"; };
+		3E4BFFF01CE24C1A006B4C1D /* IDPLinkedListPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPLinkedListPrivate.h; sourceTree = "<group>"; };
 		3EE89B2A1CC54F25006EA650 /* IDPString.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPString.c; sourceTree = "<group>"; };
 		3EE89B2B1CC54F25006EA650 /* IDPString.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPString.h; sourceTree = "<group>"; };
 		852AE9A31CC5833900CCB42A /* IDPStructuresTests.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPStructuresTests.c; sourceTree = "<group>"; };
@@ -120,6 +124,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E4BFFEC1CE2490B006B4C1D /* IDPLinkedListEnumerator */ = {
+			isa = PBXGroup;
+			children = (
+				3E4BFFED1CE2492B006B4C1D /* IDPLinkedListEnumerator.c */,
+				3E4BFFEE1CE2492B006B4C1D /* IDPLinkedListEnumerator.h */,
+			);
+			path = IDPLinkedListEnumerator;
+			sourceTree = "<group>";
+		};
 		3EE89B291CC54F25006EA650 /* IDPString */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,8 +401,10 @@
 			isa = PBXGroup;
 			children = (
 				858F47601CDC02EA00C2D818 /* IDPLinkedListNode */,
+				3E4BFFEC1CE2490B006B4C1D /* IDPLinkedListEnumerator */,
 				858F47641CDC030F00C2D818 /* IDPLinkedList.c */,
 				858F47651CDC030F00C2D818 /* IDPLinkedList.h */,
+				3E4BFFF01CE24C1A006B4C1D /* IDPLinkedListPrivate.h */,
 			);
 			path = IDPLinkedList;
 			sourceTree = "<group>";
@@ -487,8 +502,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				858CEAF21CDAB4B400F7C461 /* IDPObjectMacros.h in Sources */,
 				85465E2A1CC0395900E275F1 /* IDPStructuresTests.c in Sources */,
+				858CEAF21CDAB4B400F7C461 /* IDPObjectMacros.h in Sources */,
 				852AE9A91CC5E8C900CCB42A /* IDPStringTests.c in Sources */,
 				852AE9A81CC5E8C100CCB42A /* IDPString.c in Sources */,
 				85BE2F2E1CC15A1400E18E17 /* IDPObject.c in Sources */,
@@ -501,6 +516,7 @@
 				85465E1B1CC0395900E275F1 /* IDPGenericList.c in Sources */,
 				85465E1C1CC0395900E275F1 /* IDPPrintReversed.c in Sources */,
 				85465E1E1CC0395900E275F1 /* IDPHuman.c in Sources */,
+				3E4BFFEF1CE2492B006B4C1D /* IDPLinkedListEnumerator.c in Sources */,
 				85465E221CC0395900E275F1 /* IDPPrintingFunctions.c in Sources */,
 				85465E231CC0395900E275F1 /* IDPStructures.c in Sources */,
 				858F47691CDC033200C2D818 /* IDPLinkedListTests.c in Sources */,

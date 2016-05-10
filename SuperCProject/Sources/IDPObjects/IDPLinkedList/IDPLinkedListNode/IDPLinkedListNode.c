@@ -35,22 +35,18 @@ IDPObject *IDPLinkedListNodeGetData(IDPLinkedListNode *node) {
     return node ? node->_data : NULL;
 }
 
-extern
 void IDPLinkedListNodeSetData(IDPLinkedListNode *node, IDPObject *object) {
     IDPObjectSetStrong(node, _data, object);
 }
 
-extern
 IDPLinkedListNode *IDPLinkedListNodeGetNext(IDPLinkedListNode *node) {
     return node ? node->_nextNode : NULL;
 }
 
-extern
 void IDPLinkedListNodeSetNext(IDPLinkedListNode *node, IDPLinkedListNode *nextNode) {
     IDPObjectSetStrong(node, _nextNode, nextNode);
 }
 
-extern
 bool IDPLinkedListNodeHasNext(IDPLinkedListNode *node) {
     return node ? node->_nextNode : false;
 }

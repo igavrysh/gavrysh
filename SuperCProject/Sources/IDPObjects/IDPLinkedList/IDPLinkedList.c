@@ -8,12 +8,10 @@
 
 #include "IDPObjectMacros.h"
 #include "IDPLinkedList.h"
+#include "IDPLinkedListPrivate.h"
 
 #pragma mark -
 #pragma mark Private Declarations
-
-static
-IDPLinkedListNode *IDPLinkedListGetHead(IDPLinkedList *list);
 
 static
 void IDPLinkedListSetHead(IDPLinkedList *list, IDPLinkedListNode *node);
@@ -23,6 +21,12 @@ void IDPLinkedListAddValueToCount(IDPLinkedList *list, int64_t deltaCount);
 
 static
 void IDPLinkedListSetCount(IDPLinkedList *list, uint64_t count);
+
+static
+void IDPLinkedListSetMutationsCount(IDPLinkedList *list, uint64_t mutationsCount);
+
+static
+void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -44,6 +48,8 @@ void IDPLinkedListAddObject(IDPLinkedList *list, IDPObject *object) {
     IDPLinkedListSetHead(list, node);
     
     IDPLinkedListAddValueToCount(list, +1);
+    
+    IDPLinkedListMutationsCountAddValue(list, +1);
     
     IDPObjectRelease(node);
 }
@@ -76,6 +82,8 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object) {
                 IDPLinkedListNodeSetNext(prevNode, nextNode);
                 IDPLinkedListAddValueToCount(list, -1);
             }
+            
+            IDPLinkedListMutationsCountAddValue(list, +1);
         } else {
             prevNode = node;
         }
@@ -88,6 +96,8 @@ void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
     IDPLinkedListSetHead(list, NULL);
     
     IDPLinkedListSetCount(list, 0);
+    
+    IDPLinkedListMutationsCountAddValue(list, +1);
 }
 
 bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object) {
@@ -136,4 +146,20 @@ void IDPLinkedListSetCount(IDPLinkedList *list, uint64_t count) {
     }
     
     list->_count = count;
+}
+
+uint64_t IDPLinkedListGetMutationsCount(IDPLinkedList *list) {
+    return list ? list->_mutationsCount : 0;
+}
+
+void IDPLinkedListSetMutationsCount(IDPLinkedList *list, uint64_t mutationsCount) {
+    if (!list) {
+        return;
+    }
+    
+    list->_mutationsCount = mutationsCount;
+}
+
+void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue) {
+    IDPLinkedListSetMutationsCount(list, IDPLinkedListGetMutationsCount(list) + addValue);
 }
