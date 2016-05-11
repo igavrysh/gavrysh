@@ -35,6 +35,12 @@ extern
 IDPObject *IDPLinkedListGetFirstObject(IDPLinkedList *list);
 
 extern
+IDPObject *IDPLinkedListGetObjectBeforeObject(IDPLinkedList *list, IDPObject *object);
+
+extern
+IDPObject *IDPLinkedListGetObjectAfterObject(IDPLinkedList *list, IDPObject *object);
+
+extern
 void IDPLinkedListRemoveFirstObject(IDPLinkedList *list);
 
 extern

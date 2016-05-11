@@ -10,6 +10,7 @@
 #include "IDPLinkedList.h"
 #include "IDPLinkedListEnumerator.h"
 #include "IDPLinkedListPrivate.h"
+#include "IDPLinkedListEnumeratorPrivate.h"
 
 #pragma mark -
 #pragma mark Private Declarations
@@ -36,6 +37,12 @@ static
 IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
                                                     IDPLinkedListComparator compare,
                                                     IDPLinkedListNodeContext *context);
+
+static
+IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, IDPObject *object);
+
+static
+bool IDPLinkedListNodeContextIsNodeExists(IDPLinkedListNodeContext context);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -75,30 +82,33 @@ void IDPLinkedListRemoveFirstObject(IDPLinkedList *list) {
     IDPLinkedListAddValueToCount(list, -1);
 }
 
+IDPObject *IDPLinkedListGetObjectBeforeObject(IDPLinkedList *list, IDPObject *object) {
+    return IDPLinkedListNodeGetData(IDPLinkedListGetContextWithObject(list, object).previousNode);
+}
+
+IDPObject *IDPLinkedListGetObjectAfterObject(IDPLinkedList *list, IDPObject *object) {
+    return IDPLinkedListNodeGetData(IDPLinkedListNodeGetNext(IDPLinkedListGetContextWithObject(list, object).node));
+}
+
 void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object) {
     if (!list) {
         return;
     }
     
-    IDPLinkedListNode *node = IDPLinkedListGetHead(list);
-    IDPLinkedListNode *prevNode = NULL;
-    while (node) {
-        IDPLinkedListNode *nextNode = IDPLinkedListNodeGetNext(node);
-        if (object == IDPLinkedListNodeGetData(node)) {
-            if (node == IDPLinkedListGetHead(list)) {
-                IDPLinkedListRemoveFirstObject(list);
-            } else {
-                IDPLinkedListNodeSetNext(prevNode, nextNode);
-                IDPLinkedListAddValueToCount(list, -1);
-            }
-            
-            IDPLinkedListMutationsCountAddValue(list, +1);
-        } else {
-            prevNode = node;
-        }
-        
-        node = nextNode;
+    IDPLinkedListNodeContext context = IDPLinkedListGetContextWithObject(list, object);
+    
+    if(!IDPLinkedListNodeContextIsNodeExists(context)) {
+        return;
     }
+    
+    if (context.node == IDPLinkedListGetHead(list)) {
+        IDPLinkedListRemoveFirstObject(list);
+    } else {
+        IDPLinkedListNodeSetNext(context.previousNode, IDPLinkedListNodeGetNext(context.node));
+        IDPLinkedListAddValueToCount(list, -1);
+    }
+    
+    IDPLinkedListMutationsCountAddValue(list, +1);
 }
 
 void IDPLinkedListRemoveAllObjects(IDPLinkedList *list) {
@@ -114,10 +124,9 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object) {
         return false;
     }
     
-    IDPLinkedListNodeContext context;
-    context.data = object;
+    IDPLinkedListNodeContext context = IDPLinkedListGetContextWithObject(list, object);
     
-    return IDPLinkedListFindNodeWithContext(list, &IDPLinkedListNodeContainsObject, &context);
+    return IDPLinkedListNodeContextIsNodeExists(context);
 }
 
 uint64_t IDPLinkedListGetCount(IDPLinkedList *list) {
@@ -167,8 +176,7 @@ void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue) 
     IDPLinkedListSetMutationsCount(list, IDPLinkedListGetMutationsCount(list) + addValue);
 }
 
-bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, IDPLinkedListNodeContext *context)
-{
+bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, IDPLinkedListNodeContext *context) {
     if (!node || !context) {
         return false;
     }
@@ -207,4 +215,28 @@ IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
     IDPObjectRelease(enumerator);
     
     return result;
+}
+
+IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, IDPObject *object) {
+    IDPLinkedListNodeContext context;
+    
+    if (!list) {
+        return context;
+    }
+    
+    context.data = object;
+    
+    if (IDPLinkedListFindNodeWithContext(list, &IDPLinkedListNodeContainsObject, &context)) {
+        return context;
+    }
+    
+    context.data = NULL;
+    context.node = NULL;
+    context.previousNode = NULL;
+    
+    return context;
+}
+
+bool IDPLinkedListNodeContextIsNodeExists(IDPLinkedListNodeContext context) {
+    return context.node;
 }

@@ -111,6 +111,7 @@
 		85CDF5EC1CDB713F00834F90 /* IDPArrayTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPArrayTests.h; sourceTree = "<group>"; };
 		85EF63841CC27AC000B83957 /* IDPObjectTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPObjectTests.c; sourceTree = "<group>"; };
 		85EF63851CC27AC000B83957 /* IDPObjectTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPObjectTests.h; sourceTree = "<group>"; };
+		85FCB57F1CE3DB4F00D8E59F /* IDPLinkedListEnumeratorPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPLinkedListEnumeratorPrivate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +130,7 @@
 			children = (
 				3E4BFFED1CE2492B006B4C1D /* IDPLinkedListEnumerator.c */,
 				3E4BFFEE1CE2492B006B4C1D /* IDPLinkedListEnumerator.h */,
+				85FCB57F1CE3DB4F00D8E59F /* IDPLinkedListEnumeratorPrivate.h */,
 			);
 			path = IDPLinkedListEnumerator;
 			sourceTree = "<group>";

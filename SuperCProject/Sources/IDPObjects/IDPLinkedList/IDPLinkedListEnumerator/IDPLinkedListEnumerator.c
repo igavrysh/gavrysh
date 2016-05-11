@@ -9,6 +9,7 @@
 #include "IDPLinkedListEnumerator.h"
 #include "IDPObjectMacros.h"
 #include "IDPLinkedListPrivate.h"
+#include "IDPLinkedListEnumeratorPrivate.h"
 #include "IDPLinkedListNode.h"
 
 #pragma mark -
