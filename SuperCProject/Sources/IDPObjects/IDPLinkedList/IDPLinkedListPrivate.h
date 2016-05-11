@@ -16,11 +16,11 @@
 typedef struct IDPLinkedListNodeContext IDPLinkedListNodeContext;
 
 struct IDPLinkedListNodeContext {
-    IDPLinkedListNode previousNode;
+    IDPLinkedListNode *previousNode;
     
-    IDPLinkedListNode node;
+    IDPLinkedListNode *node;
     
-    IDPObject data;
+    IDPObject *data;
 };
 
 typedef bool (*IDPLinkedListComparator)(IDPLinkedListNode *node,

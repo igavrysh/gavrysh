@@ -30,8 +30,12 @@ static
 void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue);
 
 static
-bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node,
-                                     IDPLinkedListNodeContext *nodeContext);
+bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, IDPLinkedListNodeContext *context);
+
+static
+IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
+                                                    IDPLinkedListComparator compare,
+                                                    IDPLinkedListNodeContext *context);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -110,21 +114,10 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object) {
         return false;
     }
     
-    IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
-    IDPObject *currentObject = IDPLinkedListEnumeratorGetNextObject(enumerator);
-    while (IDPLinkedListEnumeratorIsValid(enumerator)) {
-        IDPLinkedListNodeContext context;
-        context.data = *object;
-        
-        if (IDPLinkedListNodeContainsObject(IDPLinkedListEnumeratorGetNode(enumerator),
-                                            &context)) {
-            return true;
-        }
-        
-        object = IDPLinkedListEnumeratorGetNextObject(enumerator);
-    }
+    IDPLinkedListNodeContext context;
+    context.data = object;
     
-    return false;
+    return IDPLinkedListFindNodeWithContext(list, &IDPLinkedListNodeContainsObject, &context);
 }
 
 uint64_t IDPLinkedListGetCount(IDPLinkedList *list) {
@@ -174,8 +167,44 @@ void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue) 
     IDPLinkedListSetMutationsCount(list, IDPLinkedListGetMutationsCount(list) + addValue);
 }
 
-bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node,
-                                     IDPLinkedListNodeContext *nodeContext)
+bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, IDPLinkedListNodeContext *context)
 {
-    return node && IDPLinkedListNodeGetData(node) == &nodeContext->data;
+    if (!node || !context) {
+        return false;
+    }
+    
+    context->previousNode = context->node;
+    context->node = node;
+    
+    return IDPLinkedListNodeGetData(node) == context->data;
+}
+
+IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
+                                                    IDPLinkedListComparator compare,
+                                                    IDPLinkedListNodeContext *context)
+{
+    if (!list || !compare) {
+        return NULL;
+    }
+    
+    IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
+    
+    IDPObject *currentObject = IDPLinkedListEnumeratorGetNextObject(enumerator);
+    
+    IDPLinkedListNode *result = NULL;
+    
+    while (IDPLinkedListEnumeratorIsValid(enumerator)) {
+        IDPLinkedListNode *currentNode = IDPLinkedListEnumeratorGetNode(enumerator);
+        
+        if (compare(currentNode, context)) {
+            result = currentNode;
+            break;
+        }
+        
+        currentObject = IDPLinkedListEnumeratorGetNextObject(enumerator);
+    }
+    
+    IDPObjectRelease(enumerator);
+    
+    return result;
 }
