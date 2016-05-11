@@ -9,6 +9,23 @@
 #ifndef SuperCProject_IDPLinkedListPrivate_h
 #define SuperCProject_IDPLinkedListPrivate_h
 
+#include <stdbool.h>
+
+#include "IDPLinkedList.h"
+
+typedef struct IDPLinkedListNodeContext IDPLinkedListNodeContext;
+
+struct IDPLinkedListNodeContext {
+    IDPLinkedListNode previousNode;
+    
+    IDPLinkedListNode node;
+    
+    IDPObject data;
+};
+
+typedef bool (*IDPLinkedListComparator)(IDPLinkedListNode *node,
+                                        IDPLinkedListNodeContext *nodeContext);
+
 extern
 uint64_t IDPLinkedListGetMutationsCount(IDPLinkedList *list);
 

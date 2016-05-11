@@ -32,6 +32,9 @@ extern
 IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *list);
 
 extern
+IDPLinkedListNode *IDPLinkedListEnumeratorGetNode(IDPLinkedListEnumerator *enumerator);
+
+extern
 IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumerator);
 
 extern

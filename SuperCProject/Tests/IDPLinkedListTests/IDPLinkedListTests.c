@@ -314,9 +314,11 @@ void IDPLinkedListEnumeratorTest() {
     
     IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
     uint64_t iterations = 0;
+    IDPObject *object = IDPLinkedListEnumeratorGetNextObject(enumerator);
     while (true == IDPLinkedListEnumeratorIsValid(enumerator)) {
-        IDPLinkedListEnumeratorGetNextObject(enumerator);
         iterations++;
+        
+        object = IDPLinkedListEnumeratorGetNextObject(enumerator);
     }
     
     assert(iterations == IDPLinkedListGetCount(list));

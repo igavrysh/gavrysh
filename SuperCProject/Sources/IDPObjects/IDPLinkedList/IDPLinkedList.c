@@ -8,6 +8,7 @@
 
 #include "IDPObjectMacros.h"
 #include "IDPLinkedList.h"
+#include "IDPLinkedListEnumerator.h"
 #include "IDPLinkedListPrivate.h"
 
 #pragma mark -
@@ -27,6 +28,10 @@ void IDPLinkedListSetMutationsCount(IDPLinkedList *list, uint64_t mutationsCount
 
 static
 void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue);
+
+static
+bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node,
+                                     IDPLinkedListNodeContext *nodeContext);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -105,13 +110,18 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object) {
         return false;
     }
     
-    IDPLinkedListNode *node = IDPLinkedListGetHead(list);
-    while (node) {
-        if (object == IDPLinkedListNodeGetData(node)) {
+    IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
+    IDPObject *currentObject = IDPLinkedListEnumeratorGetNextObject(enumerator);
+    while (IDPLinkedListEnumeratorIsValid(enumerator)) {
+        IDPLinkedListNodeContext context;
+        context.data = *object;
+        
+        if (IDPLinkedListNodeContainsObject(IDPLinkedListEnumeratorGetNode(enumerator),
+                                            &context)) {
             return true;
         }
         
-        node = IDPLinkedListNodeGetNext(node);
+        object = IDPLinkedListEnumeratorGetNextObject(enumerator);
     }
     
     return false;
@@ -162,4 +172,10 @@ void IDPLinkedListSetMutationsCount(IDPLinkedList *list, uint64_t mutationsCount
 
 void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue) {
     IDPLinkedListSetMutationsCount(list, IDPLinkedListGetMutationsCount(list) + addValue);
+}
+
+bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node,
+                                     IDPLinkedListNodeContext *nodeContext)
+{
+    return node && IDPLinkedListNodeGetData(node) == &nodeContext->data;
 }
