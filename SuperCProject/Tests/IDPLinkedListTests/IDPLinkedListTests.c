@@ -12,6 +12,7 @@
 #include "IDPLinkedListNode.h"
 #include "IDPLinkedList.h"
 #include "IDPLinkedListTests.h"
+#include "IDPLinkedListEnumerator.h"
 
 #include "IDPPrintingFunctions.h"
 
@@ -36,6 +37,9 @@ void IDPLinkedListRemoveObjectsTest();
 static
 void IDPLinkedListAddRemoveObjectPerformanceTest();
 
+static
+void IDPLinkedListEnumeratorTest();
+
 #pragma mark -
 #pragma mark Public Implementation
 
@@ -50,10 +54,14 @@ void IDPLinkedListBehaviorTests(void) {
     
     IDPPerformTest(IDPLinkedListRemoveObjectsTest);
     
-    const uint64_t count = 10000;
+    const uint64_t count = 10000000;
     for (uint64_t index = 0; index < count; index++) {
         IDPPerformTest(IDPLinkedListAddRemoveObjectPerformanceTest);
     }
+}
+
+void IDPLinkedListEnumeratorBehaviorTests(void) {
+    IDPPerformTest(IDPLinkedListEnumeratorTest);
 }
 
 #pragma mark -
@@ -197,12 +205,12 @@ void IDPLinkedListAddMultipleNodesTest() {
     
     IDPLinkedListRemoveAllObjects(list);
     
+    IDPObjectRelease(list);
+    
     IDPObjectRelease(object4);
     IDPObjectRelease(object3);
     IDPObjectRelease(object2);
     IDPObjectRelease(object1);
-    
-    IDPObjectRelease(list);
 }
 
 void IDPLinkedListRemoveAllObjectsTest() {
@@ -231,6 +239,10 @@ void IDPLinkedListRemoveAllObjectsTest() {
     assert(1 == IDPObjectGetReferenceCount(object3));
     
     IDPObjectRelease(list);
+    
+    IDPObjectRelease(object1);
+    IDPObjectRelease(object2);
+    IDPObjectRelease(object3);
 }
 
 void IDPLinkedListRemoveObjectsTest() {
@@ -251,9 +263,10 @@ void IDPLinkedListRemoveObjectsTest() {
     assert(3 == IDPLinkedListGetCount(list));
     
     IDPLinkedListRemoveObject(list, object3);
+    assert(2 == IDPLinkedListGetCount(list));
     IDPLinkedListRemoveObject(list, object1);
+    assert(1 == IDPLinkedListGetCount(list));
     IDPLinkedListRemoveObject(list, object2);
-    
     assert(0 == IDPLinkedListGetCount(list));
     
     assert(1 == IDPObjectGetReferenceCount(object1));
@@ -261,6 +274,10 @@ void IDPLinkedListRemoveObjectsTest() {
     assert(1 == IDPObjectGetReferenceCount(object3));
     
     IDPObjectRelease(list);
+    
+    IDPObjectRelease(object1);
+    IDPObjectRelease(object2);
+    IDPObjectRelease(object3);
 }
 
 void IDPLinkedListAddRemoveObjectPerformanceTest() {
@@ -287,6 +304,35 @@ void IDPLinkedListAddRemoveObjectPerformanceTest() {
         
         assert(count - index - 1 == IDPLinkedListGetCount(list));
     }
+    
+    IDPObjectRelease(list);
+}
+
+void IDPLinkedListEnumeratorTest() {
+    const uint64_t count = 2;
+    
+    IDPLinkedList *list = IDPObjectCreateWithType(IDPLinkedList);
+    
+    for (uint64_t index = 0; index < count; index++) {
+        IDPObject *object = IDPObjectCreateWithType(IDPObject);
+        
+        IDPLinkedListAddObject(list, object);
+        
+        IDPObjectRelease(object);
+    }
+    
+    IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
+    uint64_t iterations = 0;
+    IDPObject *object = IDPLinkedListEnumeratorGetNextObject(enumerator);
+    while (true == IDPLinkedListEnumeratorIsValid(enumerator)) {
+        iterations++;
+        
+        object = IDPLinkedListEnumeratorGetNextObject(enumerator);
+    }
+    
+    assert(iterations == IDPLinkedListGetCount(list));
+    
+    IDPObjectRelease(enumerator);
     
     IDPObjectRelease(list);
 }

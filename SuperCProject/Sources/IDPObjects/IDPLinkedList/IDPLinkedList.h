@@ -21,6 +21,8 @@ struct IDPLinkedList {
     
     IDPLinkedListNode *_head;
     uint64_t _count;
+    
+    uint64_t _mutationsCount;
 };
 
 extern
@@ -31,6 +33,12 @@ void IDPLinkedListAddObject(IDPLinkedList *list, IDPObject *object);
 
 extern
 IDPObject *IDPLinkedListGetFirstObject(IDPLinkedList *list);
+
+extern
+IDPObject *IDPLinkedListGetObjectBeforeObject(IDPLinkedList *list, IDPObject *object);
+
+extern
+IDPObject *IDPLinkedListGetObjectAfterObject(IDPLinkedList *list, IDPObject *object);
 
 extern
 void IDPLinkedListRemoveFirstObject(IDPLinkedList *list);
