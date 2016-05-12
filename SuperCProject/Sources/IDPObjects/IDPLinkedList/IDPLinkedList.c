@@ -41,9 +41,6 @@ IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
 static
 IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, IDPObject *object);
 
-static
-bool IDPLinkedListNodeContextIsNodeExists(IDPLinkedListNodeContext context);
-
 #pragma mark -
 #pragma mark Public Implementations
 
@@ -97,7 +94,7 @@ void IDPLinkedListRemoveObject(IDPLinkedList *list, IDPObject *object) {
     
     IDPLinkedListNodeContext context = IDPLinkedListGetContextWithObject(list, object);
     
-    if(!IDPLinkedListNodeContextIsNodeExists(context)) {
+    if(!context.node) {
         return;
     }
     
@@ -126,7 +123,7 @@ bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object) {
     
     IDPLinkedListNodeContext context = IDPLinkedListGetContextWithObject(list, object);
     
-    return IDPLinkedListNodeContextIsNodeExists(context);
+    return context.node;
 }
 
 uint64_t IDPLinkedListGetCount(IDPLinkedList *list) {
@@ -235,8 +232,4 @@ IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, 
     context.previousNode = NULL;
     
     return context;
-}
-
-bool IDPLinkedListNodeContextIsNodeExists(IDPLinkedListNodeContext context) {
-    return context.node;
 }

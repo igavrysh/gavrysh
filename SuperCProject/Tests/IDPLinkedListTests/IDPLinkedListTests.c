@@ -205,12 +205,12 @@ void IDPLinkedListAddMultipleNodesTest() {
     
     IDPLinkedListRemoveAllObjects(list);
     
+    IDPObjectRelease(list);
+    
     IDPObjectRelease(object4);
     IDPObjectRelease(object3);
     IDPObjectRelease(object2);
     IDPObjectRelease(object1);
-    
-    IDPObjectRelease(list);
 }
 
 void IDPLinkedListRemoveAllObjectsTest() {
@@ -239,6 +239,10 @@ void IDPLinkedListRemoveAllObjectsTest() {
     assert(1 == IDPObjectGetReferenceCount(object3));
     
     IDPObjectRelease(list);
+    
+    IDPObjectRelease(object1);
+    IDPObjectRelease(object2);
+    IDPObjectRelease(object3);
 }
 
 void IDPLinkedListRemoveObjectsTest() {
@@ -270,6 +274,10 @@ void IDPLinkedListRemoveObjectsTest() {
     assert(1 == IDPObjectGetReferenceCount(object3));
     
     IDPObjectRelease(list);
+    
+    IDPObjectRelease(object1);
+    IDPObjectRelease(object2);
+    IDPObjectRelease(object3);
 }
 
 void IDPLinkedListAddRemoveObjectPerformanceTest() {

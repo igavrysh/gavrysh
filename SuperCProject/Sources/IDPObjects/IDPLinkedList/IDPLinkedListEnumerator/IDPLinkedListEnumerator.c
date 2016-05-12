@@ -41,7 +41,7 @@ void __IDPLinkedListEnumeratorDeallocate(IDPLinkedListEnumerator *enumerator) {
     
     IDPLinkedListEnumeratorSetNode(enumerator, NULL);
     
-    IDPObjectRelease(enumerator);
+    __IDPObjectDeallocate(enumerator);
 }
 
 IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *list) {
