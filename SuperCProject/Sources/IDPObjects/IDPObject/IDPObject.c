@@ -68,4 +68,3 @@ void __IDPObjectSetFieldValueWithMethod(void *object, void **field, void *value,
         *field = tmp;
     }
 }
-

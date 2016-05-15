@@ -19,7 +19,9 @@
 #include "IDPStringTests.h"
 #include "IDPArrayTests.h"
 #include "IDPLinkedListTests.h"
+#include "IDPAutoreleasingStackTests.h"
 #include "IDPHumanTests.h"
+
 
 
 void IDPRunApplication() {
@@ -56,6 +58,8 @@ void IDPRunApplication() {
     IDPLinkedListBehaviorTests();
     
     IDPLinkedListEnumeratorBehaviorTests();
+    
+    IDPAutoreleasingStackBehaviorTests();
     
 }
 
