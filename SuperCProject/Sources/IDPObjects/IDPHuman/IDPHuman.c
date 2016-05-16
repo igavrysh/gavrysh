@@ -308,6 +308,10 @@ void IDPHumanRemoveChildFromParent(IDPHuman *human, IDPHuman *child) {
     
     size_t childIndex = IDPHumanGetChildIndex(human, child);
     
+    if (kIDPHumanIndexNotFound == childIndex) {
+        return;
+    }
+    
     IDPHumanRemoveChildAtIndex(human, childIndex);
     IDPHumanSetParentWithNewValue(child, human, NULL);
     
@@ -327,7 +331,8 @@ void IDPHumanRemoveAllChildren(IDPHuman *human) {
     
     size_t childrenCount = IDPHumanGetChildrenCount(human);
     for (size_t index = 0; index < childrenCount; index++) {
-        IDPHumanRemoveChildAtIndex(human, childrenCount - index - 1);
+        IDPHumanRemoveChildFromParent(human, IDPHumanGetChildAtIndex(human, childrenCount - index - 1));
+        //IDPHumanRemoveChildAtIndex(human, childrenCount - index - 1);
     }
 }
 
@@ -384,5 +389,6 @@ void IDPHumanReorderChildrenArray(IDPHuman *human) {
         && IDPHumanGetChildAtIndex(human, childrenCount))
     {
         human->_children[index] = human->_children[childrenCount];
+        human->_children[childrenCount] = NULL;
     }
 }

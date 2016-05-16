@@ -10,7 +10,14 @@
 
 #include "IDPObject.h"
 
-void *__IDPObjectCreate(size_t objectSize, IDPObjectDeallocatorCallback deallocateCallback) {
+#pragma mark -
+#pragma mark Private Declarations
+
+void __IDPObjectRelease(void *object);
+
+#pragma mark Public Implementations
+
+void *__IDPObjectCreate(size_t objectSize, IDPObjectProcedurePointer deallocateCallback) {
     assert (0 != objectSize);
     
     IDPObject *object = calloc(1, objectSize);
@@ -18,7 +25,23 @@ void *__IDPObjectCreate(size_t objectSize, IDPObjectDeallocatorCallback dealloca
     assert(NULL != object);
     
     object->_referenceCount = 1;
+    object->_releaseFunction = __IDPObjectRelease;
     object->_deallocator = deallocateCallback;
+    
+    return object;
+}
+
+void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDPObjectProcedurePointer deallocateCallBack) {
+    if (*singletonPointer) {
+        return *singletonPointer;
+    }
+    
+    assert(NULL != singletonPointer);
+    
+    IDPObject *object = (IDPObject *)__IDPObjectCreate(objectSize, deallocateCallBack);
+    object->_releaseFunction = NULL;
+    
+    *singletonPointer = object;
     
     return object;
 }
@@ -31,18 +54,15 @@ void *IDPObjectRetain(void *object) {
     return object;
 }
 
-void IDPObjectRelease(void *arg) {
-    if (!arg) {
+void IDPObjectRelease(void *object) {
+    if (!object) {
         return;
     }
+
     
-    IDPObject *object = (IDPObject *)arg;
-    
-    uint64_t count = object->_referenceCount - 1;
-    object->_referenceCount = count;
-    
-    if (0 == count) {
-        object->_deallocator(object);
+    IDPObjectProcedurePointer releaseMethod = ((IDPObject *)object)->_releaseFunction;
+    if (releaseMethod) {
+        releaseMethod(object);
     }
 }
 
@@ -66,5 +86,23 @@ void __IDPObjectSetFieldValueWithMethod(void *object, void **field, void *value,
         }
         
         *field = tmp;
+        //*field = retainMethod(value);
     }
 }
+
+#pragma mark -
+#pragma mark Private Methods
+
+void __IDPObjectRelease(void *object) {
+    if (!object) {
+        return;
+    }
+    
+    uint64_t count = ((IDPObject *)object)->_referenceCount - 1;
+    ((IDPObject *)object)->_referenceCount = count;
+    
+    if (0 == count) {
+        ((IDPObject *)object)->_deallocator(object);
+    }
+}
+

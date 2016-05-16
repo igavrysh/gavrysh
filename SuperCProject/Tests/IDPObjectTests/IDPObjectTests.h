@@ -12,7 +12,4 @@
 extern
 void IDPObjectBehaviorTests(void);
 
-extern
-void IDPObjectOneObjectCreationTest();
-
 #endif /* IDPObjectTests_h */

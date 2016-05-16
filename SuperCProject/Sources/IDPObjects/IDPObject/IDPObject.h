@@ -11,21 +11,31 @@
 
 #include <stdlib.h>
 
-typedef void (*IDPObjectDeallocatorCallback)(void *);
+typedef void (*IDPObjectProcedurePointer)(void *);
 
 typedef void *(*IDPOwnershipMethod)(void *);
 
-typedef struct {
+typedef struct IDPObject IDPObject;
+
+struct IDPObject {
     uint64_t _referenceCount;
     
-    IDPObjectDeallocatorCallback _deallocator;
-} IDPObject;
+    IDPObjectProcedurePointer _releaseFunction;
+    
+    IDPObjectProcedurePointer _deallocator;
+};
 
 extern
-void *__IDPObjectCreate(size_t objectSize, IDPObjectDeallocatorCallback deallocateCallback);
+void *__IDPObjectCreate(size_t objectSize, IDPObjectProcedurePointer deallocateCallback);
+
+extern
+void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDPObjectProcedurePointer deallocateCallBack);
 
 #define IDPObjectCreateWithType(type) \
-__IDPObjectCreate(sizeof(type), (IDPObjectDeallocatorCallback)__##type##Deallocate)
+__IDPObjectCreate(sizeof(type), (IDPObjectProcedurePointer)__##type##Deallocate)
+
+#define IDPSingletonObjectCreateOfType(singletonPointer, type) \
+__IDPSingletonObjectCreate((void **)singletonPointer, sizeof(type), (IDPObjectProcedurePointer)__##type##Deallocate)
 
 extern
 void *IDPObjectRetain(void *object);
