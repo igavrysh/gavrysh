@@ -12,8 +12,9 @@
 #pragma mark -
 #pragma mark Private Declarations
 
+
 static
-void IDPAutoreleasingStackSetCapacityWithSize(IDPAutoreleasingStack *stack, uint64_t size);
+void IDPAutoreleasingStackSetCapacity(IDPAutoreleasingStack *stack, uint64_t capacity);
 
 static
 uint64_t IDPAutoreleasingStackGetCapacity(IDPAutoreleasingStack *stack);
@@ -25,19 +26,10 @@ static
 uint64_t IDPAutoreleasingStackGetCount(IDPAutoreleasingStack *stack);
 
 static
-void IDPAutoreleasingStackSetDataWithSize(IDPAutoreleasingStack *stack, uint64_t size);
-
-static
-void IDPAutoreleasingStackSetObjectAtHead(IDPAutoreleasingStack *stack, IDPObject *object);
-
-static
 void IDPAutoreleasingStackAddObjectAtHead(IDPAutoreleasingStack *stack, IDPObject *object);
 
 static
 void IDPAutoreleasingStackRemoveObjectFromHead(IDPAutoreleasingStack *stack);
-
-static
-void IDPAutoreleasingStackResetHead(IDPAutoreleasingStack *stack);
 
 static
 IDPObject *IDPAutoreleasingStackGetHead(IDPAutoreleasingStack *stack);
@@ -45,25 +37,33 @@ IDPObject *IDPAutoreleasingStackGetHead(IDPAutoreleasingStack *stack);
 static
 IDPObject *IDPAutoreleasingStackGetObjectAtIndex(IDPAutoreleasingStack *stack, uint64_t index);
 
+static
 void IDPAutoreleasingStackSetObjectAtIndex(IDPAutoreleasingStack *stack, IDPObject *object, uint64_t index);
+
+static
+void IDPAutoreleasingStackPopAllObjects(IDPAutoreleasingStack *stack);
 
 #pragma mark -
 #pragma mark Public Implementations
 
 void __IDPAutoreleasingStackDeallocate(IDPAutoreleasingStack *stack) {
-    IDPAutoreleasingStackPopAllElements(stack);
+    IDPAutoreleasingStackPopAllObjects(stack);
     
-    IDPAutoreleasingStackSetDataWithSize(stack, 0);
+    IDPAutoreleasingStackSetCapacity(stack, 0);
     
     __IDPObjectDeallocate(stack);
 }
 
 IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithSize(uint64_t size) {
+    IDPAutoreleasingStack *stack;
+    
+    return IDPAutoreleasingStackCreateWithCapacity(size / sizeof(stack->_data));
+}
+
+IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithCapacity(uint64_t capacity) {
     IDPAutoreleasingStack *stack = IDPObjectCreateWithType(IDPAutoreleasingStack);
     
-    IDPAutoreleasingStackSetDataWithSize(stack, size);
-    
-    IDPAutoreleasingStackSetCapacityWithSize(stack, size);
+    IDPAutoreleasingStackSetCapacity(stack, capacity);
     
     return stack;
 }
@@ -84,71 +84,54 @@ void IDPAutoreleasingStackPushObject(IDPAutoreleasingStack *stack, IDPObject *ob
     IDPAutoreleasingStackAddObjectAtHead(stack, object);
     
     IDPAutoreleasingStackCountAddValue(stack, +1);
-    
-    IDPAutoreleasingStackResetHead(stack);
 }
 
-IDPAutoreleasingStackPopType IDPAutoreleasingStackPopObject(IDPAutoreleasingStack *stack, IDPObject **object) {
+IDPAutoreleasingStackPopType IDPAutoreleasingStackPopObject(IDPAutoreleasingStack *stack) {
     if (!stack || IDPAutoreleasingStackIsEmpty(stack)) {
-        object = NULL;
         return  IDPAutoreleasingStackPopTypeNone;
     }
     
-    *object = IDPAutoreleasingStackGetHead(stack);
+    IDPObject *object = IDPAutoreleasingStackGetHead(stack);
+    
+    IDPAutoreleasingStackPopType result = object ? IDPAutoreleasingStackPopTypeObject : IDPAutoreleasingStackPopTypeNull;
     
     IDPAutoreleasingStackRemoveObjectFromHead(stack);
     
     IDPAutoreleasingStackCountAddValue(stack, -1);
     
-    IDPAutoreleasingStackResetHead(stack);
-    
-    return *object ? IDPAutoreleasingStackPopTypeObject : IDPAutoreleasingStackPopTypeNull;
+    return result;
 }
 
-IDPAutoreleasingStackBatchPopType IDPAutoreleasingStackPopAllElementsUntilNullOrFirst(IDPAutoreleasingStack *stack) {
+IDPAutoreleasingStackBatchPopType IDPAutoreleasingStackPopObjects(IDPAutoreleasingStack *stack) {
     if (!stack) {
         return IDPAutoreleasingStackBatchPopTypeNone;
     }
     
     IDPAutoreleasingStackPopType popResult;
     do {
-        IDPObject *object = NULL;
-        popResult = IDPAutoreleasingStackPopObject(stack, &object);
+        popResult = IDPAutoreleasingStackPopObject(stack);
     } while (IDPAutoreleasingStackPopTypeNull != popResult && !IDPAutoreleasingStackIsEmpty(stack));
     
-    IDPAutoreleasingStackBatchPopType batchPopResult;
-    switch (popResult) {
-        case IDPAutoreleasingStackPopTypeNull:
-            batchPopResult = IDPAutoreleasingStackBatchPopTypeNullRiched;
-            break;
-            
-        case IDPAutoreleasingStackPopTypeObject:
-            batchPopResult = IDPAutoreleasingStackBatchPopTypeFirstRiched;
-            break;
-            
-        default:
-            batchPopResult = IDPAutoreleasingStackBatchPopTypeNone;
-            break;
-    }
-    
-    return batchPopResult;
-}
-
-void IDPAutoreleasingStackPopAllElements(IDPAutoreleasingStack *stack) {
-    if (!stack || IDPAutoreleasingStackIsEmpty(stack)) {
-        return;
-    }
-    
-    do {
-        IDPAutoreleasingStackPopAllElementsUntilNullOrFirst(stack);
-    } while (!IDPAutoreleasingStackIsEmpty(stack));
+    return (IDPAutoreleasingStackBatchPopType)popResult;
 }
 
 #pragma mark -
 #pragma mark Private Implementations
 
-void IDPAutoreleasingStackSetCapacityWithSize(IDPAutoreleasingStack *stack, uint64_t size) {
-    IDPObjectAssign(stack, _capacity, size / sizeof(stack->_data));
+void IDPAutoreleasingStackSetCapacity(IDPAutoreleasingStack *stack, uint64_t capacity) {
+    if (!stack) {
+        return;
+    }
+    
+    if (!stack->_data) {
+        free(stack->_data);
+    }
+    
+    if (capacity > 0) {
+        stack->_data = calloc(1, capacity * sizeof(*stack->_data));
+    }
+    
+    IDPObjectAssign(stack, _capacity, capacity);
 }
 
 uint64_t IDPAutoreleasingStackGetCapacity(IDPAutoreleasingStack *stack) {
@@ -189,25 +172,19 @@ void IDPAutoreleasingStackRemoveObjectFromHead(IDPAutoreleasingStack *stack) {
     IDPAutoreleasingStackSetObjectAtIndex(stack, NULL, IDPAutoreleasingStackGetCount(stack) - 1);
 }
 
-void IDPAutoreleasingStackSetDataWithSize(IDPAutoreleasingStack *stack, uint64_t size) {
+IDPObject *IDPAutoreleasingStackGetHead(IDPAutoreleasingStack *stack) {
+    return stack ? IDPAutoreleasingStackGetObjectAtIndex(stack, IDPAutoreleasingStackGetCount(stack) - 1) : NULL;
+}
+
+void IDPAutoreleasingStackPopAllObjects(IDPAutoreleasingStack *stack) {
     if (!stack) {
         return;
     }
     
-    if (!stack->_data) {
-        free(stack->_data);
+    while (!IDPAutoreleasingStackIsEmpty(stack)) {
+        IDPAutoreleasingStackBatchPopType result = IDPAutoreleasingStackPopObjects(stack);
+        if (IDPAutoreleasingStackBatchPopTypeNone == result) {
+            break;
+        }
     }
-    
-    if (size > 0) {
-        stack->_data = calloc(1, size);
-    }
 }
-
-void IDPAutoreleasingStackResetHead(IDPAutoreleasingStack *stack) {
-    IDPObjectAssign(stack, _head, IDPAutoreleasingStackGetObjectAtIndex(stack, IDPAutoreleasingStackGetCount(stack) - 1));
-}
-
-IDPObject *IDPAutoreleasingStackGetHead(IDPAutoreleasingStack *stack) {
-    return stack ? stack->_head : NULL;
-}
-

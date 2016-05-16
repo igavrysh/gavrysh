@@ -71,9 +71,7 @@ void IDPAutoreleasingStackObjectTest(void) {
     
     assert(!IDPAutoreleasingStackIsFull(stack));
 
-    IDPObject *refObject = NULL;
-    IDPAutoreleasingStackPopType res;
-    res = IDPAutoreleasingStackPopObject(stack, &refObject);
+    IDPAutoreleasingStackPopType res = IDPAutoreleasingStackPopObject(stack);
     
     assert(IDPAutoreleasingStackPopTypeObject == res);
     
@@ -109,9 +107,7 @@ void IDPAutoreleasingStackOneNULLPushTest(void) {
     
     assert(!IDPAutoreleasingStackIsFull(stack));
     
-    IDPObject *refObject = NULL;
-    IDPAutoreleasingStackPopType res;
-    res = IDPAutoreleasingStackPopObject(stack, &refObject);
+    IDPAutoreleasingStackPopType res = IDPAutoreleasingStackPopObject(stack);
     
     assert(IDPAutoreleasingStackPopTypeNull == res);
     
@@ -165,13 +161,18 @@ void IDPAutoreleasingStackIsFullTest(void) {
     assert(IDPAutoreleasingStackIsFull(stack));
     assert(2 == IDPObjectGetReferenceCount(object));
     
-    IDPAutoreleasingStackPopObject(stack, &object);
+    IDPAutoreleasingStackPopObject(stack);
     
     assert(!IDPAutoreleasingStackIsEmpty(stack));
     assert(!IDPAutoreleasingStackIsFull(stack));
     assert(1 == IDPObjectGetReferenceCount(object));
     
-    IDPAutoreleasingStackPopAllElements(stack);
+    while (!IDPAutoreleasingStackIsEmpty(stack)) {
+        IDPAutoreleasingStackBatchPopType result = IDPAutoreleasingStackPopObjects(stack);
+        if (IDPAutoreleasingStackBatchPopTypeNone == result) {
+            break;
+        }
+    }
     
     assert(IDPAutoreleasingStackIsEmpty(stack));
     assert(!IDPAutoreleasingStackIsFull(stack));

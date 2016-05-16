@@ -21,9 +21,9 @@ typedef enum {
 } IDPAutoreleasingStackPopType;
 
 typedef enum {
-    IDPAutoreleasingStackBatchPopTypeNone,
-    IDPAutoreleasingStackBatchPopTypeNullRiched,
-    IDPAutoreleasingStackBatchPopTypeFirstRiched
+    IDPAutoreleasingStackBatchPopTypeNone = IDPAutoreleasingStackPopTypeNone,
+    IDPAutoreleasingStackBatchPopTypeNullRiched = IDPAutoreleasingStackPopTypeNull,
+    IDPAutoreleasingStackBatchPopTypeFirstRiched = IDPAutoreleasingStackPopTypeObject
 } IDPAutoreleasingStackBatchPopType;
 
 typedef struct IDPAutoreleasingStack IDPAutoreleasingStack;
@@ -32,7 +32,6 @@ struct IDPAutoreleasingStack {
     IDPObject _super;
     
     IDPObject **_data;
-    IDPObject *_head;
     
     uint64_t _count;
     uint64_t _capacity;
@@ -45,6 +44,9 @@ extern
 IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithSize(uint64_t size);
 
 extern
+IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithCapacity(uint64_t capacity);
+
+extern
 bool IDPAutoreleasingStackIsEmpty(IDPAutoreleasingStack *stack);
 
 extern
@@ -54,12 +56,9 @@ extern
 void IDPAutoreleasingStackPushObject(IDPAutoreleasingStack *stack, IDPObject *object);
 
 extern
-IDPAutoreleasingStackPopType IDPAutoreleasingStackPopObject(IDPAutoreleasingStack *stack, IDPObject **object);
+IDPAutoreleasingStackPopType IDPAutoreleasingStackPopObject(IDPAutoreleasingStack *stack);
 
 extern
-IDPAutoreleasingStackBatchPopType IDPAutoreleasingStackPopAllElementsUntilNullOrFirst(IDPAutoreleasingStack *stack);
-
-extern
-void IDPAutoreleasingStackPopAllElements(IDPAutoreleasingStack *stack);
+IDPAutoreleasingStackBatchPopType IDPAutoreleasingStackPopObjects(IDPAutoreleasingStack *stack);
 
 #endif /* IDPAutoreleasingStack_h */
