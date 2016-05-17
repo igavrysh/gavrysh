@@ -20,9 +20,8 @@
 #include "IDPArrayTests.h"
 #include "IDPLinkedListTests.h"
 #include "IDPAutoreleasingStackTests.h"
+#include "IDPAutoreleasingPoolTests.h"
 #include "IDPHumanTests.h"
-
-
 
 void IDPRunApplication() {
     /*
@@ -61,5 +60,6 @@ void IDPRunApplication() {
     
     IDPAutoreleasingStackBehaviorTests();
     
+    IDPAutoreleasingPoolBehaviorTests();
 }
 

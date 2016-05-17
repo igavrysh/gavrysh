@@ -107,7 +107,7 @@ IDPAutoreleasingStackBatchPopType IDPAutoreleasingStackPopObjects(IDPAutoreleasi
         return IDPAutoreleasingStackBatchPopTypeNone;
     }
     
-    IDPAutoreleasingStackPopType popResult;
+    IDPAutoreleasingStackPopType popResult = IDPAutoreleasingStackPopTypeNone;
     do {
         popResult = IDPAutoreleasingStackPopObject(stack);
     } while (IDPAutoreleasingStackPopTypeNull != popResult && !IDPAutoreleasingStackIsEmpty(stack));
