@@ -140,5 +140,15 @@ void IDPAutoreleasingPoolRemoveHeadStack(IDPAutoreleasingPool *pool) {
 }
 
 IDPAutoreleasingStack *IDPAutoreleasingPoolGetHeadStack(IDPAutoreleasingPool *pool) {
-    return pool ? (IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(IDPAutoreleasingPoolGetStacks(pool)) : NULL;
+    if (!pool) {
+        return NULL;
+    }
+    
+    IDPLinkedList *stacks = IDPAutoreleasingPoolGetStacks(pool);
+    IDPAutoreleasingStack *stack = (IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(stacks);
+    while (stack && IDPAutoreleasingStackIsEmpty(stack)) {
+        stack = (IDPAutoreleasingStack *)IDPLinkedListGetObjectBeforeObject(stacks, (IDPObject *)stack);
+    }
+    
+    return stack;
 }
