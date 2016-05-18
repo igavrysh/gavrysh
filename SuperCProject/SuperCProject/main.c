@@ -9,9 +9,14 @@
 #include <stdio.h>
 
 #include "IDPApplication.h"
+#include "IDPAutoreleasingPool.h"
 
 int main(int argc, const char * argv[]) {
+    IDPAutoreleasingPoolCreate();
+    
     IDPRunApplication();
+    
+    IDPAutoreleasingPoolDrain();
     
     return 0;
 }

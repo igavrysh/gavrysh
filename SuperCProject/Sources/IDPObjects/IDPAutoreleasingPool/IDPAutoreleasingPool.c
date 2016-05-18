@@ -56,7 +56,9 @@ IDPAutoreleasingPool *IDPAutoreleasingPoolCreate() {
     
     IDPAutoreleasingPool *pool = IDPAutoreleasingPoolGet();
     
-    IDPAutoreleasingPoolCreateStacks(pool);
+    if (!IDPAutoreleasingPoolGetStacks(pool)) {
+        IDPAutoreleasingPoolCreateStacks(pool);
+    }
     
     IDPAutoreleasingPoolPushObject(pool, NULL);
     

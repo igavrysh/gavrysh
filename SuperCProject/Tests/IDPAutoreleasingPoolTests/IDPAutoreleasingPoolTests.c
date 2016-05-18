@@ -49,8 +49,9 @@ void IDPAutoreleasingOnePoolTest(void) {
     IDPAutoreleasingPoolDrain();
     
     assert(1 == IDPObjectGetReferenceCount(object));
+    
+    IDPObjectRelease(object);
 }
-
 
 void IDPAutoreleasingMultiplePoolsTest(void) {
     
