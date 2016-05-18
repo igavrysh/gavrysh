@@ -29,6 +29,9 @@ extern
 void *__IDPObjectCreate(size_t objectSize, IDPObjectProcedurePointer deallocateCallback);
 
 extern
+void *__IDPObjectCreateAutorelease(void *object);
+
+extern
 void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDPObjectProcedurePointer deallocateCallBack);
 
 #define IDPObjectCreateWithType(type) \

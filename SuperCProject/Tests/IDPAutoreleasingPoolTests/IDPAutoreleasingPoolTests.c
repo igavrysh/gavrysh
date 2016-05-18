@@ -34,7 +34,21 @@ void IDPAutoreleasingPoolBehaviorTests(void) {
 #pragma mark Private Implementation
 
 void IDPAutoreleasingOnePoolTest(void) {
+    IDPAutoreleasingPoolCreate();
     
+    assert(1 == IDPObjectGetReferenceCount(IDPAutoreleasingPoolGet()));
+    
+    IDPObject *object = __IDPObjectCreateAutorelease(IDPObjectCreateWithType(IDPObject));
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
+    
+    IDPObjectRetain(object);
+    
+    assert(2 == IDPObjectGetReferenceCount(object));
+    
+    IDPAutoreleasingPoolDrain();
+    
+    assert(1 == IDPObjectGetReferenceCount(object));
 }
 
 

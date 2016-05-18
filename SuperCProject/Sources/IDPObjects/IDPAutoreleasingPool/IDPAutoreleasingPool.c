@@ -13,7 +13,10 @@
 #pragma mark -
 #pragma mark Private Declarations
 
-const uint64_t kIDPAutoreleasingPoolStackSize = 4096;
+const size_t kIDPAutoreleasingPoolStackSize = 4096;
+
+static
+void IDPAutoreleasingPoolCreateStacks(IDPAutoreleasingPool *pool);
 
 static
 IDPLinkedList *IDPAutoreleasingPoolGetStacks(IDPAutoreleasingPool *pool);
@@ -42,17 +45,26 @@ void __IDPAutoreleasingPoolDeallocate(IDPAutoreleasingPool *pool) {
     __IDPObjectDeallocate(pool);
 }
 
+static IDPAutoreleasingPool *__pool = NULL;
+
+IDPAutoreleasingPool *IDPAutoreleasingPoolGet() {
+    return __pool;
+}
+
 IDPAutoreleasingPool *IDPAutoreleasingPoolCreate() {
-    static IDPAutoreleasingPool *pool;
+    IDPSingletonObjectCreateOfType(&__pool, IDPAutoreleasingPool);
     
-    IDPSingletonObjectCreateOfType(&pool, IDPAutoreleasingPool);
+    IDPAutoreleasingPool *pool = IDPAutoreleasingPoolGet();
+    
+    IDPAutoreleasingPoolCreateStacks(pool);
     
     IDPAutoreleasingPoolPushObject(pool, NULL);
     
     return pool;
 }
 
-void IDPAutoreleasingPoolAddObject(IDPAutoreleasingPool *pool, IDPObject *object) {
+void IDPAutoreleasingPoolAddObject(IDPObject *object) {
+    IDPAutoreleasingPool *pool = IDPAutoreleasingPoolGet();
     if (!pool) {
         return;
     }
@@ -60,20 +72,27 @@ void IDPAutoreleasingPoolAddObject(IDPAutoreleasingPool *pool, IDPObject *object
     IDPAutoreleasingPoolPushObject(pool, object);
 }
 
-void IDPAutoreleasingPoolDrain(IDPAutoreleasingPool *pool) {
-    if (pool) {
+void IDPAutoreleasingPoolDrain() {
+    IDPAutoreleasingPool *pool = IDPAutoreleasingPoolGet();
+    if (!pool) {
         return;
     }
     
     IDPAutoreleasingStackBatchPopType res = IDPAutoreleasingStackBatchPopTypeNone;
     do {
         res = IDPAutoreleasingStackPopObjects(IDPAutoreleasingPoolGetHeadStack(pool));
-        IDPAutoreleasingPoolRemoveHeadStack(pool);
+        if (res == IDPAutoreleasingStackBatchPopTypeFirstRiched) {
+           IDPAutoreleasingPoolRemoveHeadStack(pool); 
+        }
     } while (res != IDPAutoreleasingStackBatchPopTypeNullRiched);
 }
 
 #pragma mark -
 #pragma mark Private Implementations
+
+void IDPAutoreleasingPoolCreateStacks(IDPAutoreleasingPool *pool) {
+    IDPObjectSetStrong(pool, _stacks, IDPObjectCreateWithType(IDPLinkedList));
+}
 
 IDPLinkedList *IDPAutoreleasingPoolGetStacks(IDPAutoreleasingPool *pool) {
     return pool ? pool->_stacks : NULL;

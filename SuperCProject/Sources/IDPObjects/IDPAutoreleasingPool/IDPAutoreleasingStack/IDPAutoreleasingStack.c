@@ -6,6 +6,8 @@
 //  Copyright © 2016 Ievgen Gavrysh. All rights reserved.
 //
 
+#include <assert.h>
+
 #include "IDPAutoreleasingStack.h"
 #include "IDPObjectMacros.h"
 
@@ -54,8 +56,10 @@ void __IDPAutoreleasingStackDeallocate(IDPAutoreleasingStack *stack) {
     __IDPObjectDeallocate(stack);
 }
 
-IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithSize(uint64_t size) {
+IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithSize(size_t size) {
     IDPAutoreleasingStack *stack;
+    
+    assert(0 != size);
     
     return IDPAutoreleasingStackCreateWithCapacity(size / sizeof(stack->_data));
 }

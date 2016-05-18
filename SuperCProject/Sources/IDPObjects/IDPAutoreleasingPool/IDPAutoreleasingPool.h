@@ -12,9 +12,6 @@
 #include "IDPObject.h"
 #include "IDPLinkedList.h"
 
-extern
-const uint64_t kIDPAutoreleasingPoolStackSize;
-
 typedef struct IDPAutoreleasingPool IDPAutoreleasingPool;
 
 struct IDPAutoreleasingPool {
@@ -30,9 +27,12 @@ extern
 IDPAutoreleasingPool *IDPAutoreleasingPoolCreate();
 
 extern
-void IDPAutoreleasingPoolAddObject(IDPAutoreleasingPool * pool, IDPObject *object);
+void IDPAutoreleasingPoolAddObject(IDPObject *object);
 
 extern
-void IDPAutoreleasingPoolDrain(IDPAutoreleasingPool * pool);
+void IDPAutoreleasingPoolDrain();
+
+extern
+IDPAutoreleasingPool *IDPAutoreleasingPoolGet();
 
 #endif /* IDPAutoreleasingPool_h */

@@ -41,7 +41,7 @@ extern
 void __IDPAutoreleasingStackDeallocate(IDPAutoreleasingStack *stack);
 
 extern
-IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithSize(uint64_t size);
+IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithSize(size_t size);
 
 extern
 IDPAutoreleasingStack *IDPAutoreleasingStackCreateWithCapacity(uint64_t capacity);

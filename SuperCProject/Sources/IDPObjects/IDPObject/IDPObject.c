@@ -9,6 +9,7 @@
 #include <assert.h>
 
 #include "IDPObject.h"
+#include "IDPAutoreleasingPool.h"
 
 #pragma mark -
 #pragma mark Private Declarations
@@ -42,6 +43,16 @@ void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDP
     object->_releaseFunction = NULL;
     
     *singletonPointer = object;
+    
+    return object;
+}
+
+void *__IDPObjectCreateAutorelease(void *object) {
+    if (!object) {
+        return NULL;
+    }
+    
+    IDPAutoreleasingPoolAddObject(object);
     
     return object;
 }
