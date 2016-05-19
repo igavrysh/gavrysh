@@ -222,6 +222,8 @@ IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, 
     }
     
     context.data = object;
+    context.node = NULL;
+    context.previousNode = NULL;
     
     if (IDPLinkedListFindNodeWithContext(list, &IDPLinkedListNodeContainsObject, &context)) {
         return context;

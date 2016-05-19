@@ -22,8 +22,8 @@ typedef enum {
 
 typedef enum {
     IDPAutoreleasingStackBatchPopTypeNone = IDPAutoreleasingStackPopTypeNone,
-    IDPAutoreleasingStackBatchPopTypeNullRiched = IDPAutoreleasingStackPopTypeNull,
-    IDPAutoreleasingStackBatchPopTypeFirstRiched = IDPAutoreleasingStackPopTypeObject
+    IDPAutoreleasingStackBatchPopTypeNullReached = IDPAutoreleasingStackPopTypeNull,
+    IDPAutoreleasingStackBatchPopTypeFirstReached = IDPAutoreleasingStackPopTypeObject
 } IDPAutoreleasingStackBatchPopType;
 
 typedef struct IDPAutoreleasingStack IDPAutoreleasingStack;

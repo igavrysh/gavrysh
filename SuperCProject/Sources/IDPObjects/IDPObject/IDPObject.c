@@ -47,7 +47,7 @@ void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDP
     return object;
 }
 
-void *__IDPObjectCreateAutorelease(void *object) {
+void *IDPObjectAutorelease(void *object) {
     if (!object) {
         return NULL;
     }

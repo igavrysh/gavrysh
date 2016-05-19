@@ -9,6 +9,8 @@
 #ifndef IDPAutoreleasingPool_h
 #define IDPAutoreleasingPool_h
 
+#include <stdbool.h>
+
 #include "IDPObject.h"
 #include "IDPLinkedList.h"
 
@@ -17,7 +19,9 @@ typedef struct IDPAutoreleasingPool IDPAutoreleasingPool;
 struct IDPAutoreleasingPool {
     IDPObject _super;
     
-    IDPLinkedList *_stacks;
+    IDPLinkedList *_stacksList;
+    
+    bool _isValid;
 };
 
 extern

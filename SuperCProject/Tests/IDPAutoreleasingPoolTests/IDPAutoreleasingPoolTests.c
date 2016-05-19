@@ -38,7 +38,7 @@ void IDPAutoreleasingOnePoolTest(void) {
     
     assert(1 == IDPObjectGetReferenceCount(IDPAutoreleasingPoolGet()));
     
-    IDPObject *object = __IDPObjectCreateAutorelease(IDPObjectCreateWithType(IDPObject));
+    IDPObject *object = IDPObjectCreate(IDPObject);
     
     assert(1 == IDPObjectGetReferenceCount(object));
     
@@ -60,12 +60,12 @@ void IDPAutoreleasingMultiplePoolsTest(void) {
     
     assert(1 == IDPObjectGetReferenceCount(IDPAutoreleasingPoolGet()));
     
-    IDPObject *object = __IDPObjectCreateAutorelease(IDPObjectCreateWithType(IDPObject));
+    IDPObject *object = IDPObjectCreate(IDPObject);
     
     for (int index = 0; index < count; index++) {
         IDPAutoreleasingPoolCreate();
         
-        IDPObject *object2 = __IDPObjectCreateAutorelease(IDPObjectCreateWithType(IDPObject));
+        IDPObject *object2 = IDPObjectCreate(IDPObject);
         
         assert(1 == IDPObjectGetReferenceCount(object2));
         
