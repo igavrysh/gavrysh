@@ -31,7 +31,7 @@ static
 IDPAutoreleasingStack *IDPAutoreleasingPoolGetLastStack(IDPAutoreleasingPool *pool);
 
 static
-IDPAutoreleasingStack *IDPAutoreleasingPoolGetStackBeforeStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack);
+IDPAutoreleasingStack *IDPAutoreleasingPoolGetStackAfterStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack);
 
 static
 IDPAutoreleasingStack *IDPAutoreleasingPoolAddStack(IDPAutoreleasingPool *pool);
@@ -104,7 +104,7 @@ void IDPAutoreleasingPoolDrain() {
     } while (res != IDPAutoreleasingStackBatchPopTypeNullReached);
     
     IDPAutoreleasingStack *lastStack = IDPAutoreleasingPoolGetLastStack(pool);
-    IDPAutoreleasingStack *previousStack = IDPAutoreleasingPoolGetStackBeforeStack(pool, lastStack);
+    IDPAutoreleasingStack *previousStack = IDPAutoreleasingPoolGetStackAfterStack(pool, lastStack);
     if (IDPAutoreleasingStackIsEmpty(lastStack) && !previousStack) {
         IDPAutoreleasingPoolSetValid(pool, false);
     }
@@ -184,18 +184,18 @@ IDPAutoreleasingStack *IDPAutoreleasingPoolGetLastStack(IDPAutoreleasingPool *po
     
     IDPAutoreleasingStack *stack = (IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(stacks);
     while (stack && IDPAutoreleasingStackIsEmpty(stack)) {
-        stack = IDPAutoreleasingPoolGetStackBeforeStack(pool, stack);
+        stack = IDPAutoreleasingPoolGetStackAfterStack(pool, stack);
     }
     
     return stack;
 }
 
-IDPAutoreleasingStack *IDPAutoreleasingPoolGetStackBeforeStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack) {
+IDPAutoreleasingStack *IDPAutoreleasingPoolGetStackAfterStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack) {
     if (!pool || !stack) {
         return NULL;
     }
 
-    return (IDPAutoreleasingStack *)IDPLinkedListGetObjectBeforeObject(IDPAutoreleasingPoolGetStacksList(pool), (IDPObject *)stack);
+    return (IDPAutoreleasingStack *)IDPLinkedListGetObjectAfterObject(IDPAutoreleasingPoolGetStacksList(pool), (IDPObject *)stack);
 }
 
 void IDPAutoreleasingPoolSetValid(IDPAutoreleasingPool *pool, bool isValid) {
@@ -215,7 +215,7 @@ bool IDPAutoreleasingPoolShouldRemoveLastStack(IDPAutoreleasingPool *pool) {
     
     IDPAutoreleasingStack *lastStack = (IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(stacks);
     IDPAutoreleasingStack *lastNonEmptyStack = IDPAutoreleasingPoolGetLastStack(pool);
-    IDPAutoreleasingStack *previousStack = IDPAutoreleasingPoolGetStackBeforeStack(pool, lastStack);
+    IDPAutoreleasingStack *previousStack = IDPAutoreleasingPoolGetStackAfterStack(pool, lastStack);
     
     if (!lastStack || !lastNonEmptyStack || !previousStack) {
         return false;

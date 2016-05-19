@@ -56,17 +56,31 @@ void IDPAutoreleasingOnePoolTest(void) {
 void IDPAutoreleasingMultiplePoolsTest(void) {
     IDPAutoreleasingPoolCreate();
     
-    uint64_t count = 10;
+    uint64_t count = 2024;
     
     assert(1 == IDPObjectGetReferenceCount(IDPAutoreleasingPoolGet()));
     
+    
     IDPObject *object = IDPObjectCreate(IDPObject);
     
-    for (int index = 0; index < count; index++) {
+    for (uint64_t index = 0; index < count; index++) {
         IDPAutoreleasingPoolCreate();
         
         IDPObject *object2 = IDPObjectCreate(IDPObject);
         
+        for (uint64_t index2 = 0; index2 < count; index2++) {
+            IDPAutoreleasingPoolCreate();
+            
+            IDPObject *object3 = IDPObjectCreate(IDPObject);
+            
+            assert(1 == IDPObjectGetReferenceCount(object3));
+            
+            assert(1 == IDPObjectGetReferenceCount(object2));
+            
+            assert(1 == IDPObjectGetReferenceCount(object));
+            
+            IDPAutoreleasingPoolDrain();
+        }
         assert(1 == IDPObjectGetReferenceCount(object2));
         
         assert(1 == IDPObjectGetReferenceCount(object));
