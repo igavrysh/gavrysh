@@ -75,12 +75,6 @@ IDPAutoreleasingPool *IDPAutoreleasingPoolCreate() {
         IDPAutoreleasingPoolInitStacksList(pool);
     }
     
-    IDPLinkedList *stacksList = IDPAutoreleasingPoolGetStacksList(pool);
-    if (1 == IDPLinkedListGetCount(stacksList)
-        && 0 == IDPAutoreleasingStackIsEmpty((IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(stacksList))) {
-        IDPAutoreleasingPoolSetValid(pool, true);
-    }
-    
     IDPAutoreleasingPoolPushObject(pool, NULL);
     
     return pool;
@@ -142,10 +136,15 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     
     IDPAutoreleasingStack *headStack = IDPAutoreleasingPoolGetLastStack(pool);
     if (!headStack || IDPAutoreleasingStackIsFull(headStack)) {
+        if (!headStack && !object) {
+            IDPAutoreleasingPoolSetValid(pool, true);
+        }
         headStack = IDPAutoreleasingPoolAddStack(pool);
     }
     
-    IDPAutoreleasingStackPushObject(headStack, object);
+    if (IDPAutoreleasingPoolIsValid(pool)) {
+        IDPAutoreleasingStackPushObject(headStack, object);
+    }
 }
 
 IDPAutoreleasingStack *IDPAutoreleasingPoolAddStack(IDPAutoreleasingPool *pool) {
