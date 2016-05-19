@@ -25,23 +25,23 @@ struct IDPObject {
     IDPObjectProcedurePointer _deallocator;
 };
 
-extern
-void *__IDPObjectCreate(size_t objectSize, IDPObjectProcedurePointer deallocateCallback);
-
-extern
-void *IDPObjectAutorelease(void *object);
-
-extern
-void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDPObjectProcedurePointer deallocateCallBack);
-
 #define IDPObjectCreateWithType(type) \
     __IDPObjectCreate(sizeof(type), (IDPObjectProcedurePointer)__##type##Deallocate)
 
 #define IDPObjectCreate(type) \
     IDPObjectAutorelease(__IDPObjectCreate(sizeof(type), (IDPObjectProcedurePointer)__##type##Deallocate))
 
-#define IDPSingletonObjectCreateOfType(singletonPointer, type) \
+#define IDPSingletonObjectCreateWithType(singletonPointer, type) \
     __IDPSingletonObjectCreate((void **)singletonPointer, sizeof(type), (IDPObjectProcedurePointer)__##type##Deallocate)
+
+extern
+void *__IDPSingletonObjectCreate(void **singletonPointer, size_t objectSize, IDPObjectProcedurePointer deallocateCallBack);
+
+extern
+void *__IDPObjectCreate(size_t objectSize, IDPObjectProcedurePointer deallocateCallback);
+
+extern
+void *IDPObjectAutorelease(void *object);
 
 extern
 void *IDPObjectRetain(void *object);

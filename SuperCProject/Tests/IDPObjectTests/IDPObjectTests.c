@@ -64,7 +64,7 @@ void IDPObjectOneObjectCreationTest() {
 void IDPSingletonObjectTest() {
     static IDPObject *sharedObject;
     //  after singleton object was created
-    IDPObject *object = IDPSingletonObjectCreateOfType(&sharedObject, IDPObject);
+    IDPObject *object = IDPSingletonObjectCreateWithType(&sharedObject, IDPObject);
 
     //      it should not be NULL
     assert(NULL != object);
@@ -84,7 +84,7 @@ void IDPSingletonObjectTest() {
     // while singleton created 5 times
     //      it must be equal to shared object
     for (uint8_t iterator = 0; iterator < 5; iterator++) {
-        void *object2 = IDPSingletonObjectCreateOfType(&sharedObject, IDPObject);
+        void *object2 = IDPSingletonObjectCreateWithType(&sharedObject, IDPObject);
         assert(sharedObject == object2);
     }
 }
