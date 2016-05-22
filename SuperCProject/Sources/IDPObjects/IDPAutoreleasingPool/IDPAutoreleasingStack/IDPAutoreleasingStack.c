@@ -7,13 +7,15 @@
 //
 
 #include <assert.h>
+#include <stdio.h>
+#include <string.h>
 
 #include "IDPAutoreleasingStack.h"
 #include "IDPObjectMacros.h"
+#include "IDPAutoreleasingStackPrivate.h"
 
 #pragma mark -
 #pragma mark Private Declarations
-
 
 static
 void IDPAutoreleasingStackSetCapacity(IDPAutoreleasingStack *stack, uint64_t capacity);
@@ -192,3 +194,5 @@ void IDPAutoreleasingStackPopAllObjects(IDPAutoreleasingStack *stack) {
         }
     }
 }
+
+

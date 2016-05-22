@@ -26,6 +26,9 @@ struct IDPLinkedListNodeContext {
 typedef bool (*IDPComparisonFunction)(IDPLinkedListNode *node, void *context);
 
 extern
+IDPLinkedListNodeContext IDPLinkedListGetContextWithFunctionAndObject(IDPLinkedList *list, IDPComparisonFunction function, IDPObject *object);
+
+extern
 uint64_t IDPLinkedListGetMutationsCount(IDPLinkedList *list);
 
 extern

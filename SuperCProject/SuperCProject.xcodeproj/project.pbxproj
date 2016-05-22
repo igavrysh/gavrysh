@@ -68,6 +68,7 @@
 		852AE9A71CC5836100CCB42A /* IDPStringTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPStringTests.h; sourceTree = "<group>"; };
 		8532C2941CE5441C00ED4E9D /* IDPAutoreleasingStackTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPAutoreleasingStackTests.c; sourceTree = "<group>"; };
 		8532C2951CE5441C00ED4E9D /* IDPAutoreleasingStackTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPAutoreleasingStackTests.h; sourceTree = "<group>"; };
+		85436D161CF1F5DB0057A144 /* IDPAutoreleasingStackPrivate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPAutoreleasingStackPrivate.h; sourceTree = "<group>"; };
 		85465DD41CC0391E00E275F1 /* IDPApplication.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPApplication.c; sourceTree = "<group>"; };
 		85465DD51CC0391E00E275F1 /* IDPApplication.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IDPApplication.h; sourceTree = "<group>"; };
 		85465DD71CC0391E00E275F1 /* IDPBasicMathOperations.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = IDPBasicMathOperations.c; sourceTree = "<group>"; };
@@ -420,6 +421,7 @@
 			children = (
 				8568B1371CE7499000346222 /* IDPAutoreleasingStack.c */,
 				8568B1381CE7499000346222 /* IDPAutoreleasingStack.h */,
+				85436D161CF1F5DB0057A144 /* IDPAutoreleasingStackPrivate.h */,
 			);
 			path = IDPAutoreleasingStack;
 			sourceTree = "<group>";
