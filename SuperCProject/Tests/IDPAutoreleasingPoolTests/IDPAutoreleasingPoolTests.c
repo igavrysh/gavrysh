@@ -19,15 +19,20 @@ static
 void IDPAutoreleasingOnePoolTest(void);
 
 static
+void IDPAutoreleasingPoolFlatTest(void);
+
+static
 void IDPAutoreleasingMultiplePoolsTest(void);
 
 #pragma mark -
 #pragma mark Public Implementations
 
 void IDPAutoreleasingPoolBehaviorTests(void) {
-    IDPPerformTest(IDPAutoreleasingOnePoolTest);
+    //IDPPerformTest(IDPAutoreleasingOnePoolTest);
     
-    IDPPerformTest(IDPAutoreleasingMultiplePoolsTest);
+    IDPPerformTest(IDPAutoreleasingPoolFlatTest);
+    
+    //IDPPerformTest(IDPAutoreleasingMultiplePoolsTest);
 }
 
 #pragma mark -
@@ -51,6 +56,19 @@ void IDPAutoreleasingOnePoolTest(void) {
     assert(1 == IDPObjectGetReferenceCount(object));
     
     IDPObjectRelease(object);
+}
+
+void IDPAutoreleasingPoolFlatTest(void) {
+    uint64_t count = 50000;
+    
+    IDPAutoreleasingPoolCreate();
+    
+    for (uint64_t index = 0; index < count; index++) {
+        IDPObject *object = IDPObjectCreate(IDPObject);
+        assert(1 == IDPObjectGetReferenceCount(object));
+    }
+    
+    IDPAutoreleasingPoolDrain();
 }
 
 void IDPAutoreleasingMultiplePoolsTest(void) {

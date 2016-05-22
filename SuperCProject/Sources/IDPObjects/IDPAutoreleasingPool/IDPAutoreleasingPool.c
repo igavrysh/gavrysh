@@ -165,7 +165,7 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     IDPAutoreleasingStack *stackForObjectAdding = IDPAutoreleasingPoolGetStackForAddingObjectWithContext(pool, lastNonEmptyStackContext, firstEmptyStackContext);
     
     if (!lastNonEmptyStackContext.stack) {
-        //assert(!object);
+        assert(!object);
         if (!object) {
             IDPAutoreleasingPoolSetValid(pool, true);
         }
@@ -301,7 +301,6 @@ IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAuto
     if (!pool) {
         return stackContext;
     }
-    
     
     IDPLinkedListNodeContext nodeContext = IDPLinkedListGetContextWithFunctionAndObject(IDPAutoreleasingPoolGetStacksList(pool), compare, NULL);
     stackContext.stack = (IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nodeContext.node);
