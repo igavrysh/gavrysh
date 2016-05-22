@@ -6,6 +6,8 @@
 //  Copyright © 2016 Ievgen Gavrysh. All rights reserved.
 //
 
+#include <assert.h>
+
 #include "IDPAutoreleasingPool.h"
 #include "IDPAutoreleasingStack.h"
 #include "IDPObjectMacros.h"
@@ -25,10 +27,16 @@ static
 void IDPAutoreleasingPoolSetStacksList(IDPAutoreleasingPool *pool, IDPLinkedList *list);
 
 static
+void *IDPAutoreleasingPoolGetStackForAddingObject(IDPAutoreleasingPool *pool);
+
+static
 void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *object);
 
 static
 void *IDPAutoreleasingPoolGetLastStack(IDPAutoreleasingPool *pool);
+
+static
+void *IDPAutoreleasingPoolGetFirstEmptyStack(IDPAutoreleasingPool *pool);
 
 static
 void *IDPAutoreleasingPoolGetLastNonEmptyStack(IDPAutoreleasingPool *pool);
@@ -140,21 +148,34 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
         return;
     }
     
-    IDPAutoreleasingStack *headStack = IDPAutoreleasingPoolGetLastNonEmptyStack(pool);
-    if (!headStack || IDPAutoreleasingStackIsFull(headStack)) {
-        if (!headStack && !object) {
+    IDPAutoreleasingStack *lastNonEmptyStack = IDPAutoreleasingPoolGetLastNonEmptyStack(pool);
+    if (!lastNonEmptyStack) {
+        assert(!object);
+        if (!object) {
             IDPAutoreleasingPoolSetValid(pool, true);
-        }
-        
-        headStack = IDPAutoreleasingPoolGetLastStack(pool);
-        if (!headStack) {
-            headStack = IDPAutoreleasingPoolAddStack(pool);
         }
     }
     
+    IDPAutoreleasingStack *stackForObjectAdding = IDPAutoreleasingPoolGetStackForAddingObject(pool);
+    
     if (IDPAutoreleasingPoolIsValid(pool)) {
-        IDPAutoreleasingStackPushObject(headStack, object);
+        IDPAutoreleasingStackPushObject(stackForObjectAdding, object);
     }
+}
+
+void *IDPAutoreleasingPoolGetStackForAddingObject(IDPAutoreleasingPool *pool) {
+    IDPAutoreleasingStack *emptyStackForAdding = IDPAutoreleasingPoolGetFirstEmptyStack(pool);
+    IDPAutoreleasingStack *lastNonEmptyStack = IDPAutoreleasingPoolGetLastNonEmptyStack(pool);
+    
+    if (!lastNonEmptyStack || IDPAutoreleasingStackIsFull(lastNonEmptyStack)) {
+        if (!emptyStackForAdding) {
+            return IDPAutoreleasingPoolAddStack(pool);
+        } else {
+            return emptyStackForAdding;
+        }
+    }
+    
+    return lastNonEmptyStack;
 }
 
 void *IDPAutoreleasingPoolAddStack(IDPAutoreleasingPool *pool) {
@@ -187,6 +208,21 @@ void IDPAutoreleasingPoolRemoveLastStack(IDPAutoreleasingPool *pool) {
 
 void *IDPAutoreleasingPoolGetLastStack(IDPAutoreleasingPool *pool) {
     return pool ? (IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(IDPAutoreleasingPoolGetStacksList(pool)) : NULL;
+}
+
+void *IDPAutoreleasingPoolGetFirstEmptyStack(IDPAutoreleasingPool *pool) {
+    if (!pool) {
+        return NULL;
+    }
+    
+    IDPAutoreleasingStack *stack = IDPAutoreleasingPoolGetLastStack(pool);
+    IDPAutoreleasingStack *previousStack = NULL;
+    while (stack && IDPAutoreleasingStackIsEmpty(stack)) {
+        previousStack = stack;
+        stack = IDPAutoreleasingPoolGetStackAfterStack(pool, stack);
+    }
+    
+    return previousStack;
 }
 
 void *IDPAutoreleasingPoolGetLastNonEmptyStack(IDPAutoreleasingPool *pool) {
