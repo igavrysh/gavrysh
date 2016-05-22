@@ -14,4 +14,7 @@
 extern
 IDPLinkedListNode *IDPLinkedListEnumeratorGetNode(IDPLinkedListEnumerator *enumerator);
 
+extern
+IDPLinkedListNode *IDPLinkedListEnumeratorGetNextNode(IDPLinkedListEnumerator *enumerator);
+
 #endif /* IDPLinkedListEnumeratorPrivate_h */

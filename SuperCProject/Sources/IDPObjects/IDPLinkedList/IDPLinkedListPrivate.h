@@ -23,8 +23,7 @@ struct IDPLinkedListNodeContext {
     IDPObject *data;
 };
 
-typedef bool (*IDPLinkedListComparator)(IDPLinkedListNode *node,
-                                        IDPLinkedListNodeContext *nodeContext);
+typedef bool (*IDPComparisonFunction)(IDPLinkedListNode *node, void *context);
 
 extern
 uint64_t IDPLinkedListGetMutationsCount(IDPLinkedList *list);

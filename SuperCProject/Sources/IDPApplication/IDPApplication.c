@@ -46,7 +46,7 @@ void IDPRunApplication() {
     
     //IDPPerformTest(IDPBitReverseTest);
     
-    /*IDPObjectBehaviorTests();
+    IDPObjectBehaviorTests();
     
     IDPStringTestPerform();
     
@@ -58,7 +58,7 @@ void IDPRunApplication() {
     
     IDPLinkedListEnumeratorBehaviorTests();
     
-    IDPAutoreleasingStackBehaviorTests();*/
+    IDPAutoreleasingStackBehaviorTests();
     
     IDPAutoreleasingPoolBehaviorTests();
 }

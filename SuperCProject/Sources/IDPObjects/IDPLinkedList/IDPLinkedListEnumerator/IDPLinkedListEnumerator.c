@@ -58,6 +58,10 @@ IDPLinkedListEnumerator *IDPLinkedListEnumeratorCreateWithList(IDPLinkedList *li
 }
 
 IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumerator) {
+    return IDPLinkedListNodeGetData(IDPLinkedListEnumeratorGetNextNode(enumerator));
+}
+
+IDPLinkedListNode *IDPLinkedListEnumeratorGetNextNode(IDPLinkedListEnumerator *enumerator) {
     if (!enumerator || !IDPLinkedListEnumeratorIsValid(enumerator)) {
         return NULL;
     }
@@ -65,7 +69,7 @@ IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumera
     IDPLinkedListNode *node = IDPLinkedListEnumeratorGetNode(enumerator);
     
     node = !node ? IDPLinkedListGetHead(IDPLinkedListEnumeratorGetList(enumerator)) :
-        IDPLinkedListNodeGetNext(node);
+    IDPLinkedListNodeGetNext(node);
     
     if (!node) {
         IDPLinkedListEnumeratorSetValid(enumerator, false);
@@ -73,7 +77,7 @@ IDPObject *IDPLinkedListEnumeratorGetNextObject(IDPLinkedListEnumerator *enumera
     
     IDPLinkedListEnumeratorSetNode(enumerator, node);
     
-    return IDPLinkedListNodeGetData(IDPLinkedListEnumeratorGetNode(enumerator));
+    return IDPLinkedListEnumeratorGetNode(enumerator);
 }
 
 #pragma mark -
