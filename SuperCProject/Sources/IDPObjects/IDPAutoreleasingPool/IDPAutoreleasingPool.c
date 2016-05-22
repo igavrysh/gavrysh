@@ -20,7 +20,7 @@
 #pragma mark -
 #pragma mark Private Declarations
 
-const size_t kIDPAutoreleasingPoolStackSize = 10;
+const size_t kIDPAutoreleasingPoolStackSize = 4096;
 
 static
 void IDPAutoreleasingPoolInitStacksList(IDPAutoreleasingPool *pool);
@@ -162,7 +162,6 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     IDPAutoreleasingStackContext lastNonEmptyStackContext = IDPAutoreleasingPoolGetLastNotEmptyStackContext(pool);
     IDPAutoreleasingStackContext firstEmptyStackContext = IDPAutoreleasingPoolGetFirstEmptyStackContext(pool);
     
-    IDPAutoreleasingStack *stackForObjectAdding = IDPAutoreleasingPoolGetStackForAddingObjectWithContext(pool, lastNonEmptyStackContext, firstEmptyStackContext);
     
     if (!lastNonEmptyStackContext.stack) {
         assert(!object);
@@ -172,6 +171,9 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     }
     
     if (IDPAutoreleasingPoolIsValid(pool)) {
+        IDPAutoreleasingStack *stackForObjectAdding
+            = IDPAutoreleasingPoolGetStackForAddingObjectWithContext(pool, lastNonEmptyStackContext, firstEmptyStackContext);
+        
         IDPAutoreleasingStackPushObject(stackForObjectAdding, object);
     }
 }
@@ -181,10 +183,10 @@ void *IDPAutoreleasingPoolGetStackForAddingObjectWithContext(IDPAutoreleasingPoo
                                                              IDPAutoreleasingStackContext firstEmptyStackContext)
 {
     if (!lastNonEmptyStackContext.stack || IDPAutoreleasingStackIsFull(lastNonEmptyStackContext.stack)) {
-        if (!lastNonEmptyStackContext.previousStack) {
-            return firstEmptyStackContext.stack ? firstEmptyStackContext.stack : IDPAutoreleasingPoolAddStack(pool);
+        if (firstEmptyStackContext.stack) {
+            return firstEmptyStackContext.stack;
         } else {
-            return lastNonEmptyStackContext.previousStack;
+            return IDPAutoreleasingPoolAddStack(pool);
         }
     }
     

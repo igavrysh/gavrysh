@@ -22,6 +22,9 @@ static
 void IDPAutoreleasingPoolFlatTest(void);
 
 static
+void IDPAutoreleasingPoolHierarchyFlatTest(void);
+
+static
 void IDPAutoreleasingMultiplePoolsTest(void);
 
 #pragma mark -
@@ -31,6 +34,8 @@ void IDPAutoreleasingPoolBehaviorTests(void) {
     //IDPPerformTest(IDPAutoreleasingOnePoolTest);
     
     IDPPerformTest(IDPAutoreleasingPoolFlatTest);
+    
+    IDPPerformTest(IDPAutoreleasingPoolHierarchyFlatTest);
     
     //IDPPerformTest(IDPAutoreleasingMultiplePoolsTest);
 }
@@ -59,17 +64,54 @@ void IDPAutoreleasingOnePoolTest(void) {
 }
 
 void IDPAutoreleasingPoolFlatTest(void) {
-    uint64_t count = 50000;
+    uint64_t count = 500000;
+    
+    IDPObject *array[count];
     
     IDPAutoreleasingPoolCreate();
     
     for (uint64_t index = 0; index < count; index++) {
         IDPObject *object = IDPObjectCreate(IDPObject);
-        assert(1 == IDPObjectGetReferenceCount(object));
+        array[index] = IDPObjectRetain(object);
+        assert(2 == IDPObjectGetReferenceCount(object));
     }
     
     IDPAutoreleasingPoolDrain();
+    
+    for (uint64_t index = 0; index < count; index++) {
+        assert(1 == IDPObjectGetReferenceCount(array[index]));
+        IDPObjectRelease(array[index]);
+    }
 }
+
+void IDPAutoreleasingPoolHierarchyFlatTest(void) {
+    uint64_t count = 700000;
+    
+    IDPObject *array[count];
+    
+    IDPAutoreleasingPoolCreate();
+    IDPAutoreleasingPoolCreate();
+    IDPAutoreleasingPoolCreate();
+    for (uint64_t index = 0; index < count; index++) {
+        
+        IDPObject *object = IDPObjectCreate(IDPObject);
+        
+        array[index] = IDPObjectRetain(object);
+        
+        assert(2 == IDPObjectGetReferenceCount(object));
+        
+    }
+    
+    IDPAutoreleasingPoolDrain();
+    IDPAutoreleasingPoolDrain();
+    IDPAutoreleasingPoolDrain();
+    
+    for (uint64_t index = 0; index < count; index++) {
+        assert(1 == IDPObjectGetReferenceCount(array[index]));
+        IDPObjectRelease(array[index]);
+    }
+}
+
 
 void IDPAutoreleasingMultiplePoolsTest(void) {
     IDPAutoreleasingPoolCreate();

@@ -60,7 +60,7 @@ void IDPRunApplication() {
     IDPLinkedListEnumeratorBehaviorTests();
     */
     
-    IDPAutoreleasingStackBehaviorTests();
+    //IDPAutoreleasingStackBehaviorTests();
     
     IDPAutoreleasingPoolBehaviorTests();
 }
