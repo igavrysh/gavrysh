@@ -33,9 +33,15 @@ void IDPAutoreleasingMultiplePoolsTest(void);
 void IDPAutoreleasingPoolBehaviorTests(void) {
     //IDPPerformTest(IDPAutoreleasingOnePoolTest);
     
+    
     IDPPerformTest(IDPAutoreleasingPoolFlatTest);
     
-    IDPPerformTest(IDPAutoreleasingPoolHierarchyFlatTest);
+    IDPPerformTest(IDPAutoreleasingPoolFlatTest);
+    
+    IDPPerformTest(IDPAutoreleasingPoolFlatTest);
+    
+    
+    //IDPPerformTest(IDPAutoreleasingPoolHierarchyFlatTest);
     
     //IDPPerformTest(IDPAutoreleasingMultiplePoolsTest);
 }
@@ -85,7 +91,7 @@ void IDPAutoreleasingPoolFlatTest(void) {
 }
 
 void IDPAutoreleasingPoolHierarchyFlatTest(void) {
-    uint64_t count = 700000;
+    uint64_t count = 7000;
     
     IDPObject *array[count];
     

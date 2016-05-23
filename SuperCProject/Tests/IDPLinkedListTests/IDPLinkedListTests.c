@@ -54,7 +54,7 @@ void IDPLinkedListBehaviorTests(void) {
     
     IDPPerformTest(IDPLinkedListRemoveObjectsTest);
     
-    const uint64_t count = 100;
+    const uint64_t count = 1000;
     for (uint64_t index = 0; index < count; index++) {
         IDPPerformTest(IDPLinkedListAddRemoveObjectPerformanceTest);
     }

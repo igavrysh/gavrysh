@@ -24,6 +24,9 @@ void IDPAutoreleasingStackOneNULLPushTest(void);
 static
 void IDPAutoreleasingStackIsFullTest(void);
 
+static
+void IDPAutoreleasingStackAddMultipleObjects(void);
+
 #pragma mark -
 #pragma mark Public Implementations
 
@@ -32,7 +35,16 @@ void IDPAutoreleasingStackBehaviorTests(void) {
     
     IDPPerformTest(IDPAutoreleasingStackOneNULLPushTest);
     
-    IDPPerformTest(IDPAutoreleasingStackIsFullTest);
+    uint64_t count = 100;
+    for (uint64_t index = 0; index < count; index++) {
+        IDPPerformTest(IDPAutoreleasingStackIsFullTest);
+    }
+    
+    
+    uint64_t multipleCount = 1000;
+    for (uint64_t index = 0; index < multipleCount; index++) {
+        IDPPerformTest(IDPAutoreleasingStackAddMultipleObjects);
+    }
 }
 
 #pragma mark -
@@ -136,7 +148,7 @@ void IDPAutoreleasingStackIsFullTest(void) {
     //          stack must be empty
     //          stack must be not full
     
-    uint64_t count = 64;
+    uint64_t count = 1000;
     
     IDPAutoreleasingStack *stack = IDPAutoreleasingStackCreateWithSize(count * sizeof(stack->_data));
     
@@ -166,6 +178,35 @@ void IDPAutoreleasingStackIsFullTest(void) {
     assert(!IDPAutoreleasingStackIsEmpty(stack));
     assert(!IDPAutoreleasingStackIsFull(stack));
     assert(1 == IDPObjectGetReferenceCount(object));
+    
+    while (!IDPAutoreleasingStackIsEmpty(stack)) {
+        IDPAutoreleasingStackBatchPopType result = IDPAutoreleasingStackPopObjects(stack);
+        if (IDPAutoreleasingStackBatchPopTypeNone == result) {
+            break;
+        }
+    }
+    
+    assert(IDPAutoreleasingStackIsEmpty(stack));
+    assert(!IDPAutoreleasingStackIsFull(stack));
+    
+    IDPObjectRelease(stack);
+}
+
+void IDPAutoreleasingStackAddMultipleObjects(void) {
+    uint64_t count = 1000;
+    
+    IDPAutoreleasingStack *stack = IDPAutoreleasingStackCreateWithSize(count * sizeof(stack->_data));
+    
+    assert(IDPAutoreleasingStackIsEmpty(stack));
+    
+    assert(!IDPAutoreleasingStackIsFull(stack));
+    
+    for (uint64_t index; index < count; index++) {
+        IDPObject *object = IDPObjectCreateWithType(IDPObject);
+        IDPAutoreleasingStackPushObject(stack, object);
+        
+        assert(1 == IDPObjectGetReferenceCount(object));
+    }
     
     while (!IDPAutoreleasingStackIsEmpty(stack)) {
         IDPAutoreleasingStackBatchPopType result = IDPAutoreleasingStackPopObjects(stack);

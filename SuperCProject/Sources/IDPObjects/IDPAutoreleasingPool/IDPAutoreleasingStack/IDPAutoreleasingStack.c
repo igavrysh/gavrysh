@@ -129,7 +129,7 @@ void IDPAutoreleasingStackSetCapacity(IDPAutoreleasingStack *stack, uint64_t cap
         return;
     }
     
-    if (!stack->_data) {
+    if (stack->_data) {
         free(stack->_data);
     }
     
