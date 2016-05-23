@@ -31,19 +31,17 @@ void IDPAutoreleasingMultiplePoolsTest(void);
 #pragma mark Public Implementations
 
 void IDPAutoreleasingPoolBehaviorTests(void) {
-    //IDPPerformTest(IDPAutoreleasingOnePoolTest);
+    IDPPerformTest(IDPAutoreleasingOnePoolTest);
     
+    IDPPerformTest(IDPAutoreleasingPoolHierarchyFlatTest);
+    
+    IDPPerformTest(IDPAutoreleasingMultiplePoolsTest);
     
     IDPPerformTest(IDPAutoreleasingPoolFlatTest);
     
     IDPPerformTest(IDPAutoreleasingPoolFlatTest);
     
     IDPPerformTest(IDPAutoreleasingPoolFlatTest);
-    
-    
-    //IDPPerformTest(IDPAutoreleasingPoolHierarchyFlatTest);
-    
-    //IDPPerformTest(IDPAutoreleasingMultiplePoolsTest);
 }
 
 #pragma mark -
