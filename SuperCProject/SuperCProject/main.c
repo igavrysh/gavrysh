@@ -12,11 +12,11 @@
 #include "IDPAutoreleasingPool.h"
 
 int main(int argc, const char * argv[]) {
-    //IDPAutoreleasingPoolCreate();
+    IDPAutoreleasingPoolCreate();
     
     IDPRunApplication();
     
-    //IDPAutoreleasingPoolDrain();
+    IDPAutoreleasingPoolDrain();
     
     return 0;
 }

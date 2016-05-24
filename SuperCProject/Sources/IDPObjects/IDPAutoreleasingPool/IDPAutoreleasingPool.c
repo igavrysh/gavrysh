@@ -32,18 +32,13 @@ static
 void IDPAutoreleasingPoolSetStacksList(IDPAutoreleasingPool *pool, IDPLinkedList *list);
 
 static
-void *IDPAutoreleasingPoolGetStackForAddingObjectWithContext(IDPAutoreleasingPool *pool,
-                                                             IDPAutoreleasingStackContext lastNonEmptyStackContext,
-                                                             IDPAutoreleasingStackContext firstEmptyStackContext);
+void *IDPAutoreleasingPoolGetStackForAddingObjectWithContext(IDPAutoreleasingPool *pool, IDPAutoreleasingStackContext lastNonEmptyStackContext);
 
 static
 void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *object);
 
 static
 void *IDPAutoreleasingPoolGetLastStack(IDPAutoreleasingPool *pool);
-
-static
-void *IDPAutoreleasingPoolGetStackBeforeStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack);
 
 static
 void *IDPAutoreleasingPoolGetStackAfterStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack);
@@ -73,15 +68,7 @@ static
 IDPAutoreleasingStackContext IDPAutoreleasingPoolGetLastNotEmptyStackContext(IDPAutoreleasingPool *pool);
 
 static
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetFirstEmptyStackContext(IDPAutoreleasingPool *pool);
-
-static
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAutoreleasingPool *pool, IDPObjectComparisonFunction compare);
-
-static
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndObject(IDPAutoreleasingPool *pool,
-                                                                                  IDPObjectComparisonFunction compare,
-                                                                                  IDPAutoreleasingStack *stack);
+IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndStack(IDPAutoreleasingPool *pool, IDPComparisonFunction compare, IDPAutoreleasingStack *stack);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -169,7 +156,6 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     }
     
     IDPAutoreleasingStackContext lastNonEmptyStackContext = IDPAutoreleasingPoolGetLastNotEmptyStackContext(pool);
-    IDPAutoreleasingStackContext firstEmptyStackContext = IDPAutoreleasingPoolGetFirstEmptyStackContext(pool);
     
     if (!lastNonEmptyStackContext.stack) {
         assert(!object);
@@ -179,19 +165,17 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     
     if (IDPAutoreleasingPoolIsValid(pool)) {
         IDPAutoreleasingStack *stackForObjectAdding
-            = IDPAutoreleasingPoolGetStackForAddingObjectWithContext(pool, lastNonEmptyStackContext, firstEmptyStackContext);
+            = IDPAutoreleasingPoolGetStackForAddingObjectWithContext(pool, lastNonEmptyStackContext);
         
         IDPAutoreleasingStackPushObject(stackForObjectAdding, object);
     }
 }
 
-void *IDPAutoreleasingPoolGetStackForAddingObjectWithContext(IDPAutoreleasingPool *pool,
-                                                             IDPAutoreleasingStackContext lastNonEmptyStackContext,
-                                                             IDPAutoreleasingStackContext firstEmptyStackContext)
+void *IDPAutoreleasingPoolGetStackForAddingObjectWithContext(IDPAutoreleasingPool *pool, IDPAutoreleasingStackContext lastNonEmptyStackContext)
 {
     if (!lastNonEmptyStackContext.stack || IDPAutoreleasingStackIsFull(lastNonEmptyStackContext.stack)) {
-        if (firstEmptyStackContext.stack) {
-            return firstEmptyStackContext.stack;
+        if (lastNonEmptyStackContext.previousStack) {
+            return lastNonEmptyStackContext.previousStack;
         } else {
             return IDPAutoreleasingPoolAddStack(pool);
         }
@@ -232,14 +216,6 @@ void *IDPAutoreleasingPoolGetLastStack(IDPAutoreleasingPool *pool) {
     return pool ? (IDPAutoreleasingStack *)IDPLinkedListGetFirstObject(IDPAutoreleasingPoolGetStacksList(pool)) : NULL;
 }
 
-void *IDPAutoreleasingPoolGetStackBeforeStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack) {
-    if (!pool || !stack) {
-        return NULL;
-    }
-
-    return (IDPAutoreleasingStack *)IDPLinkedListGetObjectBeforeObject(IDPAutoreleasingPoolGetStacksList(pool), (IDPObject *)stack);
-}
-
 void *IDPAutoreleasingPoolGetStackAfterStack(IDPAutoreleasingPool *pool, IDPAutoreleasingStack *stack) {
     if (!pool || !stack) {
         return NULL;
@@ -272,41 +248,25 @@ bool IDPAutoreleasingPoolShouldRemoveLastStack(IDPAutoreleasingPool *pool) {
     return lastStack != lastNonEmptyStackContex.previousStack;
 }
 
-bool IDPAutoreleasingPoolIsLastNonEmptyStack(void *object, void *context) {
+bool IDPAutoreleasingPoolIsLastNotEmptyStack(void *object, void *context) {
     if (!object || !context) {
         return false;
     }
     
     IDPAutoreleasingStackContext *stackContext = context;
     
+    stackContext->previousStack = stackContext->stack;
+    stackContext->stack = (IDPAutoreleasingStack *)object;
+    
     return !IDPAutoreleasingStackIsEmpty(stackContext->stack)
-        && IDPAutoreleasingStackIsEmpty(stackContext->previousStack);
+        && (!stackContext->previousStack || IDPAutoreleasingStackIsEmpty(stackContext->previousStack));
 }
 
 IDPAutoreleasingStackContext IDPAutoreleasingPoolGetLastNotEmptyStackContext(IDPAutoreleasingPool *pool) {
-    return IDPAutoreleasingPoolGetContextUsingFunction(pool, &IDPAutoreleasingPoolIsLastNotEmptyStack);
+    return IDPAutoreleasingPoolGetContextUsingFunctionAndStack(pool, &IDPAutoreleasingPoolIsLastNotEmptyStack, NULL);
 }
 
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetFirstEmptyStackContext(IDPAutoreleasingPool *pool) {
-    return IDPAutoreleasingPoolGetContextUsingFunction(pool, &IDPAutoreleasingPoolIsFirstNodeWithEmptyStack);
-}
-
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAutoreleasingPool *pool, IDPObjectComparisonFunction compare) {
-    IDPAutoreleasingStackContext stackContext;
-    memset(&stackContext, 0, sizeof(stackContext));
-    
-    if (!pool) {
-        return stackContext;
-    }
-    
-    stackContext = IDPAutoreleasingPoolGetContextUsingFunctionAndObject(pool, compare, NULL);
-    
-    return stackContext;
-}
-
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndObject(IDPAutoreleasingPool *pool,
-                                                                                  IDPObjectComparisonFunction compare,
-                                                                                  IDPAutoreleasingStack *stack)
+IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndStack(IDPAutoreleasingPool *pool, IDPComparisonFunction compare, IDPAutoreleasingStack *stack)
 {
     IDPAutoreleasingStackContext stackContext;
     memset(&stackContext, 0, sizeof(stackContext));

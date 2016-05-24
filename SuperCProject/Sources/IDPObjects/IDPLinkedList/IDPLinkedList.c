@@ -40,9 +40,7 @@ static
 IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, IDPObject *object);
 
 static
-IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
-                                                    IDPNodeComparisonFunction compare,
-                                                    void *context);
+IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list, IDPComparisonFunction compare, void *context);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -185,14 +183,12 @@ bool IDPLinkedListNodeContainsObject(void *nodeObj, void *context) {
     IDPLinkedListNode *node = nodeObj;
     
     nodeContext->previousNode = nodeContext->node;
-    nodeContext->node = (IDPLinkedListNode *)node;
+    nodeContext->node = node;
 
     return IDPLinkedListNodeGetData(node) == nodeContext->data;
 }
 
-IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
-                                                    IDPNodeComparisonFunction compare,
-                                                    void *context)
+IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list, IDPComparisonFunction compare, void *context)
 {
     if (!list || !compare) {
         return NULL;
@@ -214,9 +210,7 @@ IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
     return result;
 }
 
-IDPLinkedListNode *IDPLinkedListFindObjectWithContext(IDPLinkedList *list,
-                                                      IDPObjectComparisonFunction compare,
-                                                      void *context) {
+IDPLinkedListNode *IDPLinkedListFindObjectWithContext(IDPLinkedList *list, IDPComparisonFunction compare, void *context) {
     if (!list || !compare) {
         return NULL;
     }
@@ -241,9 +235,7 @@ IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, 
     return IDPLinkedListGetContextWithFunctionAndObject(list, &IDPLinkedListNodeContainsObject, object);
 }
 
-IDPLinkedListNodeContext IDPLinkedListGetContextWithFunctionAndObject(IDPLinkedList *list,
-                                                                      IDPNodeComparisonFunction function,
-                                                                      IDPObject *object)
+IDPLinkedListNodeContext IDPLinkedListGetContextWithFunctionAndObject(IDPLinkedList *list, IDPComparisonFunction function, IDPObject *object)
 {
     IDPLinkedListNodeContext context;
     memset(&context, 0, sizeof(context));

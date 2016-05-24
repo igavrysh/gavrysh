@@ -25,7 +25,7 @@ struct IDPLinkedList {
     uint64_t _mutationsCount;
 };
 
-typedef bool (*IDPObjectComparisonFunction)(void *object, void *context);
+typedef bool (*IDPComparisonFunction)(void *object, void *context);
 
 extern
 void __IDPLinkedListDeallocate(IDPLinkedList *list);
@@ -55,10 +55,9 @@ extern
 bool IDPLinkedListContainsObject(IDPLinkedList *list, IDPObject *object);
 
 extern
-IDPLinkedListNode *IDPLinkedListFindObjectWithContext(IDPLinkedList *list,
-                                                      IDPObjectComparisonFunction compare,
-                                                      void *context);
-extern
 uint64_t IDPLinkedListGetCount(IDPLinkedList *list);
+
+extern
+IDPLinkedListNode *IDPLinkedListFindObjectWithContext(IDPLinkedList *list, IDPComparisonFunction compare, void *context);
 
 #endif /* IDPLinkedList_h */
