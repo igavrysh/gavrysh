@@ -34,16 +34,15 @@ static
 void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue);
 
 static
-bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, void *context);
-
-static
-IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
-                                                    IDPComparisonFunction compare,
-                                                    void *context);
+bool IDPLinkedListNodeContainsObject(void *object, void *context);
 
 static
 IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, IDPObject *object);
 
+static
+IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
+                                                    IDPNodeComparisonFunction compare,
+                                                    void *context);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -177,18 +176,22 @@ void IDPLinkedListMutationsCountAddValue(IDPLinkedList *list, int64_t addValue) 
     IDPLinkedListSetMutationsCount(list, IDPLinkedListGetMutationsCount(list) + addValue);
 }
 
-bool IDPLinkedListNodeContainsObject(IDPLinkedListNode *node, void *context) {
-    if (!node || !context) {
+bool IDPLinkedListNodeContainsObject(void *nodeObj, void *context) {
+    if (!nodeObj || !context) {
         return false;
     }
     
     IDPLinkedListNodeContext *nodeContext = (IDPLinkedListNodeContext *)context;
+    IDPLinkedListNode *node = nodeObj;
     
+    nodeContext->previousNode = nodeContext->node;
+    nodeContext->node = (IDPLinkedListNode *)node;
+
     return IDPLinkedListNodeGetData(node) == nodeContext->data;
 }
 
 IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
-                                                    IDPComparisonFunction compare,
+                                                    IDPNodeComparisonFunction compare,
                                                     void *context)
 {
     if (!list || !compare) {
@@ -198,31 +201,38 @@ IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list,
     IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
     IDPLinkedListNode *result = NULL;
     
-    IDPLinkedListNodeContext *nodeContext = context;
-    nodeContext->previousNode = NULL;
-    nodeContext->node = NULL;
-    
-    bool isNodeFound = false;
-    
     while ((result = IDPLinkedListEnumeratorGetNextNode(enumerator))
            && IDPLinkedListEnumeratorIsValid(enumerator))
     {
-        nodeContext->node = result;
-        
-        if (compare(result, nodeContext)) {
-            nodeContext->data = IDPLinkedListNodeGetData(result);
-            isNodeFound = true;
+        if (compare(result, context)) {
             break;
         }
-        
-        nodeContext->previousNode = nodeContext->node;
     }
     
     IDPObjectRelease(enumerator);
     
-    if (!isNodeFound) {
-        memset(context, 0, sizeof(context));
+    return result;
+}
+
+IDPLinkedListNode *IDPLinkedListFindObjectWithContext(IDPLinkedList *list,
+                                                      IDPObjectComparisonFunction compare,
+                                                      void *context) {
+    if (!list || !compare) {
+        return NULL;
     }
+    
+    IDPLinkedListEnumerator *enumerator = IDPLinkedListEnumeratorCreateWithList(list);
+    IDPLinkedListNode *result = NULL;
+    
+    while ((result = IDPLinkedListEnumeratorGetNextNode(enumerator))
+           && IDPLinkedListEnumeratorIsValid(enumerator))
+    {
+        if (compare(IDPLinkedListNodeGetData(result), context)) {
+            break;
+        }
+    }
+    
+    IDPObjectRelease(enumerator);
     
     return result;
 }
@@ -232,7 +242,7 @@ IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, 
 }
 
 IDPLinkedListNodeContext IDPLinkedListGetContextWithFunctionAndObject(IDPLinkedList *list,
-                                                                      IDPComparisonFunction function,
+                                                                      IDPNodeComparisonFunction function,
                                                                       IDPObject *object)
 {
     IDPLinkedListNodeContext context;

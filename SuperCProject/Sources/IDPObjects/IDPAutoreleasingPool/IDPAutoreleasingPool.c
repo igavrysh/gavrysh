@@ -61,6 +61,9 @@ static
 void IDPAutoreleasingPoolSetValid(IDPAutoreleasingPool *pool, bool isValid);
 
 static
+bool IDPAutoreleasingPoolIsLastNotEmptyStack(void *stack, void *context);
+
+static
 bool IDPAutoreleasingPoolIsValid(IDPAutoreleasingPool *pool);
 
 static
@@ -73,7 +76,12 @@ static
 IDPAutoreleasingStackContext IDPAutoreleasingPoolGetFirstEmptyStackContext(IDPAutoreleasingPool *pool);
 
 static
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAutoreleasingPool *pool, IDPComparisonFunction compare);
+IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAutoreleasingPool *pool, IDPObjectComparisonFunction compare);
+
+static
+IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndObject(IDPAutoreleasingPool *pool,
+                                                                                  IDPObjectComparisonFunction compare,
+                                                                                  IDPAutoreleasingStack *stack);
 
 #pragma mark -
 #pragma mark Public Implementations
@@ -122,6 +130,7 @@ void IDPAutoreleasingPoolDrain() {
     IDPAutoreleasingStackBatchPopType result = IDPAutoreleasingStackBatchPopTypeNone;
     do {
         IDPAutoreleasingStackContext lastNonEmptyStackContext = IDPAutoreleasingPoolGetLastNotEmptyStackContext(pool);
+        
         result = IDPAutoreleasingStackPopObjects(lastNonEmptyStackContext.stack);
         if (result == IDPAutoreleasingStackBatchPopTypeFirstReached) {
            IDPAutoreleasingPoolRemoveLastStackIfNeeded(pool);
@@ -162,12 +171,10 @@ void IDPAutoreleasingPoolPushObject(IDPAutoreleasingPool *pool, IDPObject *objec
     IDPAutoreleasingStackContext lastNonEmptyStackContext = IDPAutoreleasingPoolGetLastNotEmptyStackContext(pool);
     IDPAutoreleasingStackContext firstEmptyStackContext = IDPAutoreleasingPoolGetFirstEmptyStackContext(pool);
     
-    
     if (!lastNonEmptyStackContext.stack) {
         assert(!object);
-        if (!object) {
-            IDPAutoreleasingPoolSetValid(pool, true);
-        }
+
+        IDPAutoreleasingPoolSetValid(pool, true);
     }
     
     if (IDPAutoreleasingPoolIsValid(pool)) {
@@ -265,38 +272,26 @@ bool IDPAutoreleasingPoolShouldRemoveLastStack(IDPAutoreleasingPool *pool) {
     return lastStack != lastNonEmptyStackContex.previousStack;
 }
 
-bool IDPAutoreleasingPoolIsLastNodeWithNotEmptyStack(IDPLinkedListNode *node, void *context) {
-    if (!node || !context) {
+bool IDPAutoreleasingPoolIsLastNonEmptyStack(void *object, void *context) {
+    if (!object || !context) {
         return false;
     }
     
-    IDPLinkedListNodeContext *nodeContext = (IDPLinkedListNodeContext *)context;
+    IDPAutoreleasingStackContext *stackContext = context;
     
-    return !IDPAutoreleasingStackIsEmpty((IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nodeContext->node))
-        && (!nodeContext->previousNode || IDPAutoreleasingStackIsEmpty((IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nodeContext->previousNode)));
-}
-
-bool IDPAutoreleasingPoolIsFirstNodeWithEmptyStack(IDPLinkedListNode *node, void *context) {
-    if (!node || !context) {
-        return false;
-    }
-    
-    IDPLinkedListNodeContext *nodeContext = (IDPLinkedListNodeContext *)context;
-    IDPLinkedListNode *nextNode = IDPLinkedListNodeGetNext(node);
-    
-    return IDPAutoreleasingStackIsEmpty((IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nodeContext->node))
-        && (!nextNode || !IDPAutoreleasingStackIsEmpty((IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nextNode)));
+    return !IDPAutoreleasingStackIsEmpty(stackContext->stack)
+        && IDPAutoreleasingStackIsEmpty(stackContext->previousStack);
 }
 
 IDPAutoreleasingStackContext IDPAutoreleasingPoolGetLastNotEmptyStackContext(IDPAutoreleasingPool *pool) {
-    return IDPAutoreleasingPoolGetContextUsingFunction(pool, &IDPAutoreleasingPoolIsLastNodeWithNotEmptyStack);
+    return IDPAutoreleasingPoolGetContextUsingFunction(pool, &IDPAutoreleasingPoolIsLastNotEmptyStack);
 }
 
 IDPAutoreleasingStackContext IDPAutoreleasingPoolGetFirstEmptyStackContext(IDPAutoreleasingPool *pool) {
     return IDPAutoreleasingPoolGetContextUsingFunction(pool, &IDPAutoreleasingPoolIsFirstNodeWithEmptyStack);
 }
 
-IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAutoreleasingPool *pool, IDPComparisonFunction compare) {
+IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAutoreleasingPool *pool, IDPObjectComparisonFunction compare) {
     IDPAutoreleasingStackContext stackContext;
     memset(&stackContext, 0, sizeof(stackContext));
     
@@ -304,9 +299,28 @@ IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunction(IDPAuto
         return stackContext;
     }
     
-    IDPLinkedListNodeContext nodeContext = IDPLinkedListGetContextWithFunctionAndObject(IDPAutoreleasingPoolGetStacksList(pool), compare, NULL);
-    stackContext.stack = (IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nodeContext.node);
-    stackContext.previousStack = (IDPAutoreleasingStack *)IDPLinkedListNodeGetData(nodeContext.previousNode);
+    stackContext = IDPAutoreleasingPoolGetContextUsingFunctionAndObject(pool, compare, NULL);
     
+    return stackContext;
+}
+
+IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndObject(IDPAutoreleasingPool *pool,
+                                                                                  IDPObjectComparisonFunction compare,
+                                                                                  IDPAutoreleasingStack *stack)
+{
+    IDPAutoreleasingStackContext stackContext;
+    memset(&stackContext, 0, sizeof(stackContext));
+    
+    if (!pool) {
+        return stackContext;
+    }
+    
+    stackContext.stack = stack;
+    
+    if (IDPLinkedListFindObjectWithContext(IDPAutoreleasingPoolGetStacksList(pool), compare, &stackContext)) {
+        return stackContext;
+    }
+    
+    memset(&stackContext, 0, sizeof(stackContext));
     return stackContext;
 }
