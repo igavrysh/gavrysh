@@ -21,6 +21,10 @@ struct IDPLinkedListNodeContext {
     IDPLinkedListNode *node;
     
     IDPObject *data;
+    
+    IDPComparisonFunction compare;
+    
+    void *attachedContext;
 };
 
 extern

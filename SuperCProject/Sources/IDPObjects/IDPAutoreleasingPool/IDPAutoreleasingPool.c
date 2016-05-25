@@ -276,6 +276,7 @@ IDPAutoreleasingStackContext IDPAutoreleasingPoolGetContextUsingFunctionAndStack
     }
     
     stackContext.stack = stack;
+    stackContext.compare = compare;
     
     if (IDPLinkedListFindObjectWithContext(IDPAutoreleasingPoolGetStacksList(pool), compare, &stackContext)) {
         return stackContext;
