@@ -188,15 +188,13 @@ bool IDPLinkedListNodeContainsObject(void *nodeObj, void *context) {
     return IDPLinkedListNodeGetData(node) == nodeContext->data;
 }
 
-bool IDPLinkedListInterimEnumeratorFunction(void *object, void *context) {
-    if (!object || !context) {
+bool IDPLinkedListInterimNodeToObjectFunction(void *node, void *context) {
+    if (!node || !context) {
         return false;
     }
     
-    IDPLinkedListNodeContext *nodeContext = (IDPLinkedListNodeContext *)context;
-    nodeContext->compare(object, context);
-    
-    nodeContext->attachedContext;
+    IDPLinkedListNodeToObjectContext *nodeToDataContext = (IDPLinkedListNodeToObjectContext *)context;
+    return nodeToDataContext->compare(IDPLinkedListNodeGetData((IDPLinkedListNode *)node), nodeToDataContext->dataContext);
 }
 
 IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list, IDPComparisonFunction compare, void *context) {
@@ -221,17 +219,17 @@ IDPLinkedListNode *IDPLinkedListFindNodeWithContext(IDPLinkedList *list, IDPComp
 }
 
 IDPLinkedListNode *IDPLinkedListFindObjectWithContext(IDPLinkedList *list, IDPComparisonFunction compare, void *context) {
-    IDPLinkedListNodeContext nodeContext;
-    memset(&nodeContext, 0, sizeof(nodeContext));
-    
     if (!list) {
         return NULL;
     }
     
-    nodeContext.attachedContext = context;
-    nodeContext.compare = &IDPLinkedListNodeContainsObject;
+    IDPLinkedListNodeToObjectContext nodeToDataContext;
+    memset(&nodeToDataContext, 0, sizeof(nodeToDataContext));
     
-    return IDPLinkedListFindNodeWithContext(list, compare, &nodeContext);
+    nodeToDataContext.dataContext = context;
+    nodeToDataContext.compare = compare;
+    
+    return IDPLinkedListFindNodeWithContext(list, IDPLinkedListInterimNodeToObjectFunction, &nodeToDataContext);
 }
 
 IDPLinkedListNodeContext IDPLinkedListGetContextWithObject(IDPLinkedList *list, IDPObject *object) {

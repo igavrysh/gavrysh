@@ -17,8 +17,6 @@ struct IDPAutoreleasingStackContext {
     IDPAutoreleasingStack *previousStack;
     
     IDPAutoreleasingStack *stack;
-    
-    IDPComparisonFunction compare;
 };
 
 #endif /* IDPAutoreleasingStackPrivate_h */
