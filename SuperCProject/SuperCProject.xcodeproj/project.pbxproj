@@ -75,6 +75,7 @@
 		8555A6701CFB2E47001E37D8 /* IDPStructuresTests.h in Sources */ = {isa = PBXBuildFile; fileRef = 8555A6081CFB2DAB001E37D8 /* IDPStructuresTests.h */; };
 		8555A6711CFB2E47001E37D8 /* IDPTypesAndRangesTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 8555A60A1CFB2DAB001E37D8 /* IDPTypesAndRangesTests.c */; };
 		8555A6721CFB2E47001E37D8 /* IDPTypesAndRangesTests.h in Sources */ = {isa = PBXBuildFile; fileRef = 8555A60B1CFB2DAB001E37D8 /* IDPTypesAndRangesTests.h */; };
+		8555A6781CFB32EA001E37D8 /* IDPCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 8555A6771CFB32EA001E37D8 /* IDPCreature.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -169,6 +170,8 @@
 		8555A60A1CFB2DAB001E37D8 /* IDPTypesAndRangesTests.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = IDPTypesAndRangesTests.c; sourceTree = "<group>"; };
 		8555A60B1CFB2DAB001E37D8 /* IDPTypesAndRangesTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPTypesAndRangesTests.h; sourceTree = "<group>"; };
 		8555A62E1CFB2DB7001E37D8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		8555A6761CFB32EA001E37D8 /* IDPCreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPCreature.h; sourceTree = "<group>"; };
+		8555A6771CFB32EA001E37D8 /* IDPCreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDPCreature.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -564,6 +567,8 @@
 		8555A62C1CFB2DB7001E37D8 /* SuperObjC */ = {
 			isa = PBXGroup;
 			children = (
+				8555A6741CFB32A5001E37D8 /* Sources */,
+				8555A6731CFB3296001E37D8 /* Tests */,
 				8555A62D1CFB2DB7001E37D8 /* SuperObjCProject */,
 			);
 			path = SuperObjC;
@@ -575,6 +580,30 @@
 				8555A62E1CFB2DB7001E37D8 /* main.m */,
 			);
 			path = SuperObjCProject;
+			sourceTree = "<group>";
+		};
+		8555A6731CFB3296001E37D8 /* Tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Tests;
+			sourceTree = "<group>";
+		};
+		8555A6741CFB32A5001E37D8 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				8555A6751CFB32DB001E37D8 /* IDPCreature */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		8555A6751CFB32DB001E37D8 /* IDPCreature */ = {
+			isa = PBXGroup;
+			children = (
+				8555A6761CFB32EA001E37D8 /* IDPCreature.h */,
+				8555A6771CFB32EA001E37D8 /* IDPCreature.m */,
+			);
+			path = IDPCreature;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -728,6 +757,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8555A6781CFB32EA001E37D8 /* IDPCreature.m in Sources */,
 				8555A62F1CFB2DB7001E37D8 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
