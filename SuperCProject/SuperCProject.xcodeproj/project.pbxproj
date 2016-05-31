@@ -76,6 +76,10 @@
 		8555A6711CFB2E47001E37D8 /* IDPTypesAndRangesTests.c in Sources */ = {isa = PBXBuildFile; fileRef = 8555A60A1CFB2DAB001E37D8 /* IDPTypesAndRangesTests.c */; };
 		8555A6721CFB2E47001E37D8 /* IDPTypesAndRangesTests.h in Sources */ = {isa = PBXBuildFile; fileRef = 8555A60B1CFB2DAB001E37D8 /* IDPTypesAndRangesTests.h */; };
 		8555A6781CFB32EA001E37D8 /* IDPCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 8555A6771CFB32EA001E37D8 /* IDPCreature.m */; };
+		857E349B1CFCFDF1008A6838 /* IDPMaleCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 857E349A1CFCFDF1008A6838 /* IDPMaleCreature.m */; };
+		857E349E1CFCFE09008A6838 /* IDPFemaleCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 857E349D1CFCFE09008A6838 /* IDPFemaleCreature.m */; };
+		857E349F1CFD03D0008A6838 /* IDPMaleCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 857E349A1CFCFDF1008A6838 /* IDPMaleCreature.m */; };
+		857E34A01CFD03D8008A6838 /* IDPFemaleCreature.m in Sources */ = {isa = PBXBuildFile; fileRef = 857E349D1CFCFE09008A6838 /* IDPFemaleCreature.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -172,6 +176,10 @@
 		8555A62E1CFB2DB7001E37D8 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8555A6761CFB32EA001E37D8 /* IDPCreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPCreature.h; sourceTree = "<group>"; };
 		8555A6771CFB32EA001E37D8 /* IDPCreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDPCreature.m; sourceTree = "<group>"; };
+		857E34991CFCFDF1008A6838 /* IDPMaleCreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPMaleCreature.h; sourceTree = "<group>"; };
+		857E349A1CFCFDF1008A6838 /* IDPMaleCreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDPMaleCreature.m; sourceTree = "<group>"; };
+		857E349C1CFCFE09008A6838 /* IDPFemaleCreature.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDPFemaleCreature.h; sourceTree = "<group>"; };
+		857E349D1CFCFE09008A6838 /* IDPFemaleCreature.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDPFemaleCreature.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -602,6 +610,10 @@
 			children = (
 				8555A6761CFB32EA001E37D8 /* IDPCreature.h */,
 				8555A6771CFB32EA001E37D8 /* IDPCreature.m */,
+				857E34991CFCFDF1008A6838 /* IDPMaleCreature.h */,
+				857E349A1CFCFDF1008A6838 /* IDPMaleCreature.m */,
+				857E349C1CFCFE09008A6838 /* IDPFemaleCreature.h */,
+				857E349D1CFCFE09008A6838 /* IDPFemaleCreature.m */,
 			);
 			path = IDPCreature;
 			sourceTree = "<group>";
@@ -710,12 +722,14 @@
 				8555A6491CFB2E47001E37D8 /* IDPLinkedListEnumerator.c in Sources */,
 				8555A64A1CFB2E47001E37D8 /* IDPLinkedListEnumerator.h in Sources */,
 				8555A64B1CFB2E47001E37D8 /* IDPLinkedListEnumeratorPrivate.h in Sources */,
+				857E349B1CFCFDF1008A6838 /* IDPMaleCreature.m in Sources */,
 				8555A64C1CFB2E47001E37D8 /* IDPLinkedListNode.c in Sources */,
 				8555A64D1CFB2E47001E37D8 /* IDPLinkedListNode.h in Sources */,
 				8555A64E1CFB2E47001E37D8 /* IDPLinkedListPrivate.h in Sources */,
 				8555A64F1CFB2E47001E37D8 /* IDPObject.c in Sources */,
 				8555A6501CFB2E47001E37D8 /* IDPObject.h in Sources */,
 				8555A6511CFB2E47001E37D8 /* IDPObjectMacros.h in Sources */,
+				857E349E1CFCFE09008A6838 /* IDPFemaleCreature.m in Sources */,
 				8555A6521CFB2E47001E37D8 /* IDPString.c in Sources */,
 				8555A6531CFB2E47001E37D8 /* IDPString.h in Sources */,
 				8555A6541CFB2E47001E37D8 /* IDPPrintingFunctions.c in Sources */,
@@ -757,6 +771,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				857E34A01CFD03D8008A6838 /* IDPFemaleCreature.m in Sources */,
+				857E349F1CFD03D0008A6838 /* IDPMaleCreature.m in Sources */,
 				8555A6781CFB32EA001E37D8 /* IDPCreature.m in Sources */,
 				8555A62F1CFB2DB7001E37D8 /* main.m in Sources */,
 			);
@@ -902,6 +918,7 @@
 				8555A53D1CFB2CF1001E37D8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

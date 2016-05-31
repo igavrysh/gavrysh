@@ -47,12 +47,6 @@ static NSString *lastNames[] = {
 
 static int namesCount = 50;
 
-@synthesize gender = _gender;
-@synthesize name = _name;
-@synthesize weight = _weight;
-@synthesize age = _age;
-@synthesize children = _children;
-
 @dynamic allChildren;
 
 #pragma mark -
@@ -108,58 +102,6 @@ static int namesCount = 50;
 #pragma mark -
 #pragma mark Accessors Methods
 
-- (void)setGender:(IDPCreatureGender)gender {
-    _gender = gender;
-}
-
-- (IDPCreatureGender)gender {
-    return _gender;
-}
-
-- (void)setName:(NSString *)name {
-    if (_name != name) {
-        NSString *nameCopy = [name copy];
-        
-        [_name release];
-        
-        _name = nameCopy;
-    }
-}
-
-- (NSString *)name {
-    return [[_name retain] autorelease];
-}
-
-- (void)setWeight:(double)weight {
-    _weight = weight;
-}
-
-- (double)weight {
-    return _weight;
-}
-
-- (void)setAge:(uint8_t)age {
-    _age = age;
-}
-
-- (uint8_t)age {
-    return _age;
-}
-
-- (NSArray *)children {
-    return [[_children retain] autorelease];
-}
-
-- (void)setChildren:(NSMutableArray *)children {
-    if (_children != children) {
-        [children retain];
-        
-        [_children release];
-
-        _children = children;
-    }
-}
-
 - (NSArray *)allChildren {
     return [[_children mutableCopy] autorelease];
 }
@@ -170,22 +112,13 @@ static int namesCount = 50;
 - (void)sayHi {
     [self printCreatureMessage:@"Hi"];
     
-    [self.children enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+    [self.allChildren enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
         [(IDPCreature *)obj sayHi];
     }];
 }
 
-- (IDPCreature *)giveBithToChildWithName:(NSString *)name {
-    IDPCreatureGender gender = arc4random() % 2;
-    double weight = 2 + arc4random() % 200 / 100.0;
+- (void)performGenderSpecificOperation {
     
-    [self printCreatureMessage:[NSString stringWithFormat:@"I gave a birth to %@!!!", name]];
-    
-    return [[[IDPCreature alloc] initWithName:name gender:gender weight:weight age:0 children:nil] autorelease];
-}
-
-- (IDPCreature *)giveBithToChildWithRandomName {
-    return [self giveBithToChildWithName:[IDPCreature randomName]];
 }
 
 - (void)addChild:(IDPCreature *)child {
@@ -199,12 +132,6 @@ static int namesCount = 50;
 - (void)removeChild:(IDPCreature *)child {
     // TODO: Check for removing null object...
     [self.children removeObject:child];
-}
-
-- (void)goToWar {
-    if (IDPCreatureGenderMale == self.gender) {
-        [self printCreatureMessage:@"I am going to war!"];
-    }
 }
 
 #pragma mark -

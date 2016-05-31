@@ -15,20 +15,22 @@ typedef enum {
 } IDPCreatureGender;
 
 @interface IDPCreature : NSObject {
-    IDPCreatureGender _gender;
-    
     NSString *_name;
     
     double _weight;
     
     uint8_t _age;
     
+    @protected
     NSMutableArray *_children;
 }
 
 @property (nonatomic, assign) IDPCreatureGender gender;
+
 @property (atomic, copy) NSString *name;
+
 @property (nonatomic, assign) double weight;
+
 @property (nonatomic, assign) uint8_t age;
 
 @property (atomic, copy, readonly) NSArray *allChildren;
@@ -38,14 +40,12 @@ typedef enum {
 
 - (id)initWithRandomAttributes;
 
-
 - (void)sayHi;
 
-- (IDPCreature *)giveBithToChildWithName:(NSString *)name;
-- (IDPCreature *)giveBithToChildWithRandomName;
-- (void)addChild:(IDPCreature *)child;
-- (void)removeChild:(IDPCreature *)child;
+- (void)performGenderSpecificOperation;
 
-- (void)goToWar;
+- (void)addChild:(IDPCreature *)child;
+
+- (void)removeChild:(IDPCreature *)child;
 
 @end
